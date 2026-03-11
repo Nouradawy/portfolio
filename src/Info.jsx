@@ -83,23 +83,23 @@ export const projects = [
         images: [
             {
                 type: "youtube",
-                videoUrl: "https://www.youtube.com/embed/VNjm-Ou08x0?autoplay=1&mute=1&rel=0&playsinline=1", // Your custom property for the video source
+                videoUrl: "https://www.youtube.com/embed/VNjm-Ou08x0?mute=1&rel=0", // Your custom property for the video source
                 renderItem: renderVideo
             } ,
             {
-                original: "public/assets/projects/Whatsunity/Screenshot_20251212_130927.png" ,
+                original: "/assets/projects/Whatsunity/Screenshot_20251212_130927.png" ,
             } ,
             {
-                original: "public/assets/projects/Whatsunity/Screenshot_20251212_131138.png" ,
+                original: "/assets/projects/Whatsunity/Screenshot_20251212_131138.png" ,
             } ,
             {
-                original: "public/assets/projects/Whatsunity/Screenshot_20251212_131212.png" ,
+                original: "/assets/projects/Whatsunity/Screenshot_20251212_131212.png" ,
             } ,
             {
-                original: "public/assets/projects/Whatsunity/Screenshot_20251212_131717.png" ,
+                original: "/assets/projects/Whatsunity/Screenshot_20251212_131717.png" ,
             } ,
             {
-                original: "public/assets/projects/Whatsunity/WhatsUnityLogo.png" ,
+                original: "/assets/projects/Whatsunity/WhatsUnityLogo.png" ,
             } ,
 
         ]
@@ -152,43 +152,43 @@ export const projects = [
             <BiLogoSpringBoot className="text-gray-300 text-2xl"/>
         </div> ,
         images: [{
-            original: "public/assets/projects/Medicare/Home.png" ,
+            original: "/assets/projects/Medicare/Home.png" ,
 
         } ,
             {
-                original: "public/assets/projects/Medicare/DocFilter.png" ,
+                original: "/assets/projects/Medicare/DocFilter.png" ,
 
             } ,
             {
-                original: "public/assets/projects/Medicare/Reservation.png" ,
+                original: "/assets/projects/Medicare/Reservation.png" ,
 
             } ,
             {
-                original: "public/assets/projects/Medicare/patientReserv.png" ,
+                original: "/assets/projects/Medicare/patientReserv.png" ,
 
             } ,
             {
-                original: "public/assets/projects/Medicare/patientQueue.png" ,
+                original: "/assets/projects/Medicare/patientQueue.png" ,
 
             } ,
             {
-                original: "public/assets/projects/Medicare/medicalHistory.png" ,
+                original: "/assets/projects/Medicare/medicalHistory.png" ,
 
             } ,
             {
-                original: "public/assets/projects/Medicare/Picture1.png" ,
+                original: "/assets/projects/Medicare/Picture1.png" ,
 
             } ,{
-                original: "public/assets/projects/Medicare/Picture2.png" ,
+                original: "/assets/projects/Medicare/Picture2.png" ,
 
             } ,{
-                original: "public/assets/projects/Medicare/Picture3.png" ,
+                original: "/assets/projects/Medicare/Picture3.png" ,
 
             } ,{
-                original: "public/assets/projects/Medicare/Picture4.png" ,
+                original: "/assets/projects/Medicare/Picture4.png" ,
 
             } ,{
-                original: "public/assets/projects/Medicare/Picture5.png" ,
+                original: "/assets/projects/Medicare/Picture5.png" ,
 
             } ,
 
@@ -223,15 +223,15 @@ export const projects = [
             <IoLogoJavascript className="text-gray-300 text-2xl"/>
         </div> ,
         images: [{
-            original: "public/assets/projects/mokhalafaty/1.png" ,
+            original: "/assets/projects/mokhalafaty/1.png" ,
 
         } ,
             {
-                original: "public/assets/projects/mokhalafaty/2.jpeg" ,
+                original: "/assets/projects/mokhalafaty/2.jpeg" ,
 
             } ,
             {
-                original: "public/assets/projects/mokhalafaty/fineR.png" ,
+                original: "/assets/projects/mokhalafaty/fineR.png" ,
 
             }
 
@@ -269,38 +269,38 @@ export const projects = [
         </div> ,
         images: [
             {
-                original: "public/assets/projects/PhoneDialler/Swap down decline.png" ,
+                original: "/assets/projects/PhoneDialler/Swap down decline.png" ,
 
             } ,
             {
-                original: "public/assets/projects/PhoneDialler/Incoming call screen.png" ,
+                original: "/assets/projects/PhoneDialler/Incoming call screen.png" ,
 
             },
             {
-                original: "public/assets/projects/PhoneDialler/ongoing call screen.png" ,
+                original: "/assets/projects/PhoneDialler/ongoing call screen.png" ,
 
             },
             {
-                original: "public/assets/projects/PhoneDialler/DailerApp (1).png" ,
+                original: "/assets/projects/PhoneDialler/DailerApp (1).png" ,
 
             },
             {
-                original: "public/assets/projects/PhoneDialler/DailerApp (4).png" ,
+                original: "/assets/projects/PhoneDialler/DailerApp (4).png" ,
 
             },
  {
-                original: "public/assets/projects/PhoneDialler/DailerApp (5).png" ,
+                original: "/assets/projects/PhoneDialler/DailerApp (5).png" ,
 
             },
  {
-                original: "public/assets/projects/PhoneDialler/qucik note in action.png" ,
+                original: "/assets/projects/PhoneDialler/qucik note in action.png" ,
 
             },
             {
-                original: "public/assets/projects/PhoneDialler/Quick note.png" ,
+                original: "/assets/projects/PhoneDialler/Quick note.png" ,
 
             },{
-                original: "public/assets/projects/PhoneDialler/Theme customization 2.png" ,
+                original: "/assets/projects/PhoneDialler/Theme customization 2.png" ,
 
             },
 
