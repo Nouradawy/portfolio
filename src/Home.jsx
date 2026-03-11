@@ -11,9 +11,10 @@ export default function Home() {
     const videoRef = useRef(null);
     const [isLoop , setIsLoop] = useState(false);
     const [heroText , setHeroText] = useState('From paper ball');
+    const base = import.meta.env.BASE_URL;
     const [playList] = useState([
-        "public/assets/Comp 1.webm" ,
-        "public/assets/Comp 2.webm"
+        `${base}public/assets/Comp 1.webm` ,
+        `${base}public/assets/Comp 2.webm`
     ]);
     useEffect(() => {
         LoadBackground(videoRef);
@@ -180,6 +181,7 @@ function LoadBackground(videoRef) {
 }
 
 function Summery() {
+    const base = import.meta.env.BASE_URL;
     return (
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-4 w-full mt-12 lg:mt-8">
             <div className="text-white pt-4 lg:pt-30 leading-relaxed text-sm md:text-base lg:leading-8 w-full max-w-3xl">
@@ -192,10 +194,10 @@ function Summery() {
 
             <div className="text-white bg-black/50 p-4 lg:px-5 rounded-2xl flex flex-wrap lg:flex-nowrap justify-center gap-6 items-center shrink-0 w-full lg:w-auto mt-4 lg:mt-30
             ">
-                <img src="public/assets/icons/flutter_logo.png" className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Flutter"/>
-                <img src="public/assets/icons/supabase.png" className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Supabase"/>
-                <img src="public/assets/icons/react vite.png" className="w-16 lg:w-22 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="React Vite"/>
-                <img src="public/assets/icons/spring.png" className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Spring"/>
+                <img src={`${base}public/assets/icons/flutter_logo.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Flutter"/>
+                <img src={`${base}public/assets/icons/supabase.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Supabase"/>
+                <img src={`${base}public/assets/icons/react vite.png`} className="w-16 lg:w-22 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="React Vite"/>
+                <img src={`${base}public/assets/icons/spring.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Spring"/>
             </div>
 
         </div>
@@ -205,6 +207,7 @@ function Summery() {
 
 
 function ProjectsTimeline() {
+    const base = import.meta.env.BASE_URL;
     const years = [2021 , 2022 , 2023 , 2024 , 2025 , 2026];
     const [showFullDescription , setShowFullDescription] = useState(false);
     const [projectIndex , setProjectIndex] = useState(null);
@@ -304,7 +307,7 @@ function ProjectsTimeline() {
                                     galleryRefs.current[index] = el;
                                 }}
                                 onClick={() => galleryRefs.current[index]?.fullScreen()}
-                                items={project.images}
+                                items={base+project.images}
                                 onSlide={(index) => console.log("Slid to" , index)}
                                 showThumbnails={false}
                                 showPlayButton={false}

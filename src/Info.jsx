@@ -41,6 +41,7 @@ const renderVideo = (item) => {
     );
 };
 export const projects = [
+
     {
         platform: "Android",
         position: "Founder & Flutter Engineer" ,
