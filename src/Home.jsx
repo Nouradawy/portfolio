@@ -82,7 +82,7 @@ export default function Home() {
                         tracking-wide uppercase w-full sm:w-auto
                         "
                                 onClick={() => {
-                                    const url = "/assets/Resume.pdf"; // file must be at `public/assets/Resume.pdf`
+                                    const url = `${import.meta.env.BASE_URL}/assets/Resume.pdf`; // file must be at `public/assets/Resume.pdf`
                                     const a = document.createElement("a");
                                     a.href = url;
                                     a.download = "Resume.pdf";
