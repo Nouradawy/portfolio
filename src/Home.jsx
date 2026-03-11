@@ -13,8 +13,8 @@ export default function Home() {
     const [heroText , setHeroText] = useState('From paper ball');
     const base = import.meta.env.BASE_URL;
     const [playList] = useState([
-        `${base}public/assets/Comp 1.webm` ,
-        `${base}public/assets/Comp 2.webm`
+        `${base}assets/Comp 1.webm` ,
+        `${base}assets/Comp 2.webm`
     ]);
     useEffect(() => {
         LoadBackground(videoRef);
@@ -194,10 +194,10 @@ function Summery() {
 
             <div className="text-white bg-black/50 p-4 lg:px-5 rounded-2xl flex flex-wrap lg:flex-nowrap justify-center gap-6 items-center shrink-0 w-full lg:w-auto mt-4 lg:mt-30
             ">
-                <img src={`${base}public/assets/icons/flutter_logo.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Flutter"/>
-                <img src={`${base}public/assets/icons/supabase.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Supabase"/>
-                <img src={`${base}public/assets/icons/react vite.png`} className="w-16 lg:w-22 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="React Vite"/>
-                <img src={`${base}public/assets/icons/spring.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Spring"/>
+                <img src={`${base}assets/icons/flutter_logo.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Flutter"/>
+                <img src={`${base}assets/icons/Supabase.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Supabase"/>
+                <img src={`${base}assets/icons/react vite.png`} className="w-16 lg:w-22 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="React Vite"/>
+                <img src={`${base}assets/icons/spring.png`} className="w-12 lg:w-16 hover:scale-110 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-all duration-300" alt="Spring"/>
             </div>
 
         </div>
@@ -212,6 +212,8 @@ function ProjectsTimeline() {
     const [showFullDescription , setShowFullDescription] = useState(false);
     const [projectIndex , setProjectIndex] = useState(null);
     const galleryRefs = useRef([]);
+
+
     return (
         <div className="flex flex-col lg:flex-row   mx-auto px-6 lg:px-12 w-full xl:w-[90vw] ">
             {/*Left panel Content*/}
@@ -242,8 +244,39 @@ function ProjectsTimeline() {
             >
                 <AnimatePing/>
                 {/*List of Projects timeline*/}
-                {projects.map((project , index) => (
-                    <div
+                {projects.map((project , index) => {
+                    const galleryItems = (project.images ?? []).map((item) => {
+
+                        // 1. Handle your custom YouTube objects from Info.jsx
+                        if (item && item.type === "youtube") {
+                            // Extract the video ID from your embed URL to automatically get the thumbnail
+                            const ytMatch = item.videoUrl.match(/embed\/([^?&]+)/);
+                            const videoId = ytMatch ? ytMatch[1] : "";
+
+                            return {
+                                ...item, // Keeps your renderVideo function intact
+                                // Gallery needs these for the bottom thumbnail navigation
+                                original: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+                                thumbnail: `https://img.youtube.com/vi/${videoId}/default.jpg`,
+                            };
+                        }
+
+                        // 2. Handle your standard image objects
+                        if (item && item.original) {
+                            // Strip out the "public/" folder for GitHub Pages
+                            const cleanOriginal = String(item.original).replace(/^\/+/, "").replace(/^public\//, "");
+
+                            return {
+                                ...item,
+                                original: `${base}${cleanOriginal}`,
+                                thumbnail: `${base}${cleanOriginal}`,
+                            };
+                        }
+
+                        return item; // Fallback
+                    });
+                    return (
+                        <div
                         key={project.title}
                         className={`flex flex-col-reverse lg:flex-row gap-8 lg:gap-10 w-full text-white mt-10 lg:mt-20 items-center lg:items-start justify-center`}>
                         <div className="flex flex-col w-full lg:max-w-[35vw] text-center lg:text-left px-4 lg:px-0 lg:ml-10">
@@ -307,7 +340,7 @@ function ProjectsTimeline() {
                                     galleryRefs.current[index] = el;
                                 }}
                                 onClick={() => galleryRefs.current[index]?.fullScreen()}
-                                items={base+project.images}
+                                items={galleryItems}
                                 onSlide={(index) => console.log("Slid to" , index)}
                                 showThumbnails={false}
                                 showPlayButton={false}
@@ -316,7 +349,8 @@ function ProjectsTimeline() {
                                 additionalClass="custom-gallery"
                             /></div>
                     </div>
-                ))}
+                    );
+                })}
                 <div className="mb-30"></div>
 
 
@@ -326,6 +360,7 @@ function ProjectsTimeline() {
     );
 }
 function ContactMe() {
+    const base = import.meta.env.BASE_URL;
     const form = useRef();
     const [buttonText, setButtonText] = useState('Send Message');
     const [isSuccess, setIsSuccess] = useState(false);
@@ -402,7 +437,7 @@ function ContactMe() {
                     {/* Profile Block */}
                     <div className="pt-8 flex items-center space-x-4">
                         <div className="w-35 h-35 rounded-full overflow-hidden border-2 border-[#bc13fe]/30 bg-black flex items-center justify-center">
-                            <img className="w-full h-full object-cover" alt="Nouradawy" src="public/assets/projects/profile.png" onError={(e) => { e.target.style.display = 'none' }} />
+                            <img className="w-full h-full object-cover" alt="Nouradawy" src={`${base}assets/projects/profile.png`} onError={(e) => { e.target.style.display = 'none' }} />
                         </div>
                         <div>
                             <p className="font-bold text-white text-lg">Nouradawy</p>
@@ -488,8 +523,8 @@ function AnimatePing() {
                 xmlns="http://www.w3.org/2000/svg"
             >
 
-                <path className="signature-path-2" d="M170.415 124.121C169.915 127.288 167.915 133.921 163.915 135.121C158.915 136.621 152.192 123.85 148.915 122.621C144.915 121.121 132.915 128.121 140.415 141.121C147.915 154.121 157.915 140.121 156.415 133.121M170.415 106.621C174.581 112.454 184.015 124.721 188.415 127.121C192.815 129.521 191.248 112.788 189.915 104.121C191.415 108.954 198.915 117.121 205.415 111.121C211.915 105.121 193.915 86.6211 194.915 86.6211M212.915 78.1211C216.581 84.1211 225.615 95.6211 232.415 93.6211C239.215 91.6211 237.581 75.7877 235.915 68.1211C240.415 76.4544 256.92 92.1303 265.915 106.621C274.915 121.121 255.415 136.121 246.415 138.621C238.823 140.73 205.748 142.621 189.915 142.621M108.414 170.121C107.914 173.288 105.914 179.921 101.914 181.121C96.9142 182.621 90.1913 169.85 86.9142 168.621C82.9142 167.121 70.9142 174.121 78.4142 187.121C85.9142 200.121 95.9142 186.121 94.4142 179.121M106.414 172.621C107.866 171.791 108.145 170.79 109.914 171.218M109.914 171.218C113.434 172.07 119.085 173.264 121.414 159.621C122.043 155.939 122.058 153.176 121.647 151.121M109.914 171.218C102.414 165.621 103.914 153.121 106.414 151.121C107.943 149.898 118.721 142.458 121.332 149.95M121.647 151.121C121.561 150.696 121.456 150.306 121.332 149.95M121.647 151.121C121.54 150.725 121.435 150.335 121.332 149.95M121.332 149.95C119.675 143.817 118.302 139.135 117.178 135.597M117.178 135.597C114.528 127.259 113.259 125.276 112.914 125.621C113.945 128.4 115.412 131.927 117.178 135.597ZM117.178 135.597C121.977 145.576 128.981 156.621 135.414 156.621" stroke="white" stroke-width="3"/>
-                <path className="signature-path-1" d="M1.49921 228.121C1.99921 212.788 3.59921 177.821 5.99921 160.621C8.99921 139.121 7.99921 209.121 27.4992 212.621C43.0992 215.421 55.3325 137.788 59.4992 98.6211C62.3325 67.7877 66.2992 5.22107 59.4992 1.62107C50.9992 -2.87893 40.4992 119.621 69.4992 114.121C92.6992 109.721 96.8325 85.9544 95.9992 74.6211C94.1659 79.2352 90.7992 88.8949 91.9992 90.6211C93.4992 92.7787 95.9992 96.6211 100.999 85.6211C105.999 74.6211 111.499 86.6211 111.999 84.1211C112.499 81.6211 123.745 83.8843 127.999 71.1211C130.999 62.1211 139.333 56.7877 139.999 58.6211" stroke="white" stroke-width="3"/>
+                <path className="signature-path-2" d="M170.415 124.121C169.915 127.288 167.915 133.921 163.915 135.121C158.915 136.621 152.192 123.85 148.915 122.621C144.915 121.121 132.915 128.121 140.415 141.121C147.915 154.121 157.915 140.121 156.415 133.121M170.415 106.621C174.581 112.454 184.015 124.721 188.415 127.121C192.815 129.521 191.248 112.788 189.915 104.121C191.415 108.954 198.915 117.121 205.415 111.121C211.915 105.121 193.915 86.6211 194.915 86.6211M212.915 78.1211C216.581 84.1211 225.615 95.6211 232.415 93.6211C239.215 91.6211 237.581 75.7877 235.915 68.1211C240.415 76.4544 256.92 92.1303 265.915 106.621C274.915 121.121 255.415 136.121 246.415 138.621C238.823 140.73 205.748 142.621 189.915 142.621M108.414 170.121C107.914 173.288 105.914 179.921 101.914 181.121C96.9142 182.621 90.1913 169.85 86.9142 168.621C82.9142 167.121 70.9142 174.121 78.4142 187.121C85.9142 200.121 95.9142 186.121 94.4142 179.121M106.414 172.621C107.866 171.791 108.145 170.79 109.914 171.218M109.914 171.218C113.434 172.07 119.085 173.264 121.414 159.621C122.043 155.939 122.058 153.176 121.647 151.121M109.914 171.218C102.414 165.621 103.914 153.121 106.414 151.121C107.943 149.898 118.721 142.458 121.332 149.95M121.647 151.121C121.561 150.696 121.456 150.306 121.332 149.95M121.647 151.121C121.54 150.725 121.435 150.335 121.332 149.95M121.332 149.95C119.675 143.817 118.302 139.135 117.178 135.597M117.178 135.597C114.528 127.259 113.259 125.276 112.914 125.621C113.945 128.4 115.412 131.927 117.178 135.597ZM117.178 135.597C121.977 145.576 128.981 156.621 135.414 156.621" stroke="white" strokeWidth="3"/>
+                <path className="signature-path-1" d="M1.49921 228.121C1.99921 212.788 3.59921 177.821 5.99921 160.621C8.99921 139.121 7.99921 209.121 27.4992 212.621C43.0992 215.421 55.3325 137.788 59.4992 98.6211C62.3325 67.7877 66.2992 5.22107 59.4992 1.62107C50.9992 -2.87893 40.4992 119.621 69.4992 114.121C92.6992 109.721 96.8325 85.9544 95.9992 74.6211C94.1659 79.2352 90.7992 88.8949 91.9992 90.6211C93.4992 92.7787 95.9992 96.6211 100.999 85.6211C105.999 74.6211 111.499 86.6211 111.999 84.1211C112.499 81.6211 123.745 83.8843 127.999 71.1211C130.999 62.1211 139.333 56.7877 139.999 58.6211" stroke="white" strokeWidth="3"/>
 
 
             </svg>
