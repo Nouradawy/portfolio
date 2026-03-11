@@ -5,8 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 
 // https://vite.dev/config/
-export default defineConfig({
-    base: "/portfolio/",
+export default defineConfig(({command})=>({
+    base: command === "serve" ? "/" : "/portfolio/",
     plugins: [react(),
     tailwindcss(),
     ],
@@ -27,4 +27,4 @@ build:{
     //     port: 5174,      // <- not in 5141-5240
     //     strictPort: true,
     // },
-});
+}));

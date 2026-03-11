@@ -5,11 +5,12 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./Home.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-        <Routes>
-        <Route path="/" element={<Home />} />
+    <React.StrictMode>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
 
-        </Routes>
+                <Home />
 
-    </BrowserRouter>
+        </BrowserRouter>
+    </React.StrictMode>
+
 );
