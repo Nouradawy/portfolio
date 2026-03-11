@@ -124,6 +124,7 @@ export default function Home() {
                        ref={videoRef}
                        loop={isLoop} playsInline preload="auto" muted
                        onEnded={PlayAirplaneLoop}
+                       type="video/webm; codecs=vp9"
                 />
 
 
