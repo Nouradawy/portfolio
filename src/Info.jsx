@@ -10,7 +10,7 @@ const renderVideo = (item) => {
     if (item.type === "youtube") {
         // YouTube slide
         return (
-            <div className="flex justify-center items-center w-full h-full">
+            <div className="flex justify-center items-center w-full h-full aspect-video">
                 <iframe
                     width="100%"
                     height="100%"
@@ -20,8 +20,14 @@ const renderVideo = (item) => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
-                    className="w-full h-full object-contain rounded-lg"
+                    className="absolute inset-0 w-full h-full"
+
                 />
+                {/* Left swipe zone (15% of width) */}
+                <div className="absolute top-0 left-0 w-[40%] h-full z-10"></div>
+                {/* Right swipe zone (15% of width) */}
+                <div className="absolute top-0 right-0 w-[40%] h-full z-10"></div>
+
             </div>
         );
     }
@@ -83,7 +89,7 @@ export const projects = [
         images: [
             {
                 type: "youtube",
-                videoUrl: "https://www.youtube.com/embed/VNjm-Ou08x0?mute=1&rel=0", // Your custom property for the video source
+                videoUrl: "https://www.youtube.com/embed/VNjm-Ou08x0?mute=1&rel=0&playsinline=1", // Your custom property for the video source
                 renderItem: renderVideo
             } ,
             {

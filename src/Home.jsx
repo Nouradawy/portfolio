@@ -12,7 +12,7 @@ export default function Home() {
     const [isLoop , setIsLoop] = useState(false);
     const [heroText , setHeroText] = useState('From paper ball');
     const [playList] = useState([
-        `/assets/Comp 1N.webm` ,
+        `/assets/Comp 1.webm` ,
         `/assets/Comp 2.webm`
     ]);
     useEffect(() => {
@@ -40,7 +40,7 @@ export default function Home() {
 
     return (
 
-        <div className="relative bg-[#050505] overflow-hidden">
+        <div className="relative bg-[#050505] ">
             <div className="sticky top-0 w-full min-h-screen  justify-center  flex motion-duration-[3s]
                     motion-preset-focus z-10">
                 <div
@@ -65,13 +65,13 @@ export default function Home() {
                     className={`relative z-2 flex flex-col px-6 md:px-16 lg:px-32 justify-items-center font-Inter mt-32 md:mt-48 lg:mt-64  w-full md:w-auto
                     
                     `}>
-                    <h1 className={`text-gray-300 text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg text-left motion-duration-[3s] motion-preset-blur-up`}
+                    <h1 className={`text-gray-300 text-2xl md:text-3xl lg:text-5xl font-bold drop-shadow-lg text-left motion-duration-[3s] motion-preset-blur-up`}
 
                     >
                         {heroText}
                     </h1>
                     <h1 className={`flex text-gray-300
-                        mt-10 font-normal text-2xl ${heroText === "To paper plane" ? "visible" : "invisible"}
+                        mt-4 md:mt-10 font-normal text-lg md:text-xl ${heroText === "To paper plane" ? "visible" : "invisible"}
                         motion-duration-[3s] motion-preset-blur-up
                         `}> Transforming Rough Ideas Into Refined Digital Experiences</h1>
 
@@ -207,6 +207,7 @@ function Summery() {
 
 function ProjectsTimeline() {
     const years = [2021 , 2022 , 2023 , 2024 , 2025 , 2026];
+    const [activeVideo, setActiveVideo] = useState(null);
     const [showFullDescription , setShowFullDescription] = useState(false);
     const [projectIndex , setProjectIndex] = useState(null);
     const galleryRefs = useRef([]);
@@ -247,17 +248,17 @@ function ProjectsTimeline() {
                         <div
                         key={project.title}
                         className={`flex flex-col-reverse lg:flex-row gap-8 lg:gap-10 w-full text-white mt-10 lg:mt-20 items-center lg:items-start justify-center`}>
-                        <div className="flex flex-col w-full lg:max-w-[35vw] text-center lg:text-left px-4 lg:px-0 lg:ml-10">
+                        <div className="flex flex-col w-full lg:max-w-[35vw]  lg:text-left px-4 lg:px-0 lg:ml-10">
 
-                            <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-2 items-center lg:items-start    ">
-                                <h1 className="text-xl md:text-2xl text-white">{project.position}</h1>
+                            <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-2 items-center lg:items-start">
+                                <h1 className="text-xl md:text-sm xl:text-2xl text-white">{project.position}</h1>
                                 <span className="text-xs md:text-sm text-gray-400"> {project.startDate} <span >• {project.endDate}</span> </span>
 
                             </div>
 
                             <div className="flex flex-row items-center gap-4 mb-10">
-                                <h1 className="text-2xl md:text-3xl font-bold text-white">{project.title}</h1>
-                                <h1 className="text-base md:text-lg text-gray-300">{project.appIdea}</h1>
+                                <h1 className="text-xl md:text-2xl xl:text-3xl font-bold text-white">{project.title}</h1>
+                                <h1 className="text-xs md:text-sm xl:text-lg text-gray-300">{project.appIdea}</h1>
                             </div>
 
                             <p className={`text-gray-400  text-sm transition-all duration-300 leading-5 max-w-200
@@ -299,7 +300,7 @@ function ProjectsTimeline() {
 
                         </div>
 
-                        <div className={`${project.platform === "web" ?"w-100" :"w-48 ml-26 mr-26"} opacity-80
+                        <div className={`${project.platform === "web" ?"w-100" :"w-48 ml-26 md:ml-10 mr-26 md:mr-10"} opacity-80
                         hover:opacity-100 hover:scale-136
                         hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))]
                         transition-filter duration-300`}>
@@ -366,7 +367,7 @@ function ContactMe() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#ff2d95]/10 via-[#bc13fe]/5 to-transparent rounded-full blur-[120px] pointer-events-none -z-10"></div>
             <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#ec5b13]/10 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
-            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-40 items-center z-10">
+            <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 md:gap-40 gap-10 items-center z-10">
 
                 {/* Left Side: Text and Info */}
                 <div className="flex flex-col space-y-8">
@@ -482,7 +483,7 @@ function AnimatePing() {
 
  function Signature() {
     return (
-        <div className="w-45  opacity-80 ml-15 mt-10 ">
+        <div className=" w-25 md:w-45 mb-20 md:mb-0 opacity-80 md:ml-15 mt-10 ml-30 ">
 
             <svg
                 viewBox="0 0 270 229"

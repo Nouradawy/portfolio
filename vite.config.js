@@ -10,9 +10,9 @@ export default defineConfig({
     plugins: [react(),
     tailwindcss(),
     ],
-build:{
-    cssMinify: false,
-},
+// build:{
+//     cssMinify: false,
+// },
     define: {
         global: 'globalThis',
     },
