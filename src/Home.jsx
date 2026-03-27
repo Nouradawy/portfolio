@@ -38,6 +38,16 @@ export default function Home() {
             });
         }
     };
+    const downloadResume = () => {
+        const url = "/assets/Resume.pdf"; // file must exist at public/assets/Resume.pdf
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "Resume.pdf";
+        a.rel = "noopener";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    };
 
     return (
 
@@ -101,6 +111,10 @@ export default function Home() {
                                         transition-colors cursor-pointer
                                         focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50"
                                         onClick={() => {
+                                            if (item.target === "resume") {
+                                                downloadResume();
+                                                return;
+                                            }
                                             const el =
                                                 item.target === "top"
                                                     ? document.body
@@ -129,7 +143,7 @@ export default function Home() {
                                 el?.scrollIntoView({ behavior: "smooth", block: "start" });
                                 }}
                             >Let's Talk</button>
-                            <img className="w-10 h-10 object-cover rounded-full " src="public/assets/projects/Avatar.png"/>
+                            <img className="w-10 h-10 object-cover rounded-full " src="/assets/projects/Avatar.png"/>
 
                         </div>
                     </div>
@@ -159,14 +173,7 @@ export default function Home() {
                         tracking-wide uppercase w-full sm:w-auto cursor-pointer
                         "
                                 onClick={() => {
-                                    const url = `/assets/Resume.pdf`; // file must be at `public/assets/Resume.pdf`
-                                    const a = document.createElement("a");
-                                    a.href = url;
-                                    a.download = "Resume.pdf";
-                                    a.rel = "noopener";
-                                    document.body.appendChild(a);
-                                    a.click();
-                                    a.remove();
+                                    downloadResume();
                                 }}>
                             <div className="flex justify-center items-center gap-2 ">
                                 Resume
