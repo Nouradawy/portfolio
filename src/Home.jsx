@@ -6,6 +6,7 @@ import {projects} from "./Info.jsx";
 import {FaBehance, FaGithub} from "react-icons/fa";
 import emailjs from '@emailjs/browser';
 import {TiSocialLinkedin} from "react-icons/ti";
+import {IoPaperPlaneSharp} from "react-icons/io5";
 
 export default function Home() {
     const videoRef = useRef(null);
@@ -48,7 +49,7 @@ export default function Home() {
                 </div>
 
                 <div data-us-project="bcBYZIStYXwiogchBNHO"
-                     className="absolute top-0 w-full md:w-[75vw] h-[100vw] md:h-[50vw]  "
+                     className="absolute top-0 w-full md:w-[75vw] h-[100vw] md:h-[50vw] pointer-events-none "
                      style={{
 
                          zIndex: 0 , // Pushes it to the background
@@ -58,7 +59,83 @@ export default function Home() {
 
                      }}
                 />
-                <div className=" absolute h-12 w-full bg-white/80 "></div>
+                {/*Navbar*/}
+                <nav className=" absolute h-14 w-full bg-black/80 ">
+                    <div className="relative flex items-center h-full w-full">
+                        {/*left group*/}
+                        <div className="flex items-center md:ml-30 gap-4 ">
+                            <IoPaperPlaneSharp  className="text-pink-600 text-3xl rotate-15 "/>
+                            <h1 className="text-white">To paper plane</h1>
+                        </div>
+
+                        {/* Center group */}
+                        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 flex items-center">
+                            {/* glow behind pill */}
+                            <div
+                                className="absolute inset-0 -z-10 blur-2xl opacity-50
+                                bg-[radial-gradient(circle_at_center,rgba(255,0,122,0.22),rgba(157,0,255,0.10),transparent_70%)]"
+                            />
+
+                            <div
+                                className="relative flex items-center gap-2 rounded-xl
+                                px-3 py-2
+                                border border-white/15
+                                bg-white/6 backdrop-blur-xl
+                                shadow-[0_10px_30px_rgba(0,0,0,0.55)]"
+                            >
+                                <div className="pointer-events-none absolute inset-0 rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.10)]" />
+
+                                {[
+                                    { label: "Home", target: "top" },
+                                    { label: "Projects", target: "projects" },
+                                    { label: "Resume", target: "resume" },
+                                ].map((item) => (
+                                    <button
+                                        key={item.label}
+                                        type="button"
+                                        className="relative px-9 py-2.5 rounded-xl
+                                        text-sm font-semibold tracking-wide
+                                        text-white/70
+                                        hover:text-white hover:bg-white/10
+                                        active:bg-white/15
+                                        transition-colors cursor-pointer
+                                        focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50"
+                                        onClick={() => {
+                                            const el =
+                                                item.target === "top"
+                                                    ? document.body
+                                                    : document.getElementById(item.target);
+
+                                            if (item.target === "top") {
+                                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                            } else {
+                                                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                            }
+                                        }}
+                                    >
+                                        {item.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/*Right group*/}
+                        <div className="ml-auto flex items-center gap-4 md:mr-25">
+                            <button
+                                type="button"
+                                className="bg-[linear-gradient(90deg,#ff007a_0%,#9d00ff_100%)] px-6 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer"
+                                onClick={() =>{
+                                const el = document.getElementById("contact");
+                                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }}
+                            >Let's Talk</button>
+                            <img className="w-10 h-10 object-cover rounded-full " src="public/assets/projects/Avatar.png"/>
+
+                        </div>
+                    </div>
+
+
+                </nav>
 
                 <div
                     key={heroText}
@@ -79,7 +156,7 @@ export default function Home() {
                         className={`  flex flex-row mt-15 gap-10   ${heroText === "To paper plane" ? "visible" : "invisible"}`}>
                         <button className="group bg-neutral-900 px-4 py-2 rounded-sm text-white
                         border border-white/10 hover:border-red-500/50
-                        tracking-wide uppercase w-full sm:w-auto
+                        tracking-wide uppercase w-full sm:w-auto cursor-pointer
                         "
                                 onClick={() => {
                                     const url = `/assets/Resume.pdf`; // file must be at `public/assets/Resume.pdf`
@@ -100,9 +177,11 @@ export default function Home() {
                         </button>
                         <button className="group  px-4 py-2 rounded-sm text-white
                         border border-white/10 hover:border-red-500/50
-                        tracking-wide uppercase  w-full sm:w-auto
+                        tracking-wide uppercase  w-full sm:w-auto cursor-pointer
                         "
                                 onClick={() => {
+                                    const el = document.getElementById("contact");
+                                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
                                 }}>
                             <div className="flex justify-center items-center gap-2 ">
                                 Let's Talk
@@ -120,7 +199,7 @@ export default function Home() {
                 </div>
 
 
-                <video className=" absolute top-28 md:top-auto xl:w-full xl:h-full  object-cover z-1 xl:scale-70 origin-top"
+                <video className=" absolute top-28 md:top-auto xl:w-full xl:h-full  object-cover z-1 xl:scale-70 origin-top pointer-events-none"
                        ref={videoRef}
                        loop={isLoop} playsInline preload="auto" muted
                        onEnded={PlayAirplaneLoop}
@@ -131,8 +210,13 @@ export default function Home() {
             </div>
 
             <div className="relative z-40 bg-black justify-items-center">
-                <ProjectsTimeline/>
-                <ContactMe />
+                <div id="projects" className="scroll-mt-24">
+                    <ProjectsTimeline />
+                </div>
+                <div id="contact" className="scroll-mt-24">
+                    <ContactMe />
+                </div>
+
 
             </div>
         </div>
