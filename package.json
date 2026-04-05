@@ -8,7 +8,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "add-domain": "echo \"nouradawy.tech\" > build/CNAME",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
