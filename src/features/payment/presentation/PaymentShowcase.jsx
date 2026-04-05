@@ -94,7 +94,7 @@ export default function PaymentShowcase() {
 
     return (
         <section
-            className={`${showBreakdown ? "relative":"sticky top-0 md:top-[-110dvh]"} z-20 my-20 mt-40 px-4 sm:px-6 lg:px-8 overflow-hidden`}
+            className={`${showBreakdown ? "relative":"sticky top-[min(0px,calc(50dvh-200%))] md:top-[min(0px,calc(100dvh-130%))]"} z-20 my-20 mt-40 px-4 sm:px-6 lg:px-8 overflow-hidden`}
             id="payment-showcase"
         >
             <div className="max-w-7xl mx-auto relative z-10">
