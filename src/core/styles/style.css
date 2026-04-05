@@ -1,0 +1,134 @@
+.phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px; /* Extra padding so the side buttons aren't cut off */
+}
+
+.phone-case {
+  width: 320px;
+  height: 680px;
+  background: #000;
+  border-radius: 55px;
+  /* The main thick bezel */
+  border: 14px solid #1c1c1e;
+  position: relative;
+  /* Outer rim highlight and drop shadow */
+  box-shadow:
+          0 0 0 2px #4a4a4c,
+          0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* The actual display area */
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: #111; /* Dark background before iframe loads */
+  border-radius: 40px; /* Slightly less than the case for a perfect fit */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Isolating your iframe scale trick so it doesn't break border radius */
+.iframe-wrapper {
+  width: 125%;
+  height: 125%;
+  transform: scale(0.8);
+  transform-origin: top left;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* --- Hardware Details --- */
+
+/* Modern Dynamic Island */
+.phone-dynamic-island {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95px;
+  height: 28px;
+  background-color: #000;
+  border-radius: 20px;
+  z-index: 50; /* Cranked up */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  /* ADDED: A subtle dark grey border so it shows up on black AppBars */
+  box-shadow: inset 0 0 0 1px #333, 0 5px 10px rgba(0,0,0,0.5);
+}
+
+.camera-lens {
+  width: 12px;
+  height: 12px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 4px rgba(255, 255, 255, 0.2);
+}
+
+/* iOS style home indicator */
+.home-indicator {
+  width: 130px;
+  height: 5px;
+  background: #fff;
+  /* mix-blend-mode ensures it's visible on both dark and light Flutter backgrounds */
+  mix-blend-mode: difference;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+/* Subtle glare to make the screen look like glass */
+.screen-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+          135deg,
+          rgba(255,255,255,0.12) 0%,
+          rgba(255,255,255,0) 40%
+  );
+  border-radius: 40px;
+  pointer-events: none; /* Crucial: lets clicks pass through to the iframe */
+  z-index: 5;
+}
+
+/* Side Buttons */
+.volume-up, .volume-down, .power-button {
+  position: absolute;
+  background: #2a2a2c;
+  width: 4px;
+  box-shadow: inset -1px 0px 2px rgba(255,255,255,0.2);
+}
+
+.volume-up {
+  height: 60px;
+  left: -18px; /* Pushes it outside the border */
+  top: 150px;
+  border-radius: 3px 0 0 3px;
+}
+
+.volume-down {
+  height: 60px;
+  left: -18px;
+  top: 225px;
+  border-radius: 3px 0 0 3px;
+}
+
+.power-button {
+  height: 80px;
+  right: -18px;
+  top: 180px;
+  border-radius: 0 3px 3px 0;
+}

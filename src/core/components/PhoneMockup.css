@@ -1,0 +1,130 @@
+.phone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px; /* Room for buttons */
+    margin-top: -110px;
+    margin-bottom: -60px;
+}
+
+/* The physical phone body */
+.phone-case {
+    width: 320px;
+    height: 680px;
+    background: #000;
+    border-radius: 30px;
+    position: relative;
+    z-index: 10;
+    /* Using box-shadow for the bezel instead of 'border' prevents layout clipping */
+    box-shadow:
+            0 0 0 14px #141415,  /* Inner thick bezel */
+            0 0 0 16px #4a4a4c,  /* Outer metallic rim */
+            0 25px 50px -12px rgba(0, 0, 0, 0.6); /* Drop shadow */
+
+    /* ADD THESE TWO LINES */
+    transform: scale(0.75); /* Change this number to dial in the perfect size (e.g., 0.6, 0.85) */
+    transform-origin: center center;
+}
+
+/* LAYER 1: The Screen Window */
+.phone-screen {
+    position: absolute;
+    inset: 0; /* Fills the exact width/height of the phone-case */
+    border-radius: 30px; /* Inner corner radius */
+    overflow: hidden; /* Clips the iframe, nothing else */
+    z-index: 1; /* Bottom layer */
+    background: #111;
+}
+
+/* Your custom iframe scaling trick */
+.iframe-wrapper {
+    width: 125%;
+    height: 125%;
+    transform: scale(0.8);
+    transform-origin: top left;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+}
+
+/* LAYER 2: Overlays (Must sit on top of the iframe) */
+.phone-dynamic-island {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 28px;
+    /* IMPORTANT: Lighter than black so it shows up against your Flutter app */
+    background-color: #1c1c1e;
+    border: 1px solid #333;
+    border-radius: 20px;
+    z-index: 50; /* Forced to top */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+}
+
+.camera-lens {
+    width: 12px;
+    height: 12px;
+    background: #080808;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 0.2);
+}
+
+.home-indicator {
+    width: 120px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    z-index: 50;
+    mix-blend-mode: difference; /* Inverts color based on app background */
+}
+
+.screen-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 40%);
+    pointer-events: none; /* Lets clicks pass through to the app */
+    z-index: 40;
+}
+
+/* LAYER 3: Outer Hardware Buttons */
+.volume-up, .volume-down, .power-button {
+    position: absolute;
+    background: #333;
+    width: 4px;
+    z-index: 0;
+}
+
+.volume-up {
+    height: 60px;
+    left: -18px; /* Pushed outside the shadow bezel */
+    top: 150px;
+    border-radius: 4px 0 0 4px;
+}
+
+.volume-down {
+    height: 60px;
+    left: -18px;
+    top: 225px;
+    border-radius: 4px 0 0 4px;
+}
+
+.power-button {
+    height: 80px;
+    right: -18px;
+    top: 180px;
+    border-radius: 0 4px 4px 0;
+}
