@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { usePayment } from "./hooks/usePayment.js";
 import {RiSupabaseFill} from "react-icons/ri";
 import {BiUnite} from "react-icons/bi";
+import {FaCopy} from "react-icons/fa";
 
 /**
  * PaymentShowcase
@@ -14,6 +15,8 @@ import {BiUnite} from "react-icons/bi";
  */
 export default function PaymentShowcase() {
     const [showBreakdown, setShowBreakdown] = useState(false);
+    const [showTestCredentials, setShowTestCredentials] = useState(false);
+    const [copiedItem, setCopiedItem] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' or 'paypal'
     const [amount, setAmount] = useState(5);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -26,6 +29,12 @@ export default function PaymentShowcase() {
         () => (showBreakdown ? "Hide Breakdown" : "Read Architectural Breakdown"),
         [showBreakdown]
     );
+
+    const handleCopy = (text, type) => {
+        navigator.clipboard.writeText(text);
+        setCopiedItem(type);
+        setTimeout(() => setCopiedItem(null), 2000);
+    };
 
    const handleSubmit = async (event) => {
            event.preventDefault();
@@ -85,7 +94,7 @@ export default function PaymentShowcase() {
 
     return (
         <section
-            className={`${showBreakdown ? "relative":"sticky top-[min(0px,calc(100vh-170%))] md:top-[min(0px,calc(100vh-130%))]"} z-20 my-20 mt-40 px-4 sm:px-6 lg:px-8 overflow-hidden`}
+            className={`${showBreakdown ? "relative":"sticky top-[min(0px,calc(100dvh-180%))] md:top-[min(0px,calc(100dvh-130%))]"} z-20 my-20 mt-40 px-4 sm:px-6 lg:px-8 overflow-hidden`}
             id="payment-showcase"
         >
             <div className="max-w-7xl mx-auto relative z-10">
@@ -119,9 +128,100 @@ export default function PaymentShowcase() {
                         </div>
 
                         <div className="glass-panel p-8 rounded-xl border border-[#494847]/20 shadow-2xl">
-                            <h3 className="font-headline text-2xl font-bold mb-6">
-                                Fuel the Alchemist
-                            </h3>
+                            <div className="flex justify-between items-start mb-6">
+                                <h1 className="font-headline text-2xl font-bold text-[#adaaaa]">
+                                    Make a Donation
+                                </h1>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowTestCredentials(!showTestCredentials)}
+                                    className={`px-2 py-1 rounded border transition-all cursor-pointer flex items-center gap-1 ${
+                                        showTestCredentials
+                                            ? "bg-yellow-500/20 border-yellow-500/40 text-yellow-500"
+                                            : "bg-white/5 border-white/10 text-[#adaaaa] hover:bg-white/10"
+                                    }`}
+                                >
+                                    <span className="material-symbols-outlined text-[14px]">
+                                        {showTestCredentials ? 'visibility_off' : 'visibility'}
+                                    </span>
+                                    <span className="text-[10px] font-bold uppercase tracking-tighter">
+                                        {showTestCredentials ? 'Hide Test Cards' : 'Show Test Cards'}
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Test Credentials Info Box */}
+                            {showTestCredentials && (
+                                <div className="mb-8 p-4 bg-white/5 border border-white/10 rounded-lg relative overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <div className="absolute top-0 right-0 p-2 opacity-10">
+                                        <span className="material-symbols-outlined text-4xl">experimental</span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+                                        <div className="space-y-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-[#ff7cf5] text-sm">credit_card</span>
+                                                <span className="text-[11px] font-bold text-white uppercase tracking-wider">Stripe Test Cards</span>
+                                            </div>
+                                            <div className="space-y-1 ml-6">
+                                                <p
+                                                    onClick={() => handleCopy("4242424242424242", 'success')}
+                                                    className={`text-[10px] text-[#adaaaa] flex justify-between items-center bg-black/30 p-1.5 rounded border transition-all cursor-pointer ${
+                                                        copiedItem === 'success' ? "border-green-500/50 bg-green-500/10" : "border-transparent hover:border-white/10"
+                                                    }`}
+                                                >
+
+                                                    <code className="text-green-400 font-mono px-1">4242424242424242</code>
+                                                    <FaCopy />
+                                                </p>
+                                                <p
+                                                    onClick={() => handleCopy("4000000000009995", 'decline')}
+                                                    className={`text-[10px] text-[#adaaaa] flex justify-between items-center bg-black/30 p-1.5 rounded border transition-all cursor-pointer ${
+                                                        copiedItem === 'decline' ? "border-red-500/50 bg-red-500/10" : "border-transparent hover:border-white/10"
+                                                    }`}
+                                                >
+
+                                                    <code className="text-red-400 font-mono px-1">4000000000009995</code>
+                                                    <FaCopy />
+                                                </p>
+                                                <p className="text-[9px] text-[#7a7a7a] pt-1 flex justify-between">
+                                                    <span>CVC: Any 3 digits</span>
+                                                    <span>Exp: Any future date</span>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-[#c97cff] text-sm">account_balance_wallet</span>
+                                                <span className="text-[11px] font-bold text-white uppercase tracking-wider">PayPal Sandbox</span>
+                                            </div>
+                                            <div className="space-y-1 ml-6">
+                                                <p
+                                                    onClick={() => handleCopy("sb-c3jdb50318792@personal.example.com", 'paypal-email')}
+                                                    className={`text-[10px] text-[#adaaaa] flex flex-col bg-black/30 p-1.5 rounded border transition-all cursor-pointer ${
+                                                        copiedItem === 'paypal-email' ? "border-blue-500/50 bg-blue-500/10" : "border-transparent hover:border-white/10"
+                                                    }`}
+                                                >
+                                                    <span className="opacity-60 mb-1">Email:</span>
+                                                    <code className="text-blue-400 font-mono break-all">sb-c3jdb50318792@personal.example.com</code>
+
+                                                </p>
+                                                <p
+                                                    onClick={() => handleCopy("M|C7Ko*=", 'paypal-pass')}
+                                                    className={`text-[10px] text-[#adaaaa] flex flex-col bg-black/30 p-1.5 rounded border transition-all cursor-pointer ${
+                                                        copiedItem === 'paypal-pass' ? "border-blue-500/50 bg-blue-500/10" : "border-transparent hover:border-white/10"
+                                                    }`}
+                                                >
+                                                    <span className="opacity-60 mb-1">Password:</span>
+                                                    <code className="text-blue-400 font-mono">M|C7Ko*= </code>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             <form
                                 className="space-y-6"
@@ -244,6 +344,7 @@ export default function PaymentShowcase() {
                                         >
                                             {isProcessing ? "Processing..." : `Support $${amount}`}
                                         </button>
+
                                     </div>
                                 ) : (
                                     <div className="relative z-0">
