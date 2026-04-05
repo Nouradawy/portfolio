@@ -4,10 +4,11 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import toast from 'react-hot-toast';
 import { usePayment } from "./hooks/usePayment.js";
+import {RiSupabaseFill} from "react-icons/ri";
+import {BiUnite} from "react-icons/bi";
 
 /**
  * PaymentShowcase
- * - JSX conversion of your HTML
  * - "Read Architectural Breakdown" uses React state
  * - form uses onSubmit to prevent refresh
  */
@@ -305,65 +306,95 @@ export default function PaymentShowcase() {
                             <span className="text-[#adaaaa] text-sm">8 Min Read</span>
                         </div>
 
-                        <h2 className="font-headline text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
+                        <h2 className="font-headline text-4xl md:text-5xl font-extrabold mb-8 leading-tight text-gray-400">
                             Architecting a Cross-Platform Payment Gateway
                         </h2>
 
                         <p className="text-[#adaaaa] text-lg leading-relaxed mb-10">
                             Implementing a payment system that feels native on both
                             high-resolution web canvases and tactile mobile interfaces requires
-                            more than just API calls. It demands a unified state management
-                            strategy that abstracts the complexities of Stripe and Apple Pay
-                            into a single, predictable flow.
+                            more than just API calls. we have to make sure <strong> Web (React) </strong> and <strong> Mobile (Flutter) </strong> implementations behave identically.
+                            <br/> Most developers leak provider-specific logic into their UI.
+                             I solved this by implementing the Adapter Pattern, creating a layer that acts
+                             as a universal translator for any payment provider.
                         </p>
 
                         {/* Architectural Diagram */}
                         <div className="mb-12 aspect-video rounded-2xl overflow-hidden bg-black border border-[#494847]/20 relative group">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,124,255,0.1),transparent)] group-hover:opacity-100 transition-opacity" />
-                            <div className="flex items-center justify-center h-full flex-col gap-4">
-                                <div className="flex gap-8">
+
+                            <div className="flex items-center justify-center h-full flex-col gap-2">
+
+                                {/* ROW 1: THE CLIENTS */}
+                                <div className="flex gap-8 mb-2">
                                     <div className="w-24 h-24 rounded-xl border border-[#ff7cf5]/50 flex items-center justify-center flex-col gap-2 glass-panel">
-                    <span className="material-symbols-outlined text-[#ff7cf5]">
-                      language
-                    </span>
-                                        <span className="text-[10px] font-bold">React Web</span>
+                                        <span className="material-symbols-outlined text-[#ff7cf5]">language</span>
+                                        <span className="text-[10px] font-bold text-white">React Web</span>
                                     </div>
 
                                     <div className="w-24 h-24 rounded-xl border border-[#c97cff]/50 flex items-center justify-center flex-col gap-2 glass-panel">
-                    <span className="material-symbols-outlined text-[#c97cff]">
-                      flutter
-                    </span>
-                                        <span className="text-[10px] font-bold">Flutter App</span>
+                                        <span className="material-symbols-outlined text-[#c97cff]">flutter</span>
+                                        <span className="text-[10px] font-bold text-white">Flutter App</span>
                                     </div>
                                 </div>
 
-                                <span className="material-symbols-outlined text-neutral-600">
-                  south
-                </span>
+                                {/* STEP 1 & 2: THE HANDSHAKE LOOP */}
+                                <div className="flex items-center gap-12 relative">
+                                    {/* Down Arrow (Request) */}
+                                    <div className="flex flex-col items-center">
+                                        <span className="material-symbols-outlined text-[#ff7cf5] text-sm">south</span>
+                                        <span className="text-[8px] text-[#adaaaa] font-bold uppercase tracking-tighter">1. Create Intent</span>
+                                    </div>
 
-                                <div className="w-64 h-16 rounded-xl border border-white/20 glass-panel flex items-center justify-center font-bold tracking-widest text-xs uppercase">
-                                    Unified Alchem-Core Adapter
+                                    {/* Up Arrow (The "Replay" / Client Secret) */}
+                                    <div className="flex flex-col items-center">
+                                        <span className="material-symbols-outlined text-[#c97cff] text-sm">north</span>
+                                        <span className="text-[8px] text-[#c97cff] font-bold uppercase tracking-tighter">2. Client Secret</span>
+                                    </div>
                                 </div>
 
-                                <span className="material-symbols-outlined text-neutral-600">
-                  south
-                </span>
+                                {/* ROW 2: THE BACKEND (Unified Core) */}
+                                <div className="flex flex-row items-center gap-4">
+                                    <div className="w-48 h-14 rounded-xl border border-white/20 glass-panel flex flex-col items-center justify-center">
+                                        <div className="flex items-center gap-2 text-white">
+                                            <BiUnite size={16}/>
+                                            <span className="text-[10px] font-bold uppercase tracking-widest">Unified Adapter</span>
+                                        </div>
+                                    </div>
 
+                                    <span className="material-symbols-outlined text-neutral-600">east</span>
+
+                                    <div className="w-48 h-14 rounded-xl border border-white/20 glass-panel flex flex-col items-center justify-center">
+                                        <div className="flex items-center gap-2 text-white">
+                                            <RiSupabaseFill size={16} className="text-[#3ecf8e]"/>
+                                            <span className="text-[10px] font-bold uppercase tracking-widest">Edge Functions</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* STEP 3: FINAL SETTLEMENT */}
+                                <div className="flex flex-col items-center mt-2">
+                                    <span className="material-symbols-outlined text-neutral-600">south</span>
+                                    <span className="text-[8px] text-[#adaaaa] font-bold uppercase tracking-tighter">3. Finalize Payment</span>
+                                </div>
+
+                                {/* ROW 3: THE PROVIDER SDKS */}
                                 <div className="flex gap-4">
-                                    <div className="px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-[10px]">
-                                        Stripe SDK
+                                    <div className="px-6 py-2 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#6772e5] animate-pulse" />
+                                        <span className="text-[10px] text-white font-medium">Stripe SDK</span>
                                     </div>
-                                    <div className="px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-[10px]">
-                                        Apple Pay
-                                    </div>
-                                    <div className="px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-800 text-[10px]">
-                                        PayPal
+
+                                    <div className="px-6 py-2 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-[#003087] animate-pulse" />
+                                        <span className="text-[10px] text-white font-medium">PayPal SDK</span>
                                     </div>
                                 </div>
+
                             </div>
 
-                            <div className="absolute bottom-4 right-4 text-[10px] text-on-surface-variant uppercase font-bold">
-                                Gateway Fig. 01: Multi-Interface Logic
+                            <div className="absolute bottom-4 right-4 text-[10px] text-[#adaaaa] uppercase font-bold tracking-widest opacity-50">
+                                Gateway Fig. 01: Secure Intent Flow
                             </div>
                         </div>
 
@@ -375,8 +406,8 @@ export default function PaymentShowcase() {
                             By utilizing the <strong>Adapter Pattern</strong>, we decouple the
                             UI from the provider-specific SDK. This allows our Flutter client
                             to communicate with the same backend microservices as our React
-                            frontend, ensuring that transaction states remain synced across
-                            the entire ecosystem.
+                            frontend, Whether the user selects 'Card' or 'PayPal', the UI interacts with a unified 'Use Case' object.
+                            This ensures that transaction states, error handling, and loading sequences remain synced across the entire ecosystem.
                         </p>
 
                         {/* Code Snippet */}
@@ -388,40 +419,64 @@ export default function PaymentShowcase() {
                             </div>
 
                             <pre className="text-[#adaaaa] whitespace-pre-wrap">
-{`class PaymentAlchemist {
-  final IPaymentAdapter _adapter;
+{`Future<void> handlePayment(PaymentsGateway gateway) async {
+  // 1. Unified Handshake (Fetch Intent/Secret)
+  final intent = await paymentRepository.fetchPaymentIntent(amount, 'usd');
 
-  Future<void> process(Transaction tx) async {
-    // Encapsulated across all platforms
-    await _adapter.initialize();
-    return _adapter.execute(tx);
+  // 2. Platform-Specific Execution via Adapter
+  if(gateway == PaymentsGateway.stripe) {
+    if (kIsWeb) {
+      webPaymentSheet(context, intent['url']); // Web Adapter
+    } else {
+      await _showNativeStripeSheet(intent['clientSecret']); // Mobile Adapter
+    }
   }
 }`}
               </pre>
                         </div>
 
-                        <div className="border-t border-[#494847]/20 pt-10">
-                            <h4 className="font-bold mb-4">Key Takeaways</h4>
-                            <ul className="space-y-4">
-                                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">
-                    auto_awesome
-                  </span>
-                                    <span className="text-[#adaaaa] italic">
-                    Seamless handoffs between desktop browsing and mobile payment
-                    confirmation.
-                  </span>
-                                </li>
-                                <li className="flex items-start gap-3">
-                  <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">
-                    security
-                  </span>
-                                    <span className="text-[#adaaaa] italic">
-                    Cryptographic signing of payloads across both TypeScript and
-                    Dart implementations.
-                  </span>
-                                </li>
-                            </ul>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-[#494847]/20 pt-10">
+                            <div>
+                                <h4 className="font-bold mb-6 text-white text-xl flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-[#ff7cf5]">insights</span>
+                                    Key Technical Insights
+                                </h4>
+                                <ul className="space-y-4">
+                                    <li className="flex items-start gap-3">
+                                        <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">auto_awesome</span>
+                                        <span className="text-[#adaaaa] italic text-sm">
+                                            Seamless handoffs between desktop browsing and mobile payment confirmation via unified state.
+                                        </span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">security</span>
+                                        <span className="text-[#adaaaa] italic text-sm">
+                                            Cryptographic signing of payloads across both TypeScript and Dart implementations for secure processing.
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 className="font-bold mb-6 text-white text-xl flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-[#ff7cf5]">psychology</span>
+                                    Senior Perspective
+                                </h4>
+                                <ul className="space-y-4">
+                                    <li className="flex items-start gap-3">
+                                        <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">rebase_edit</span>
+                                        <span className="text-[#adaaaa] italic text-sm">
+                                            <strong>Provider Agility:</strong> Adding new gateways (like Apple Pay) requires zero changes to UI code.
+                                        </span>
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="material-symbols-outlined text-[#ff7cf5] text-sm mt-1">biotech</span>
+                                        <span className="text-[#adaaaa] italic text-sm">
+                                            <strong>Testability:</strong> Payment logic is decoupled from React, allowing for pure logic unit testing.
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </article>

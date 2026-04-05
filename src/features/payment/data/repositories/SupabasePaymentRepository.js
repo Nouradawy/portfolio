@@ -3,11 +3,12 @@ import { PaymentRepository } from "../../domain/repositories/PaymentRepository.j
 
 export class SupabasePaymentRepository extends PaymentRepository {
     async createStripePaymentIntent(amount, currency, name) {
-        const { data, error } = await supabase.functions.invoke('stripe-payment', {
+        const { data, error } = await supabase.functions.invoke('stripe', {
             body: {
                 amount: amount,
                 currency: currency,
-                name: name
+                name: name ,
+                'platform' : 'mobile'
             }
         });
 
@@ -16,7 +17,7 @@ export class SupabasePaymentRepository extends PaymentRepository {
     }
 
     async createPayPalOrder(amount) {
-        const { data, error } = await supabase.functions.invoke('paypal-payment', {
+        const { data, error } = await supabase.functions.invoke('react-paypal', {
             body: { amount: amount.toFixed(2), action: 'CREATE' }
         });
 
@@ -25,7 +26,7 @@ export class SupabasePaymentRepository extends PaymentRepository {
     }
 
     async capturePayPalOrder(orderId) {
-        const { data, error } = await supabase.functions.invoke('paypal-payment', {
+        const { data, error } = await supabase.functions.invoke('react-paypal', {
             body: { action: 'CAPTURE', orderId: orderId }
         });
 
