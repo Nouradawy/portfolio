@@ -14,7 +14,7 @@ export default function ProjectsTimeline() {
     return (
         <div className="flex flex-col lg:flex-row mx-auto px-6 lg:px-12 w-full xl:w-[90vw]">
             {/* Left panel Content */}
-            <div className="absolute top-1/2 right-0 w-screen h-[14vh] bg-indigo-900/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
+            <div className="absolute top-1/2 right-0 w-full h-[14vh] bg-indigo-900/20 rounded-full blur-[140px] pointer-events-none z-0"></div>
             <div className="absolute top-0 left-0 w-full h-40 bg-linear-to-b from-[#e81cff]/10 to-transparent pointer-events-none z-0"></div>
 
             <div className="relative z-10 w-full lg:w-100 pt-12 lg:pt-0">
@@ -38,7 +38,7 @@ export default function ProjectsTimeline() {
                 {projects.map((project, index) => (
                     <div
                         key={project.title}
-                        className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-10 w-full text-white mt-10 lg:mt-20 items-center lg:items-start justify-center"
+                        className={`flex flex-col-reverse lg:flex-row gap-8 ${project.platform === "web" ?"lg:gap-10":"lg:gap-50"} w-full text-white mt-10 lg:mt-20 items-center lg:items-start justify-center`}
                     >
                         <div className="flex flex-col w-full lg:max-w-[35vw] lg:text-left px-4 lg:px-0 lg:ml-10">
                             <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-2 items-center lg:items-start">
@@ -84,7 +84,7 @@ export default function ProjectsTimeline() {
                             </div>
                         </div>
 
-                        <div className={`${project.platform === "web" ? "w-100" : "w-48 ml-26 md:ml-10 mr-26 md:mr-10"} opacity-80 hover:opacity-100 hover:scale-136 hover:filter-[drop-shadow(0_0_16px_rgba(79,70,229))] transition-filter duration-300`}>
+                        <div className={`${project.platform === "web" ? "w-full max-w-md lg:w-100" : "w-full max-w-[250px] mx-auto lg:mx-0"} opacity-80 hover:opacity-100 lg:hover:scale-110 transition-transform duration-300`}>
                             <ImageGallery
                                 ref={(el) => { galleryRefs.current[index] = el; }}
                                 onClick={() => galleryRefs.current[index]?.fullScreen()}

@@ -2,9 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px; /* Room for buttons */
-    margin-top: -110px;
-    margin-bottom: -60px;
+    padding: 20px; /* Reduced padding */
+    margin-top: -20px; /* Adjusted margin */
+    margin-bottom: -20px;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 /* The physical phone body */
@@ -22,7 +24,10 @@
             0 25px 50px -12px rgba(0, 0, 0, 0.6); /* Drop shadow */
 
     /* ADD THESE TWO LINES */
-    transform: scale(0.75); /* Change this number to dial in the perfect size (e.g., 0.6, 0.85) */
+    transform: scale(0.7); /* Slightly smaller for mobile safety */
+    @media (min-width: 768px) {
+        transform: scale(0.85);
+    }
     transform-origin: center center;
 }
 
