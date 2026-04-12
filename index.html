@@ -1,12 +1,61 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; style-src * 'unsafe-inline'; connect-src * 'unsafe-inline' ws:; frame-src *; img-src * data: blob:; font-src * data:;">
-    <link rel="icon" type="image/png" href="/assets/projects/favicon-rounded.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <!-- SECURITY: Prefer a restrictive CSP. Add domains here only when needed. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none';\
+      script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://js.stripe.com https://www.paypal.com https://*.paypal.com https://cdn.jsdelivr.net;\
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;\
+      img-src 'self' data: blob: https:;\
+      font-src 'self' data: https://fonts.gstatic.com;\
+      connect-src 'self' https: wss:;\
+      frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://js.stripe.com https://www.paypal.com https://*.paypal.com;\
+      media-src 'self' blob:;"
+    />
+
+    <!-- Primary SEO -->
     <title>Nouradawy | Full-Stack Engineer</title>
-    <script type="module" crossorigin src="/assets/index-CijmGCaG.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BrbcE-7w.css">
+    <meta name="description" content="Portfolio of Nouradawy — Full-Stack Engineer building high-performance web and mobile experiences with React, Flutter, Supabase and Spring." />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#0e0e0e" />
+    <link rel="canonical" href="https://www.nouradawy.tech/" />
+
+    <!-- Social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nouradawy" />
+    <meta property="og:title" content="Nouradawy | Full-Stack Engineer" />
+    <meta property="og:description" content="Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring." />
+    <meta property="og:url" content="https://www.nouradawy.tech/" />
+    <meta property="og:image" content="https://www.nouradawy.tech/icons/pape_plane_image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nouradawy | Full-Stack Engineer" />
+    <meta name="twitter:description" content="Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring." />
+    <meta name="twitter:image" content="https://www.nouradawy.tech/icons/pape_plane_image.png" />
+
+    <!-- Favicon (base-aware for GitHub Pages) -->
+    <link rel="icon" type="image/png" href="./assets/projects/favicon-rounded.png" />
+
+    <!-- Optional: font preconnect (avoid linking fonts.gstatic as stylesheet) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nouradawy",
+        "jobTitle": "Full-Stack Engineer",
+        "url": "https://www.nouradawy.tech/",
+        "image": "https://www.nouradawy.tech/assets/icons/pape_plane_image.png",
+        "sameAs": []
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-Cx-20I62.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D742H-gi.css">
   </head>
   <body>
     <div id="root"></div>
