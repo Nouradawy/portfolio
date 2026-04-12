@@ -49,9 +49,9 @@ export default function PortfolioPage() {
     };
 
     return (
-        <div className="relative bg-[#050505] overflow-x-clip">
+        <div className="relative bg-[#050505]">
             <div className="relative w-full justify-center flex motion-duration-[3s] motion-preset-focus z-10">
-                <div className="absolute top-1/2 right-0 w-full h-[50vh] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none z-1"></div>
+                <div className="absolute top-1/2 right-0 w-screen h-[50vh] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none z-1"></div>
 
                 <div data-us-project="bcBYZIStYXwiogchBNHO"
                      className="absolute top-0 w-full md:w-[75vw] h-[100vw] md:h-[50vw] pointer-events-none"
