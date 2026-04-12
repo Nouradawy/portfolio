@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ReactGA from "react-ga4";
 import { IoPaperPlaneSharp } from "react-icons/io5";
 import PortfolioSummary from "./components/PortfolioSummary.jsx";
 import PaymentShowcase from "../../payment/presentation/PaymentShowcase.jsx";
@@ -48,9 +49,9 @@ export default function PortfolioPage() {
     };
 
     return (
-        <div className="relative bg-[#050505]">
+        <div className="relative bg-[#050505] overflow-x-clip">
             <div className="relative w-full justify-center flex motion-duration-[3s] motion-preset-focus z-10">
-                <div className="absolute top-1/2 right-0 w-screen h-[50vh] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none z-1"></div>
+                <div className="absolute top-1/2 right-0 w-full h-[50vh] bg-indigo-900/20 rounded-full blur-[120px] pointer-events-none z-1"></div>
 
                 <div data-us-project="bcBYZIStYXwiogchBNHO"
                      className="absolute top-0 w-full md:w-[75vw] h-[100vw] md:h-[50vw] pointer-events-none"
@@ -83,6 +84,12 @@ export default function PortfolioPage() {
                                         type="button"
                                         className="relative px-9 py-2.5 rounded-xl text-sm font-semibold tracking-wide text-white/70 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50"
                                         onClick={() => {
+                                            ReactGA.event({
+                                                category: 'Navigation',
+                                                action: `Click ${item.label}`,
+                                                label: item.target
+                                            });
+
                                             if (item.target === "resume") {
                                                 downloadResume();
                                                 return;
@@ -106,11 +113,25 @@ export default function PortfolioPage() {
                                 type="button"
                                 className="bg-[linear-gradient(90deg,#ff007a_0%,#9d00ff_100%)] px-6 py-2.5 rounded-xl text-sm font-semibold text-white cursor-pointer"
                                 onClick={() => {
+                                    ReactGA.event({
+                                        category: 'Navigation',
+                                        action: 'Click Let\'s Talk (Nav)',
+                                    });
                                     const el = document.getElementById("contact");
                                     el?.scrollIntoView({ behavior: "smooth", block: "start" });
                                 }}
                             >Let's Talk</button>
-                            <img className="w-10 h-10 object-cover rounded-full" src="/assets/projects/Avatar.png" alt="Avatar" />
+                            <img
+                                className="w-10 h-10 object-cover rounded-full cursor-pointer hover:ring-2 hover:ring-pink-500 transition-all"
+                                src="/assets/projects/Avatar.png"
+                                alt="Avatar"
+                                onClick={() => {
+                                    ReactGA.event({
+                                        category: 'Navigation',
+                                        action: 'Click Avatar',
+                                    });
+                                }}
+                            />
                         </div>
                     </div>
                 </nav>
@@ -125,14 +146,26 @@ export default function PortfolioPage() {
 
                     <div className={`flex flex-row mt-15 gap-10 ${heroText === "To paper plane" ? "visible" : "invisible"}`}>
                         <button className="group bg-neutral-900 px-4 py-2 rounded-sm text-white border border-white/10 hover:border-red-500/50 tracking-wide uppercase w-full sm:w-auto cursor-pointer"
-                                onClick={downloadResume}>
+                                onClick={() => {
+                                    ReactGA.event({
+                                        category: 'Engagement',
+                                        action: 'Download Resume',
+                                    });
+                                    downloadResume();
+                                }}>
                             <div className="flex justify-center items-center gap-2">
                                 Resume
                                 <span className="material-icons-round text-[17px]! leading-none text-neutral-400 group-hover:text-red-400 transition-colors">arrow_outward</span>
                             </div>
                         </button>
                         <button className="group px-4 py-2 rounded-sm text-white border border-white/10 hover:border-red-500/50 tracking-wide uppercase w-full sm:w-auto cursor-pointer"
-                                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                                onClick={() => {
+                                    ReactGA.event({
+                                        category: 'Navigation',
+                                        action: 'Click Let\'s Talk (Hero)',
+                                    });
+                                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                }}>
                             <div className="flex justify-center items-center gap-2">
                                 Let's Talk
                                 <span className="material-icons-round text-[23px]! leading-none text-neutral-400 group-hover:text-red-400 group-hover:translate-x-1 transition-transform">keyboard_arrow_right</span>

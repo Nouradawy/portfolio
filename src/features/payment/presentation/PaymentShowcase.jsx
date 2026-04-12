@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import ReactGA from "react-ga4";
 import PhoneMockup from "../../../core/components/PhoneMockup.jsx";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PayPalButtons } from "@paypal/react-paypal-js";
@@ -33,6 +34,11 @@ export default function PaymentShowcase() {
     const handleCopy = (text, type) => {
         navigator.clipboard.writeText(text);
         setCopiedItem(type);
+        ReactGA.event({
+            category: 'Payment Showcase',
+            action: 'Copy Test Credential',
+            label: type
+        });
         setTimeout(() => setCopiedItem(null), 2000);
     };
 
@@ -58,11 +64,26 @@ export default function PaymentShowcase() {
 
                if (stripeError) {
                    toast.error(stripeError.message, { id: toastId });
+                   ReactGA.event({
+                       category: 'Payment',
+                       action: 'Stripe Payment Failed',
+                       label: stripeError.message
+                   });
                } else if (paymentIntent.status === "succeeded") {
                    toast.success("Payment Successful!", { id: toastId });
+                   ReactGA.event({
+                       category: 'Payment',
+                       action: 'Stripe Payment Success',
+                       value: amount
+                   });
                }
            } catch (err) {
                toast.error(err.message, { id: toastId });
+               ReactGA.event({
+                   category: 'Payment',
+                   action: 'Stripe Execution Error',
+                   label: err.message
+               });
            } finally {
                setIsProcessing(false);
            }
@@ -74,6 +95,11 @@ export default function PaymentShowcase() {
            return data.id; // This matches the standard PayPal Order ID field
        } catch (err) {
            toast.error("PayPal Init Error: " + err.message);
+           ReactGA.event({
+               category: 'Payment',
+               action: 'PayPal Init Failed',
+               label: err.message
+           });
        }
     };
 
@@ -84,11 +110,26 @@ export default function PaymentShowcase() {
 
             if (captureData.status === "COMPLETED") {
                 toast.success("PayPal Payment Success!", { id: toastId });
+                ReactGA.event({
+                    category: 'Payment',
+                    action: 'PayPal Payment Success',
+                    value: amount
+                });
             } else {
                 toast.error("Payment status: " + captureData.status, { id: toastId });
+                ReactGA.event({
+                    category: 'Payment',
+                    action: 'PayPal Payment Status Issue',
+                    label: captureData.status
+                });
             }
         } catch (err) {
             toast.error("Capture failed: " + err.message, { id: toastId });
+            ReactGA.event({
+                category: 'Payment',
+                action: 'PayPal Payment Failed',
+                label: err.message
+            });
         }
     };
 
@@ -134,7 +175,14 @@ export default function PaymentShowcase() {
                                 </h1>
                                 <button
                                     type="button"
-                                    onClick={() => setShowTestCredentials(!showTestCredentials)}
+                                    onClick={() => {
+                                        const newState = !showTestCredentials;
+                                        setShowTestCredentials(newState);
+                                        ReactGA.event({
+                                            category: 'Payment Showcase',
+                                            action: newState ? 'Show Test Cards' : 'Hide Test Cards',
+                                        });
+                                    }}
                                     className={`px-2 py-1 rounded border transition-all cursor-pointer flex items-center gap-1 ${
                                         showTestCredentials
                                             ? "bg-yellow-500/20 border-yellow-500/40 text-yellow-500"
@@ -255,7 +303,14 @@ export default function PaymentShowcase() {
                                                         : "border-[#494847]/30 text-[#adaaaa] hover:border-[#ff7cf5]/40"
                                                 }`}
                                                 type="button"
-                                                onClick={() => setAmount(val)}
+                                                onClick={() => {
+                                                    setAmount(val);
+                                                    ReactGA.event({
+                                                        category: 'Payment',
+                                                        action: 'Select Amount',
+                                                        value: val
+                                                    });
+                                                }}
                                             >
                                                 ${val}
                                             </button>
@@ -285,7 +340,14 @@ export default function PaymentShowcase() {
                                     <div className="flex gap-4">
                                         <button
                                             type="button"
-                                            onClick={() => setPaymentMethod('card')}
+                                            onClick={() => {
+                                                setPaymentMethod('card');
+                                                ReactGA.event({
+                                                    category: 'Payment',
+                                                    action: 'Select Payment Method',
+                                                    label: 'Stripe'
+                                                });
+                                            }}
                                             className={`flex-1 p-4 rounded-lg border-2 flex items-center justify-center gap-2 cursor-pointer transition-all ${
                                                 paymentMethod === 'card'
                                                     ? "border-[#ff7cf5] bg-[#ff7cf5]/5"
@@ -300,7 +362,14 @@ export default function PaymentShowcase() {
 
                                         <button
                                             type="button"
-                                            onClick={() => setPaymentMethod('paypal')}
+                                            onClick={() => {
+                                                setPaymentMethod('paypal');
+                                                ReactGA.event({
+                                                    category: 'Payment',
+                                                    action: 'Select Payment Method',
+                                                    label: 'PayPal'
+                                                });
+                                            }}
                                             className={`flex-1 p-4 rounded-lg border-2 flex items-center justify-center gap-2 cursor-pointer transition-all ${
                                                 paymentMethod === 'paypal'
                                                     ? "border-[#ff7cf5] bg-[#ff7cf5]/5"
@@ -382,7 +451,14 @@ export default function PaymentShowcase() {
                     <button
                         type="button"
                         className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-[#ff7cf5]/30 bg-[#ff7cf5]/5 text-[#ff7cf5] font-bold hover:bg-[#ff7cf5]/10 transition-all font-headline text-lg group"
-                        onClick={() => setShowBreakdown((v) => !v)}
+                        onClick={() => {
+                            const newState = !showBreakdown;
+                            setShowBreakdown(newState);
+                            ReactGA.event({
+                                category: 'Payment Showcase',
+                                action: newState ? 'Show Breakdown' : 'Hide Breakdown',
+                            });
+                        }}
                     >
                         {toggleLabel}
                         <span className="material-symbols-outlined transition-transform group-hover:translate-y-1">

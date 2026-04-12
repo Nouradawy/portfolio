@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import ReactGA from 'react-ga4';
 import { TiSocialLinkedin } from "react-icons/ti";
 import { FaBehance, FaGithub } from "react-icons/fa";
 import { useContact } from "./hooks/useContact.js";
@@ -20,6 +21,11 @@ export default function ContactSection() {
                 setIsSuccess(true);
                 form.current.reset();
 
+                ReactGA.event({
+                    category: 'Contact',
+                    action: 'Form Submission Success',
+                });
+
                 setTimeout(() => {
                     setButtonText('Send Message');
                     setIsSuccess(false);
@@ -27,6 +33,13 @@ export default function ContactSection() {
             }, (error) => {
                 console.log('FAILED...', error.text);
                 setButtonText('Failed to send');
+
+                ReactGA.event({
+                    category: 'Contact',
+                    action: 'Form Submission Failed',
+                    label: error.text
+                });
+
                 setTimeout(() => setButtonText('Send Message'), 3000);
             });
     };
@@ -55,13 +68,37 @@ export default function ContactSection() {
                     <div className="space-y-6">
                         <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Connect Elsewhere</h3>
                         <div className="flex gap-4">
-                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#ff2d95]/50 transition-all duration-300" href="https://www.linkedin.com/in/nouradawy/">
+                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#ff2d95]/50 transition-all duration-300"
+                               href="https://www.linkedin.com/in/nouradawy/"
+                               onClick={() => {
+                                   ReactGA.event({
+                                       category: 'Social',
+                                       action: 'Click LinkedIn',
+                                   });
+                               }}
+                            >
                                 <span className=" text-slate-400 group-hover:text-[#ff2d95] transition-colors"><TiSocialLinkedin className="text-2xl"/></span>
                             </a>
-                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#bc13fe]/50 transition-all duration-300" href="https://www.behance.net/gamerhypeee">
+                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#bc13fe]/50 transition-all duration-300"
+                               href="https://www.behance.net/gamerhypeee"
+                               onClick={() => {
+                                   ReactGA.event({
+                                       category: 'Social',
+                                       action: 'Click Behance',
+                                   });
+                               }}
+                            >
                                 <span className="text-slate-400 group-hover:text-[#bc13fe] transition-colors"><FaBehance className="text-xl"/></span>
                             </a>
-                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#ec5b13]/50 transition-all duration-300" href="https://github.com/Nouradawy">
+                            <a className="group flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#ec5b13]/50 transition-all duration-300"
+                               href="https://github.com/Nouradawy"
+                               onClick={() => {
+                                   ReactGA.event({
+                                       category: 'Social',
+                                       action: 'Click GitHub',
+                                   });
+                               }}
+                            >
                                 <span className="text-slate-400 group-hover:text-[#ec5b13] transition-colors"><FaGithub className="text-xl"/></span>
                             </a>
                         </div>
@@ -69,7 +106,7 @@ export default function ContactSection() {
 
                     <div className="pt-8 flex items-center space-x-4">
                         <div className="w-35 h-35 rounded-full overflow-hidden border-2 border-[#bc13fe]/30 bg-black flex items-center justify-center">
-                            <img className="w-full h-full object-cover" alt="Nouradawy" src={`/assets/projects/profile.png`} onError={(e) => { e.target.style.display = 'none' }} />
+                            <img className="w-full h-full object-cover" alt="Nouradawy" src={`/assets/projects/Avatar.png`} onError={(e) => { e.target.style.display = 'none' }} />
                         </div>
                         <div>
                             <p className="font-bold text-white text-lg">Nouradawy</p>

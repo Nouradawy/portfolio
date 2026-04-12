@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import ReactGA from 'react-ga4';
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/image-gallery.css";
 import { projects } from "../data/projectsData.jsx";
@@ -24,6 +25,13 @@ export default function ProjectsTimeline() {
                     {years.map((year) => (
                         <button
                             key={year}
+                            onClick={() => {
+                                ReactGA.event({
+                                    category: 'Projects',
+                                    action: 'Filter Year',
+                                    label: year.toString()
+                                });
+                            }}
                             className="px-4 py-1 rounded-full border border-white/20 text-white text-sm hover:border-[#e81cff] hover:text-[#e81cff] transition-colors"
                         >
                             {year}
@@ -65,6 +73,11 @@ export default function ProjectsTimeline() {
                                         } else {
                                             setShowFullDescription(true);
                                             setProjectIndex(index);
+                                            ReactGA.event({
+                                                category: 'Projects',
+                                                action: 'Read More',
+                                                label: project.title
+                                            });
                                         }
                                     }}
                                     className="text-xs text-[#e81cff] hover:underline self-start"
@@ -76,6 +89,13 @@ export default function ProjectsTimeline() {
                                     href={project.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => {
+                                        ReactGA.event({
+                                            category: 'Projects',
+                                            action: 'View Source',
+                                            label: project.title
+                                        });
+                                    }}
                                     className="flex items-center gap-2 text-gray-400 hover:text-white group hover:scale-120 transition-all duration-300"
                                 >
                                     <span className="text-xs font-medium tracking-wide">Source</span>
@@ -87,7 +107,14 @@ export default function ProjectsTimeline() {
                         <div className={`${project.platform === "web" ? "w-full max-w-md lg:w-100" : "w-full max-w-[250px] mx-auto lg:mx-0"} opacity-80 hover:opacity-100 lg:hover:scale-110 transition-transform duration-300`}>
                             <ImageGallery
                                 ref={(el) => { galleryRefs.current[index] = el; }}
-                                onClick={() => galleryRefs.current[index]?.fullScreen()}
+                                onClick={() => {
+                                    galleryRefs.current[index]?.fullScreen();
+                                    ReactGA.event({
+                                        category: 'Projects',
+                                        action: 'Open Gallery',
+                                        label: project.title
+                                    });
+                                }}
                                 items={project.images}
                                 showThumbnails={false}
                                 showPlayButton={false}
