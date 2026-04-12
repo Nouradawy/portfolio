@@ -19,7 +19,9 @@ const initialPayPalOptions = {
 
 
 const TRACKING_ID = "G-D2VK1VY7JK"; // Replace with your real ID
-ReactGA.initialize(TRACKING_ID);
+if (typeof window !== 'undefined') {
+    ReactGA.initialize(TRACKING_ID);
+}
 
 // 2. Create a small wrapper to track page views
 const AnalyticsTracker = () => {
@@ -36,16 +38,24 @@ const AnalyticsTracker = () => {
 };
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <PayPalScriptProvider options={initialPayPalOptions}>
-            <Elements stripe={stripePromise}>
-                <BrowserRouter basename={import.meta.env.BASE_URL}>
-                    <AnalyticsTracker />
-                    <Toaster position="bottom-right" />
-                    <Home />
-                </BrowserRouter>
-            </Elements>
-        </PayPalScriptProvider>
-    </React.StrictMode>
-);
+export function App() {
+    return (
+        <React.StrictMode>
+            <PayPalScriptProvider options={initialPayPalOptions}>
+                <Elements stripe={stripePromise}>
+                    <BrowserRouter basename={import.meta.env.BASE_URL}>
+                        <AnalyticsTracker />
+                        <Toaster position="bottom-right" />
+                        <Home />
+                    </BrowserRouter>
+                </Elements>
+            </PayPalScriptProvider>
+        </React.StrictMode>
+    );
+}
+
+
+// Only mount in the browser (prerender runs in a Node context).
+if (typeof document !== 'undefined') {
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+}

@@ -9,9 +9,14 @@ export default defineConfig({
     // For GitHub Pages deployments set VITE_BASE=/portfolio/ (or / if using a custom domain)
     // base: process.env.VITE_BASE || '/',
     plugins: [react(),
-    tailwindcss(),
+    // Tailwind v4 optimize can warn on motion's `@property` rules; skip it and let Vite/esbuild handle minification.
+    tailwindcss({ optimize: false }),
     ],
     build: {
+        cssTarget: 'chrome104',
+        // tailwindcss-motion emits `@property` rules that currently trigger warnings in LightningCSS minify.
+        // Use esbuild minification for stable, warning-free production builds.
+        cssMinify: 'esbuild',
         // Keep the warning, but allow a bit more headroom for a portfolio site.
         chunkSizeWarningLimit: 700,
         rollupOptions: {
