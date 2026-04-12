@@ -11,6 +11,41 @@ export default defineConfig({
     plugins: [react(),
     tailwindcss(),
     ],
+    build: {
+        // Keep the warning, but allow a bit more headroom for a portfolio site.
+        chunkSizeWarningLimit: 700,
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (!id.includes('node_modules')) return;
+
+                    // Core
+                    if (id.includes('react-router')) return 'vendor-router';
+
+                    // 3D / runtime heavy
+                    if (id.includes('@splinetool')) return 'vendor-spline';
+
+                    // Payments
+                    if (id.includes('@stripe')) return 'vendor-stripe';
+                    if (id.includes('@paypal')) return 'vendor-paypal';
+
+                    // Backend / data
+                    if (id.includes('@supabase')) return 'vendor-supabase';
+
+                    // UI libs
+                    if (id.includes('react-image-gallery')) return 'vendor-gallery';
+                    if (id.includes('react-icons')) return 'vendor-icons';
+                    if (id.includes('react-hot-toast')) return 'vendor-toast';
+
+                    // Analytics
+                    if (id.includes('react-ga4')) return 'vendor-analytics';
+
+                    // Anything else
+                    return 'vendor';
+                },
+            },
+        },
+    },
 // build:{
 //     cssMinify: false,
 // },
