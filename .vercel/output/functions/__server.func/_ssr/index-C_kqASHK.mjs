@@ -367,6 +367,116 @@ function Navbar() {
     }
   );
 }
+function CinematicCursor() {
+  const dotRef = reactExports.useRef(null);
+  const ringRef = reactExports.useRef(null);
+  const spotRef = reactExports.useRef(null);
+  const [enabled, setEnabled] = reactExports.useState(false);
+  reactExports.useEffect(() => {
+    const fine = window.matchMedia("(pointer: fine)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!fine || reduced) {
+      setEnabled(false);
+      return;
+    }
+    setEnabled(true);
+    let tx = window.innerWidth / 2;
+    let ty = window.innerHeight / 2;
+    let rx = tx;
+    let ry = ty;
+    let sx = tx;
+    let sy = ty;
+    let raf = 0;
+    const onMove = (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0) translate(-50%, -50%)`;
+      }
+    };
+    const onDown = () => ringRef.current?.classList.add("cc-press");
+    const onUp = () => ringRef.current?.classList.remove("cc-press");
+    const onOver = (e) => {
+      const t = e.target;
+      if (!t) return;
+      const interactive = t.closest(
+        'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor="hover"]'
+      );
+      ringRef.current?.classList.toggle("cc-hover", !!interactive);
+    };
+    const tick = () => {
+      rx += (tx - rx) * 0.18;
+      ry += (ty - ry) * 0.18;
+      sx += (tx - sx) * 0.06;
+      sy += (ty - sy) * 0.06;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+      }
+      if (spotRef.current) {
+        spotRef.current.style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, -50%)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointerover", onOver, { passive: true });
+    const prevCursor = document.documentElement.style.cursor;
+    document.documentElement.style.cursor = "none";
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointerover", onOver);
+      document.documentElement.style.cursor = prevCursor;
+    };
+  }, []);
+  if (!enabled) return null;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "aria-hidden": true, className: "pointer-events-none fixed inset-0 z-[9999]", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        ref: spotRef,
+        className: "absolute h-[520px] w-[520px] rounded-full opacity-[0.18] blur-3xl",
+        style: {
+          background: "radial-gradient(circle, color-mix(in oklab, var(--electric) 70%, transparent) 0%, transparent 60%)",
+          willChange: "transform"
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        ref: ringRef,
+        className: "cc-ring absolute h-9 w-9 rounded-full border border-white/40 backdrop-blur-[2px] transition-[width,height,background-color,border-color,opacity] duration-200 ease-out",
+        style: { willChange: "transform", boxShadow: "0 0 24px rgba(120,160,255,0.35)" }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        ref: dotRef,
+        className: "absolute h-1.5 w-1.5 rounded-full bg-foreground",
+        style: { willChange: "transform", boxShadow: "0 0 12px rgba(255,255,255,0.6)" }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
+        .cc-ring.cc-hover {
+          width: 64px;
+          height: 64px;
+          background: color-mix(in oklab, var(--violet-glow) 18%, transparent);
+          border-color: color-mix(in oklab, var(--violet-glow) 70%, transparent);
+          box-shadow: 0 0 40px color-mix(in oklab, var(--violet-glow) 60%, transparent);
+        }
+        .cc-ring.cc-press {
+          transform-origin: center;
+          transform: translate3d(var(--x,0), var(--y,0), 0) translate(-50%,-50%) scale(0.78);
+        }
+      ` })
+  ] });
+}
 function PaperAirplane() {
   const isMobile = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
   const baseDuration = isMobile ? 24 : 18;
@@ -720,16 +830,16 @@ function HeroSection() {
     }
   );
 }
-const PortfolioSummarySection = reactExports.lazy(() => import("./PortfolioSummarySection-C10hpqBO.mjs").then((m2) => ({
+const PortfolioSummarySection = reactExports.lazy(() => import("./PortfolioSummarySection-Dnrp9nWb.mjs").then((m2) => ({
   default: m2.PortfolioSummarySection
 })));
-const PaymentShowcaseSection = reactExports.lazy(() => import("./PaymentShowcaseSection-B2lt04Gy.mjs").then((m2) => ({
+const PaymentShowcaseSection = reactExports.lazy(() => import("./PaymentShowcaseSection-DAUNKtXr.mjs").then((m2) => ({
   default: m2.PaymentShowcaseSection
 })));
-const ProjectsTimelineSection = reactExports.lazy(() => import("./ProjectsTimelineSection-BpYnJjgU.mjs").then((m2) => ({
+const ProjectsTimelineSection = reactExports.lazy(() => import("./ProjectsTimelineSection-BaMh4v_I.mjs").then((m2) => ({
   default: m2.ProjectsTimelineSection
 })));
-const ContactSection = reactExports.lazy(() => import("./ContactSection-DNjyT9jX.mjs").then((m2) => ({
+const ContactSection = reactExports.lazy(() => import("./ContactSection-DDk0zJQk.mjs").then((m2) => ({
   default: m2.ContactSection
 })));
 const FooterSection = reactExports.lazy(() => import("./FooterSection-Ce-HeJBD.mjs").then((m2) => ({
@@ -743,6 +853,7 @@ function SectionSkeleton() {
 }
 function Index() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(ThemeProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "min-h-screen bg-background text-foreground", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CinematicCursor, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(HeroSection, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(reactExports.Suspense, { fallback: /* @__PURE__ */ jsxRuntimeExports.jsx(SectionSkeleton, {}), children: /* @__PURE__ */ jsxRuntimeExports.jsx(PortfolioSummarySection, {}) }),

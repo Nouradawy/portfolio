@@ -1,7 +1,7 @@
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
 import { F as FaLinkedinIn, a as FaBehance, b as FaGithub } from "../_libs/react-icons.mjs";
 import { e as emailjs } from "../_libs/emailjs__browser.mjs";
-import { s as staggerContainer, f as fadeUp } from "./index-B2pXRVXk.mjs";
+import { s as staggerContainer, f as fadeUp } from "./index-C_kqASHK.mjs";
 import "../_libs/sonner.mjs";
 import { m } from "../_libs/framer-motion.mjs";
 import { q as Mail, r as Send } from "../_libs/lucide-react.mjs";

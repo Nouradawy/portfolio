@@ -1,7 +1,7 @@
 import { Q as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { Q as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
 import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent } from "../_libs/tanstack__react-router.mjs";
-import { j as jsxRuntimeExports, r as reactExports } from "../_libs/react.mjs";
+import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
 import { L as LazyMotion, d as domAnimation } from "../_libs/framer-motion.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";
@@ -18,7 +18,7 @@ import "stream";
 import "../_libs/isbot.mjs";
 import "../_libs/motion-dom.mjs";
 import "../_libs/motion-utils.mjs";
-const appCss = "/assets/styles-BT9tu0Hz.css";
+const appCss = "/assets/styles--PSoiVqo.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -51,14 +51,27 @@ function NotFoundComponent() {
   ] }) });
 }
 function ErrorComponent({ error, reset }) {
-  console.error(error);
   const router = useRouter();
   reactExports.useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-md text-center", children: [
+  let details = "";
+  try {
+    const e = error;
+    const name = String(e?.name ?? "Error");
+    const message = String(e?.message ?? "");
+    const stack = String(e?.stack ?? "").split("\n").slice(0, 8).join("\n");
+    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 6).join("\n");
+    details = `${name}: ${message}
+
+${stack}${comp ? "\n\n" + comp : ""}`;
+  } catch {
+    details = "Unknown error (could not stringify)";
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-xl text-center", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-semibold tracking-tight text-foreground", children: "This page didn't load" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-2 text-sm text-muted-foreground", children: "Something went wrong on our end. You can try refreshing or head back home." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "mt-4 text-left text-xs text-red-400 bg-neutral-900/50 rounded-lg p-3 overflow-auto max-h-72 whitespace-pre-wrap border border-red-500/20", children: details }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6 flex flex-wrap justify-center gap-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
@@ -137,12 +150,8 @@ const Route$1 = createRootRouteWithContext()({
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
-  pendingComponent: PendingRoot
+  errorComponent: ErrorComponent
 });
-function PendingRoot() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-10 w-10 animate-spin rounded-full border-4 border-electric border-t-transparent" }) });
-}
 function RootShell({ children }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("html", { lang: "en", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("head", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(HeadContent, {}) }),
@@ -156,7 +165,7 @@ function RootComponent() {
   const { queryClient } = Route$1.useRouteContext();
   return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsx(LazyMotion, { features: domAnimation, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }) });
 }
-const $$splitComponentImporter = () => import("./index-B2pXRVXk.mjs").then((n) => n.i);
+const $$splitComponentImporter = () => import("./index-C_kqASHK.mjs").then((n) => n.i);
 const Route = createFileRoute("/")({
   head: () => ({
     meta: [{

@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/features/portfolio/presentation/theme/ThemeProvider";
 import { Navbar } from "@/features/portfolio/presentation/components/Navbar";
+import { CinematicCursor } from "@/features/portfolio/presentation/components/CinematicCursor";
 import { HeroSection } from "@/features/portfolio/presentation/sections/HeroSection";
 
 // Eager load above-the-fold hero + navbar to ensure instant first paint
@@ -58,6 +59,7 @@ function Index() {
   return (
     <ThemeProvider>
       <main className="min-h-screen bg-background text-foreground">
+        <CinematicCursor />
         <Navbar />
         <HeroSection />
         <Suspense fallback={<SectionSkeleton />}>

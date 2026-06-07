@@ -36,21 +36,36 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
+  // Build a clean diagnostic string that won’t itself throw
+  let details = "";
+  try {
+    const e = error as any;
+    const name = String(e?.name ?? "Error");
+    const message = String(e?.message ?? "");
+    const stack = String(e?.stack ?? "").split("\n").slice(0, 8).join("\n");
+    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 6).join("\n");
+    details = `${name}: ${message}\n\n${stack}${comp ? "\n\n" + comp : ""}`;
+  } catch {
+    details = "Unknown error (could not stringify)";
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
+      <div className="max-w-xl text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
           This page didn't load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
+        <pre className="mt-4 text-left text-xs text-red-400 bg-neutral-900/50 rounded-lg p-3 overflow-auto max-h-72 whitespace-pre-wrap border border-red-500/20">
+          {details}
+        </pre>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -132,16 +147,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
-  pendingComponent: PendingRoot,
 });
-
-function PendingRoot() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-electric border-t-transparent" />
-    </div>
-  );
-}
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
