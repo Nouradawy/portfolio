@@ -4,10 +4,10 @@ import { Smartphone, Code2, Server, Atom, Layers, GitBranch, Plus } from "lucide
 import { staggerContainer, fadeUp } from "../animations/variants";
 import { skills } from "../../data/skills.data";
 
-const flutterLogo = "public/assets/icons/flutter.png";
-const dartLogo = "public/assets/icons/dart.png";
-const springLogo = "public/assets/icons/spring.png";
-const reactViteLogo = "public/assets/icons/vite.png";
+const flutterLogo = "/assets/icons/flutter.png";
+const dartLogo = "/assets/icons/dart.png";
+const springLogo = "/assets/icons/spring.png";
+const reactViteLogo = "/assets/icons/vite.png";
 
 const accentByCategory = {
   Mobile: {

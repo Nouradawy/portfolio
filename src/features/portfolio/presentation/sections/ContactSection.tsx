@@ -10,7 +10,7 @@ export function ContactSection() {
   const [buttonText, setButtonText] = useState("Send Message");
   const [isSuccess, setIsSuccess] = useState(false);
   const { sendContactMessage } = useContact();
-  const avatarAsset = "public/assets/Avatar.png";
+  const avatarAsset = "/assets/Avatar.png";
 
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
