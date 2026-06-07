@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "postbuild": "node --input-type=module -e \"import{existsSync,copyFileSync,unlinkSync}from'node:fs';const f='.vercel/output/functions/__server.func/_libs/tslib.mjs';if(existsSync(f)){unlinkSync(f);copyFileSync('node_modules/tslib/tslib.es6.mjs',f);console.log('Fixed: replaced empty tslib.mjs stub');}\"",
+    "postbuild": "node scripts/postbuild.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
