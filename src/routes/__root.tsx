@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -77,21 +76,49 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      {
+        httpEquiv: "Content-Security-Policy",
+        content:
+          "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; style-src * 'unsafe-inline'; connect-src * 'unsafe-inline' ws:; frame-src *; img-src * data: blob:; font-src * data:;",
+      },
+
+      // Primary SEO
+      { title: "Nouradawy | Full-Stack Engineer" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Nouradawy — Full-Stack Engineer building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+      },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
+      { name: "theme-color", content: "#0e0e0e" },
+
+      // Social sharing (Open Graph)
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: "Nouradawy" },
+      { property: "og:title", content: "Nouradawy | Full-Stack Engineer" },
+      {
+        property: "og:description",
+        content:
+          "Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+      },
+      { property: "og:url", content: "https://www.nouradawy.tech/" },
+      { property: "og:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
+
+      // Twitter tags
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Nouradawy | Full-Stack Engineer" },
+      {
+        name: "twitter:description",
+        content:
+          "Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+      },
+      { name: "twitter:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://www.nouradawy.tech/" },
+      { rel: "icon", type: "image/png", href: "/assets/projects/favicon-rounded.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -105,6 +132,21 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        {/* We place the Structured Data Script here safely alongside TanStack's HeadContent */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Nouradawy",
+              jobTitle: "Full-Stack Engineer",
+              url: "https://www.nouradawy.tech/",
+              image: "https://www.nouradawy.tech/assets/icons/og_image.png",
+              sameAs: [],
+            }),
+          }}
+        />
       </head>
       <body>
         {children}
@@ -119,7 +161,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );
