@@ -18,7 +18,10 @@ export function CinematicCursor() {
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!fine || reduced) return;
+    if (!fine || reduced) {
+      setEnabled(false);
+      return;
+    }
     setEnabled(true);
 
     // Target / current positions for easing

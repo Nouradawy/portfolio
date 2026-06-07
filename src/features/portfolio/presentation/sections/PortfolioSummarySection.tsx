@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Smartphone, Code2, Server, Atom, Layers, GitBranch, Plus } from "lucide-react";
 import { staggerContainer, fadeUp } from "../animations/variants";
 import { skills } from "../../data/skills.data";
@@ -94,7 +94,7 @@ export function PortfolioSummarySection() {
     <section id="summary" className="relative px-6 pt-32 pb-12">
       <div className="mx-auto max-w-6xl">
         {/* Heading — v2 direction: stacked, gradient block beneath */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -102,15 +102,15 @@ export function PortfolioSummarySection() {
           className="mb-16 max-w-3xl"
         >
 
-          <motion.h2
+          <m.h2
             variants={fadeUp}
             className="mt-6 font-display text-5xl uppercase leading-[0.9] tracking-tight md:text-7xl"
           >
             <span className="block text-foreground">Engineering the stack —</span>
             <span className="mt-2 block text-aurora">End to end.</span>
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             variants={fadeUp}
             className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg"
           >
@@ -119,11 +119,11 @@ export function PortfolioSummarySection() {
             all glued together with{" "}
             <span className="text-foreground">Clean Architecture</span> so each
             layer can evolve on its own. Tap any card to dive deeper.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
         {/* Puzzle bento — grouped per row so a detail panel can expand inline */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -143,7 +143,7 @@ export function PortfolioSummarySection() {
                     const accent = accentByCategory[skill.category];
                     const isOpen = openIndex === i;
                     return (
-                      <motion.button
+                      <m.button
                         type="button"
                         key={skill.name}
                         variants={fadeUp}
@@ -176,6 +176,7 @@ export function PortfolioSummarySection() {
                                   src={wm.src}
                                   alt=""
                                   loading="lazy"
+                                  decoding="async"
                                   width={144}
                                   height={144}
                                   className="h-full w-full object-contain"
@@ -221,7 +222,7 @@ export function PortfolioSummarySection() {
                             </p>
                           </div>
                         </div>
-                      </motion.button>
+                      </m.button>
                     );
                   })}
                 </div>
@@ -229,7 +230,7 @@ export function PortfolioSummarySection() {
                 {/* Inline detail panel — drops under the row it belongs to */}
                 <AnimatePresence initial={false}>
                   {activeSkill && activeAccent ? (
-                    <motion.div
+                    <m.div
                       id={`stack-detail-${rowIdx}`}
                       key={activeSkill.name}
                       initial={{ opacity: 0, height: 0, y: -8 }}
@@ -278,13 +279,13 @@ export function PortfolioSummarySection() {
                           ) : null}
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   ) : null}
                 </AnimatePresence>
               </div>
             );
           })}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

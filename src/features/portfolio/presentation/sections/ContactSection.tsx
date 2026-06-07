@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaBehance, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { Mail, Send } from "lucide-react";
 import { useContact } from "../../usecases/useContact";
@@ -56,7 +56,7 @@ export function ContactSection() {
         }}
       />
 
-      <motion.div
+      <m.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -64,7 +64,7 @@ export function ContactSection() {
         className="z-10 grid w-full max-w-7xl grid-cols-1 items-start gap-10 md:gap-40 lg:grid-cols-2"
       >
         <div className="flex flex-col space-y-8">
-          <motion.div variants={fadeUp} className="space-y-4">
+          <m.div variants={fadeUp} className="space-y-4">
             <div className="inline-flex w-fit items-center space-x-2 rounded-full border border-violet-glow/20 bg-violet-glow/10 px-3 py-1">
               <span className="h-2 w-2 animate-pulse rounded-full bg-violet-glow" />
               <span className="text-xs font-bold uppercase tracking-widest text-violet-glow">
@@ -82,9 +82,9 @@ export function ContactSection() {
               Have a project in mind or just want to say hi? I'm always open to discussing new
               creative ideas or bold visions.
             </p>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp} className="space-y-6">
+          <m.div variants={fadeUp} className="space-y-6">
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Connect Elsewhere
             </h3>
@@ -117,9 +117,9 @@ export function ContactSection() {
                 <FaGithub className="text-xl text-muted-foreground transition-colors group-hover:text-electric" />
               </a>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUp} className="flex items-center space-x-4 pt-4">
+          <m.div variants={fadeUp} className="flex items-center space-x-4 pt-4">
             <div
               className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-violet-glow/40"
               style={{ background: "var(--gradient-aurora)" }}
@@ -127,6 +127,8 @@ export function ContactSection() {
               <img
                 src={avatarAsset}
                 alt="Nouradawy avatar"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -134,10 +136,10 @@ export function ContactSection() {
               <p className="text-lg font-bold text-foreground">Nouradawy</p>
               <p className="text-sm text-muted-foreground">Full-Stack Software Engineer</p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           variants={fadeUp}
           className="glass-card relative overflow-hidden rounded-3xl p-8 shadow-2xl md:p-10"
         >
@@ -199,8 +201,8 @@ export function ContactSection() {
               <span className="font-medium text-violet-glow">Under 24 hours</span>
             </p>
           </form>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }

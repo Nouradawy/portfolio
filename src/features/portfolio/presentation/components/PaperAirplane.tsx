@@ -1,17 +1,26 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /**
  * Pure-SVG paper airplane that glides, dips, and sways across the hero
  * background. Sits behind the hero text. No external assets.
  */
 export function PaperAirplane() {
+  // Detect mobile to simplify animations and reduce GPU cost
+  const isMobile =
+    typeof window !== "undefined" &&
+    ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
+  // On mobile, slow the animation down and hide micro-planes to reduce paint cost
+  const baseDuration = isMobile ? 24 : 18;
+  const showParallax = !isMobile;
+
   return (
     <div
       aria-hidden
       className="pointer-events-none absolute inset-0 overflow-hidden"
     >
       {/* Soft chase glow that follows the plane */}
-      <motion.div
+      <m.div
         className="absolute h-72 w-72 rounded-full blur-3xl"
         style={{
           background:
@@ -23,14 +32,14 @@ export function PaperAirplane() {
           y: ["0%", "-6%", "4%", "-8%", "2%"],
         }}
         transition={{
-          duration: 18,
+          duration: baseDuration,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
       {/* The airplane itself */}
-      <motion.svg
+      <m.svg
         viewBox="0 0 120 80"
         className="absolute h-20 w-32 md:h-28 md:w-44"
         style={{ top: "28%", left: 0 }}
@@ -41,7 +50,7 @@ export function PaperAirplane() {
           rotate: [-4, 6, -3, 8, -2],
         }}
         transition={{
-          duration: 18,
+          duration: baseDuration,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -94,21 +103,25 @@ export function PaperAirplane() {
           strokeWidth="0.8"
           strokeOpacity="0.9"
         />
-      </motion.svg>
+      </m.svg>
 
       {/* Distant micro-planes for parallax depth */}
-      <motion.div
-        className="absolute h-1.5 w-1.5 rounded-full bg-white/40"
-        style={{ top: "18%" }}
-        animate={{ x: ["-5%", "110%"] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "linear", delay: 4 }}
-      />
-      <motion.div
-        className="absolute h-1 w-1 rounded-full bg-white/30"
-        style={{ top: "62%" }}
-        animate={{ x: ["-5%", "110%"] }}
-        transition={{ duration: 32, repeat: Infinity, ease: "linear", delay: 10 }}
-      />
+      {showParallax && (
+        <>
+          <m.div
+            className="absolute h-1.5 w-1.5 rounded-full bg-white/40"
+            style={{ top: "18%" }}
+            animate={{ x: ["-5%", "110%"] }}
+            transition={{ duration: 26, repeat: Infinity, ease: "linear", delay: 4 }}
+          />
+          <m.div
+            className="absolute h-1 w-1 rounded-full bg-white/30"
+            style={{ top: "62%" }}
+            animate={{ x: ["-5%", "110%"] }}
+            transition={{ duration: 32, repeat: Infinity, ease: "linear", delay: 10 }}
+          />
+        </>
+      )}
     </div>
   );
 }

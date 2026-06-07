@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 function NotFoundComponent() {
   return (
@@ -131,7 +132,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
+  pendingComponent: PendingRoot,
 });
+
+function PendingRoot() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-electric border-t-transparent" />
+    </div>
+  );
+}
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
@@ -152,8 +162,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LazyMotion features={domAnimation}>
+        <Outlet />
+      </LazyMotion>
     </QueryClientProvider>
   );
 }

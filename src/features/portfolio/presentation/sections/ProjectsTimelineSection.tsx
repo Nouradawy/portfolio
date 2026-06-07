@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { TimelineItem } from "../components/TimelineItem";
 import { staggerContainer } from "../animations/variants";
@@ -90,7 +90,7 @@ export function ProjectsTimelineSection() {
             aria-hidden
             className="absolute left-3 top-0 hidden h-full w-px bg-gradient-to-b from-magenta/40 via-violet-glow/30 to-transparent md:block md:left-5"
           />
-          <motion.ul
+          <m.ul
             key={`${filter}-${activeYear ?? "all"}`}
             variants={staggerContainer}
             initial="hidden"
@@ -100,7 +100,7 @@ export function ProjectsTimelineSection() {
             {visible.map((project) => (
               <TimelineItem key={project.id} project={project} />
             ))}
-          </motion.ul>
+          </m.ul>
         </div>
       </div>
     </section>

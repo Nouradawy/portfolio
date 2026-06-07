@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Signature } from "./Signature";
@@ -121,13 +121,18 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4"
     >
-      <motion.nav
+      <m.nav
+        initial={{
+          maxWidth: 960,
+          paddingTop: 10,
+          paddingBottom: 10,
+        }}
         animate={{
           maxWidth: scrolled ? 720 : 960,
           paddingTop: scrolled ? 6 : 10,
@@ -161,7 +166,7 @@ export function Navbar() {
                   {l.label}
                 </a>
                 {isActive && (
-                  <motion.span
+                  <m.span
                     layoutId="nav-active-pill"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     className="absolute inset-0 rounded-full"
@@ -196,7 +201,7 @@ export function Navbar() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {open ? (
-                <motion.span
+                <m.span
                   key="close"
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
@@ -205,9 +210,9 @@ export function Navbar() {
                   className="block"
                 >
                   <X className="h-4 w-4" />
-                </motion.span>
+                </m.span>
               ) : (
-                <motion.span
+                <m.span
                   key="open"
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
@@ -216,19 +221,19 @@ export function Navbar() {
                   className="block"
                 >
                   <Menu className="h-4 w-4" />
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
           </button>
         </div>
-      </motion.nav>
+      </m.nav>
 
       {/* ─── Mobile menu ─── */}
       <AnimatePresence>
         {open && (
           <>
             {/* Backdrop */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -239,7 +244,7 @@ export function Navbar() {
             />
 
             {/* Panel */}
-            <motion.div
+            <m.div
               ref={menuRef}
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -252,7 +257,7 @@ export function Navbar() {
             >
               <ul className="flex flex-col gap-1">
                 {links.map((l, i) => (
-                  <motion.li
+                  <m.li
                     key={l.href}
                     initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -274,14 +279,14 @@ export function Navbar() {
                     >
                       {l.label}
                     </a>
-                  </motion.li>
+                  </m.li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           </>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 }
 

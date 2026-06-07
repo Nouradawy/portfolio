@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, Github, Smartphone, Globe, ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Project } from "../../domain/entities/Project";
@@ -38,7 +38,7 @@ export function TimelineItem({ project }: Props) {
   const restPoints = project.descriptionPoints.slice(1);
 
   return (
-    <motion.li
+    <m.li
       variants={fadeUp}
       className="relative"
       onHoverStart={() => setHovered(true)}
@@ -50,7 +50,7 @@ export function TimelineItem({ project }: Props) {
         <span className="relative h-2 w-2 rounded-full bg-electric shadow-glow-electric" />
       </span>
 
-      <motion.article
+      <m.article
         layout
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         className="glass-card group overflow-hidden rounded-2xl transition-colors hover:border-magenta/40 md:ml-12 lg:ml-16"
@@ -59,7 +59,7 @@ export function TimelineItem({ project }: Props) {
         {hasImages && (
           <AnimatePresence initial={false}>
             {showGallery && (
-              <motion.div
+              <m.div
                 key="gallery"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: isMobile ? 380 : 200, opacity: 1 }}
@@ -84,7 +84,7 @@ export function TimelineItem({ project }: Props) {
                     const isVideo = typeof media !== "string";
                     if (isVideo) {
                       return (
-                        <motion.iframe
+                        <m.iframe
                           key={imgIndex}
                           src={media.url}
                           title={`${project.title} video`}
@@ -99,7 +99,7 @@ export function TimelineItem({ project }: Props) {
                       );
                     }
                     return (
-                      <motion.img
+                      <m.img
                         key={imgIndex}
                         src={media}
                         alt={`${project.title} preview ${imgIndex + 1}`}
@@ -128,6 +128,7 @@ export function TimelineItem({ project }: Props) {
                         }}
                         className={`absolute inset-0 h-full w-full cursor-zoom-in touch-pan-y ${isMobile ? "object-contain" : "object-cover"}`}
                         loading="lazy"
+                        decoding="async"
                       />
                     );
                   })()}
@@ -156,7 +157,7 @@ export function TimelineItem({ project }: Props) {
                     ))}
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         )}
@@ -202,12 +203,12 @@ export function TimelineItem({ project }: Props) {
               aria-expanded={open}
             >
               {open ? "Show less" : "Show more"}
-              <motion.span
+              <m.span
                 animate={{ rotate: open ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
               >
                 <ChevronDown className="h-4 w-4" />
-              </motion.span>
+              </m.span>
             </button>
             {hasImages && !showGallery ? (
               <span className="hidden md:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -230,7 +231,7 @@ export function TimelineItem({ project }: Props) {
 
           <AnimatePresence initial={false}>
             {open && (
-              <motion.div
+              <m.div
                 key="details"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
@@ -265,11 +266,11 @@ export function TimelineItem({ project }: Props) {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
-      </motion.article>
+      </m.article>
 
       <Dialog open={lightboxIndex !== null} onOpenChange={(o) => !o && setLightboxIndex(null)}>
         <DialogContent
@@ -293,6 +294,7 @@ export function TimelineItem({ project }: Props) {
               <img
                 src={media}
                 alt={`${project.title} full preview ${lightboxIndex + 1}`}
+                decoding="async"
                 className="max-h-full max-w-full object-contain"
               />
               )}
@@ -336,7 +338,7 @@ export function TimelineItem({ project }: Props) {
           })()}
         </DialogContent>
       </Dialog>
-    </motion.li>
+    </m.li>
   );
 }
 

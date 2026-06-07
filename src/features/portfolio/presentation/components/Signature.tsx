@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /**
  * Stylized "Noureldin" signature that draws itself in via SVG stroke-dash.
@@ -11,7 +11,7 @@ export function Signature({ className }: { className?: string }) {
       fill="none"
       aria-label="Noureldin signature"
     >
-      <motion.path
+      <m.path
         d="M 10 55 Q 25 10, 40 55 T 70 55 Q 85 20, 100 50 Q 115 70, 130 40 Q 145 15, 160 55 Q 175 65, 190 35 Q 205 10, 220 50 T 260 50 Q 275 60, 290 30"
         stroke="url(#sigGrad)"
         strokeWidth="2.5"

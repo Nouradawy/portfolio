@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Copy, CreditCard, Eye, EyeOff, Wallet, ChevronDown, GitBranch, Layers, Lightbulb, Sparkles, ShieldCheck, Zap, Smartphone, Zap as ZapIcon, CheckCircle2, Circle } from "lucide-react";
 import { toast } from "sonner";
 import { loadStripe } from "@stripe/stripe-js";
@@ -120,21 +120,21 @@ function PaymentShowcaseInner() {
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* LEFT: Web Integration */}
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             className="space-y-8"
           >
-            <motion.div variants={fadeUp} className="flex items-center gap-3">
+            <m.div variants={fadeUp} className="flex items-center gap-3">
               <CreditCard className="h-4 w-4 text-magenta" />
               <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
                 Web Integration
               </span>
-            </motion.div>
+            </m.div>
 
-            <motion.div variants={fadeUp} className="glass-card rounded-2xl p-8 shadow-2xl">
+            <m.div variants={fadeUp} className="glass-card rounded-2xl p-8 shadow-2xl">
               <div className="mb-6 flex items-start justify-between">
                 <h3 className="font-display text-3xl tracking-wide">Make a Donation</h3>
                 <button
@@ -153,7 +153,7 @@ function PaymentShowcaseInner() {
 
               <AnimatePresence>
                 {showTestCredentials && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
@@ -204,7 +204,7 @@ function PaymentShowcaseInner() {
                         ))}
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
 
@@ -344,11 +344,11 @@ function PaymentShowcaseInner() {
                 </p>
               </form>
 
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* RIGHT: Phone mockup */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -365,7 +365,7 @@ function PaymentShowcaseInner() {
             <div className="flex items-center justify-center">
               <PhoneMockup flutterAppUrl="https://nouradawy.github.io/payment-Gateway/" />
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Architectural breakdown — full-width article */}
@@ -384,7 +384,7 @@ function PaymentShowcaseInner() {
 
         <AnimatePresence>
           {showBreakdown && (
-            <motion.article
+            <m.article
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -547,7 +547,7 @@ class ProcessPayment {
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </m.article>
           )}
         </AnimatePresence>
       </div>

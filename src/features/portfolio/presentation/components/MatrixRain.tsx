@@ -16,7 +16,11 @@ export function MatrixRain() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Detect mobile/touch device for lighter rendering
+    const isMobile = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    // Cap DPR on mobile to reduce GPU load
+    const dprCapped = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = dprCapped;
     let width = 0;
     let height = 0;
     let columns = 0;
@@ -46,7 +50,7 @@ export function MatrixRain() {
 
     let raf = 0;
     let last = 0;
-    const fpsInterval = 1000 / 30; // 30fps is plenty
+    const fpsInterval = isMobile ? 1000 / 20 : 1000 / 30; // 20fps on mobile, 30 on desktop
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);

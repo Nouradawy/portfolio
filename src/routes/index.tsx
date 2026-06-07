@@ -1,14 +1,38 @@
+import { Suspense, lazy } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/features/portfolio/presentation/theme/ThemeProvider";
 import { Navbar } from "@/features/portfolio/presentation/components/Navbar";
 import { HeroSection } from "@/features/portfolio/presentation/sections/HeroSection";
-import { PortfolioSummarySection } from "@/features/portfolio/presentation/sections/PortfolioSummarySection";
-import { PaymentShowcaseSection } from "@/features/portfolio/presentation/sections/PaymentShowcaseSection";
-import { ProjectsTimelineSection } from "@/features/portfolio/presentation/sections/ProjectsTimelineSection";
-import { ContactSection } from "@/features/portfolio/presentation/sections/ContactSection";
-import { FooterSection } from "@/features/portfolio/presentation/sections/FooterSection";
-import { CinematicCursor } from "@/features/portfolio/presentation/components/CinematicCursor";
+
+// Eager load above-the-fold hero + navbar to ensure instant first paint
+const PortfolioSummarySection = lazy(() =>
+  import("@/features/portfolio/presentation/sections/PortfolioSummarySection").then(m => ({ default: m.PortfolioSummarySection }))
+);
+const PaymentShowcaseSection = lazy(() =>
+  import("@/features/portfolio/presentation/sections/PaymentShowcaseSection").then(m => ({ default: m.PaymentShowcaseSection }))
+);
+const ProjectsTimelineSection = lazy(() =>
+  import("@/features/portfolio/presentation/sections/ProjectsTimelineSection").then(m => ({ default: m.ProjectsTimelineSection }))
+);
+const ContactSection = lazy(() =>
+  import("@/features/portfolio/presentation/sections/ContactSection").then(m => ({ default: m.ContactSection }))
+);
+const FooterSection = lazy(() =>
+  import("@/features/portfolio/presentation/sections/FooterSection").then(m => ({ default: m.FooterSection }))
+);
+
+/** Simple full-viewport skeleton to prevent layout shift while sections load */
+function SectionSkeleton() {
+  return (
+    <div className="relative px-6 pt-12 pb-12" aria-hidden="true">
+      <div className="mx-auto max-w-7xl animate-pulse space-y-8">
+        <div className="h-8 w-1/3 rounded bg-white/5" />
+        <div className="h-64 w-full rounded-2xl bg-white/5" />
+      </div>
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,15 +57,24 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <ThemeProvider>
-      <CinematicCursor />
       <main className="min-h-screen bg-background text-foreground">
         <Navbar />
         <HeroSection />
-        <PortfolioSummarySection />
-        <PaymentShowcaseSection />
-        <ProjectsTimelineSection />
-        <ContactSection />
-        <FooterSection />
+        <Suspense fallback={<SectionSkeleton />}>
+          <PortfolioSummarySection />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <PaymentShowcaseSection />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <ProjectsTimelineSection />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <ContactSection />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <FooterSection />
+        </Suspense>
         <Toaster />
       </main>
     </ThemeProvider>

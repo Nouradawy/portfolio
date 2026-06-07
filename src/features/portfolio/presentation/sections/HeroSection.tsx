@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowDown, Download, MessageCircle } from "lucide-react";
 import { PaperAirplane } from "../components/PaperAirplane";
 import { Signature } from "../components/Signature";
@@ -40,23 +40,23 @@ export function HeroSection() {
       />
 
 
-      <motion.div
+      <m.div
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
         className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center"
       >
-        <motion.span
+        <m.span
           variants={fadeUp}
           className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-electric shadow-glow-electric" />
           Full-Stack Software Engineer
-        </motion.span>
+        </m.span>
 
 
 
-        <motion.h1
+        <m.h1
           variants={fadeUp}
           className="font-display text-6xl leading-[0.95] tracking-tight md:text-8xl lg:text-9xl"
         >
@@ -65,9 +65,9 @@ export function HeroSection() {
             ↓ to ↓
           </span>
           <span className="block text-aurora">To paper plane</span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           variants={fadeUp}
           className="mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg"
         >
@@ -77,9 +77,9 @@ export function HeroSection() {
           <span className="text-violet-glow">Spring Boot</span>, and{" "}
           <span className="text-magenta">React</span>, with Clean Architecture
           from mobile to web.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           variants={fadeUp}
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
@@ -107,21 +107,21 @@ export function HeroSection() {
             <MessageCircle className="h-4 w-4" />
             Let's Talk
           </a>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={fadeUp} className="mt-16">
+        <m.div variants={fadeUp} className="mt-16">
           <Signature className="h-16 w-56 opacity-90" />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       {/* Scroll cue */}
-      <motion.div
+      <m.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
       >
         <ArrowDown className="h-5 w-5" />
-      </motion.div>
+      </m.div>
     </section>
   );
 }
