@@ -77,12 +77,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      {
-        httpEquiv: "Content-Security-Policy",
-        content:
-          "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' blob:; style-src * 'unsafe-inline'; connect-src * 'unsafe-inline' ws:; frame-src *; img-src * data: blob:; font-src * data:;",
-      },
-
       // Primary SEO
       { title: "Nouradawy | Full-Stack Engineer" },
       {
@@ -92,8 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "robots", content: "index,follow,max-image-preview:large" },
       { name: "theme-color", content: "#0e0e0e" },
-
-      // Social sharing (Open Graph)
+      // OpenGraph / Facebook
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Nouradawy" },
       { property: "og:title", content: "Nouradawy | Full-Stack Engineer" },
@@ -104,8 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:url", content: "https://www.nouradawy.tech/" },
       { property: "og:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
-
-      // Twitter tags
+      // Twitter
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Nouradawy | Full-Stack Engineer" },
       {
@@ -116,9 +108,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "canonical", href: "https://www.nouradawy.tech/" },
       { rel: "icon", type: "image/png", href: "public/assets/favicon-rounded.png" },
+      { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Nouradawy",
+          jobTitle: "Full-Stack Engineer",
+          url: "https://www.nouradawy.tech/",
+          image: "https://nouradawy.tech/assets/icons/og_image.png",
+          sameAs: [],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -132,21 +138,6 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* We place the Structured Data Script here safely alongside TanStack's HeadContent */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Nouradawy",
-              jobTitle: "Full-Stack Engineer",
-              url: "https://www.nouradawy.tech/",
-              image: "https://www.nouradawy.tech/assets/icons/og_image.png",
-              sameAs: [],
-            }),
-          }}
-        />
       </head>
       <body>
         {children}
@@ -161,6 +152,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );
