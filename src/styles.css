@@ -1,0 +1,242 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-display: "Bebas Neue", sans-serif;
+  --font-sans: "Inter", sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-electric: var(--electric);
+  --color-violet-glow: var(--violet-glow);
+  --color-magenta: var(--magenta);
+
+  --shadow-glow-electric: var(--glow-electric);
+  --shadow-glow-violet: var(--glow-violet);
+  --shadow-glow-magenta: var(--glow-magenta);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* LIGHT THEME — soft cinematic light */
+  --background: oklch(0.985 0.005 250);
+  --foreground: oklch(0.18 0.03 265);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.03 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.03 265);
+
+  --primary: oklch(0.55 0.22 265);
+  --primary-foreground: oklch(0.99 0.005 250);
+
+  --secondary: oklch(0.94 0.01 265);
+  --secondary-foreground: oklch(0.2 0.03 265);
+
+  --muted: oklch(0.94 0.01 265);
+  --muted-foreground: oklch(0.45 0.02 265);
+
+  --accent: oklch(0.55 0.25 295);
+  --accent-foreground: oklch(0.99 0.005 250);
+
+  --destructive: oklch(0.6 0.24 25);
+  --destructive-foreground: oklch(0.99 0.005 250);
+
+  --border: oklch(0.18 0.03 265 / 12%);
+  --input: oklch(0.18 0.03 265 / 14%);
+  --ring: oklch(0.55 0.22 265);
+
+  /* Brand accent palette — tuned for light bg */
+  --electric: oklch(0.58 0.22 265);
+  --violet-glow: oklch(0.55 0.27 295);
+  --magenta: oklch(0.6 0.31 340);
+
+  --glow-electric: 0 0 80px color-mix(in oklab, var(--electric) 30%, transparent);
+  --glow-violet: 0 0 80px color-mix(in oklab, var(--violet-glow) 30%, transparent);
+  --glow-magenta: 0 0 80px color-mix(in oklab, var(--magenta) 25%, transparent);
+
+  --gradient-aurora: linear-gradient(
+    135deg,
+    var(--electric) 0%,
+    var(--violet-glow) 50%,
+    var(--magenta) 100%
+  );
+
+  /* Surface mixers used by glass utilities */
+  --surface-tint: oklch(0.18 0.03 265);
+  --surface-tint-strong: oklch(0.18 0.03 265);
+
+  /* Body backdrop ellipses */
+  --bg-glow-1: color-mix(in oklab, var(--electric) 10%, transparent);
+  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 8%, transparent);
+}
+
+.dark {
+  /* DARK THEME — cinematic slate-950 base */
+  --background: oklch(0.13 0.03 265);
+  --foreground: oklch(0.98 0.005 250);
+
+  --card: oklch(0.17 0.035 265);
+  --card-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.15 0.035 265);
+  --popover-foreground: oklch(0.98 0.005 250);
+
+  --primary: oklch(0.72 0.21 255);
+  --primary-foreground: oklch(0.12 0.03 265);
+
+  --secondary: oklch(0.22 0.04 265);
+  --secondary-foreground: oklch(0.98 0.005 250);
+
+  --muted: oklch(0.22 0.03 265);
+  --muted-foreground: oklch(0.7 0.02 255);
+
+  --accent: oklch(0.62 0.27 295);
+  --accent-foreground: oklch(0.98 0.005 250);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.72 0.21 255);
+
+  --electric: oklch(0.72 0.21 255);
+  --violet-glow: oklch(0.62 0.27 295);
+  --magenta: oklch(0.68 0.31 340);
+
+  --glow-electric: 0 0 80px color-mix(in oklab, var(--electric) 45%, transparent);
+  --glow-violet: 0 0 80px color-mix(in oklab, var(--violet-glow) 45%, transparent);
+  --glow-magenta: 0 0 80px color-mix(in oklab, var(--magenta) 40%, transparent);
+
+  --surface-tint: white;
+  --surface-tint-strong: white;
+
+  --bg-glow-1: color-mix(in oklab, var(--electric) 18%, transparent);
+  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 14%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, var(--bg-glow-1), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 100%, var(--bg-glow-2), transparent);
+    background-attachment: fixed;
+  }
+}
+
+@utility text-aurora {
+  background: var(--gradient-aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@utility glass-card {
+  background: color-mix(in oklab, var(--surface-tint) 5%, transparent);
+  backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in oklab, var(--surface-tint) 10%, transparent);
+}
+
+@utility surface-input {
+  background: color-mix(in oklab, var(--surface-tint) 6%, transparent);
+  border: 1px solid color-mix(in oklab, var(--surface-tint) 14%, transparent);
+}
+
+@utility surface-soft {
+  background: color-mix(in oklab, var(--surface-tint) 4%, transparent);
+  border: 1px solid color-mix(in oklab, var(--surface-tint) 10%, transparent);
+}
+
+@utility surface-code {
+  background: oklch(0.13 0.03 265);
+  color: oklch(0.96 0.005 250);
+  border: 1px solid oklch(0.22 0.03 265);
+}
+@utility text-aurora-flow {
+  background: linear-gradient(115deg, var(--electric), var(--violet-glow), var(--magenta), var(--violet-glow), var(--electric));
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: aurora-flow 14s ease-in-out infinite;
+}
+
+@keyframes aurora-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+@utility glow-ring-electric {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--electric) 40%, transparent),
+    var(--glow-electric);
+}
+
+/* Signature stroke-draw */
+@keyframes signature-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Airplane trail */
+@keyframes trail-dash {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+/* Slow glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
