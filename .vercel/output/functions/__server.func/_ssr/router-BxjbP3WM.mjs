@@ -2,6 +2,7 @@ import { Q as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { Q as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
 import { c as createRouter, a as createRootRouteWithContext, u as useRouter, L as Link, O as Outlet, H as HeadContent, S as Scripts, b as createFileRoute, l as lazyRouteComponent } from "../_libs/tanstack__react-router.mjs";
 import { r as reactExports, j as jsxRuntimeExports } from "../_libs/react.mjs";
+import { A as Analytics } from "../_libs/vercel__analytics.mjs";
 import { L as LazyMotion, d as domAnimation } from "../_libs/framer-motion.mjs";
 import "../_libs/tanstack__router-core.mjs";
 import "../_libs/tanstack__history.mjs";
@@ -166,7 +167,10 @@ function RootShell({ children }) {
 }
 function RootComponent() {
   const { queryClient } = Route$1.useRouteContext();
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsx(LazyMotion, { features: domAnimation, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(QueryClientProvider, { client: queryClient, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(LazyMotion, { features: domAnimation, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Analytics, {})
+  ] });
 }
 const $$splitComponentImporter = () => import("./index-C_kqASHK.mjs").then((n) => n.i);
 const Route = createFileRoute("/")({
