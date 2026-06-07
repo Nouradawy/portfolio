@@ -36,6 +36,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  console.error("RootErrorBoundary caught:", error);
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
@@ -47,12 +48,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     const e = error as any;
     const name = String(e?.name ?? "Error");
     const message = String(e?.message ?? "");
-    const stack = String(e?.stack ?? "").split("\n").slice(0, 8).join("\n");
-    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 6).join("\n");
-    details = `${name}: ${message}\n\n${stack}${comp ? "\n\n" + comp : ""}`;
+    const stack = String(e?.stack ?? "").split("\n").slice(0, 12).join("\n");
+    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 8).join("\n");
+    details = `${name}: ${message}\n\n${stack}${comp ? "\n\nComponent Stack:\n" + comp : ""}`;
   } catch {
     details = "Unknown error (could not stringify)";
   }
+
+  const saneMessage = typeof error?.message === "string" ? error.message
+    : typeof error?.toString === "function" ? error.toString()
+    : "Unknown error type";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -63,7 +68,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
-        <pre className="mt-4 text-left text-xs text-red-400 bg-neutral-900/50 rounded-lg p-3 overflow-auto max-h-72 whitespace-pre-wrap border border-red-500/20">
+        <p className="mt-4 text-sm font-bold text-red-400 bg-red-950/60 rounded-lg px-3 py-2">
+          {saneMessage}
+        </p>
+        <pre className="mt-2 text-left text-xs text-red-300 bg-yellow-950/80 rounded-lg p-3 overflow-auto max-h-80 whitespace-pre-wrap border border-red-500/30">
           {details}
         </pre>
         <div className="mt-6 flex flex-wrap justify-center gap-2">

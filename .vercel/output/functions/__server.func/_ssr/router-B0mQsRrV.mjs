@@ -18,7 +18,7 @@ import "stream";
 import "../_libs/isbot.mjs";
 import "../_libs/motion-dom.mjs";
 import "../_libs/motion-utils.mjs";
-const appCss = "/assets/styles--PSoiVqo.css";
+const appCss = "/assets/styles-BinBJPmq.css";
 function reportLovableError(error, context = {}) {
   if (typeof window === "undefined") return;
   window.__lovableEvents?.captureException?.(
@@ -51,6 +51,7 @@ function NotFoundComponent() {
   ] }) });
 }
 function ErrorComponent({ error, reset }) {
+  console.error("RootErrorBoundary caught:", error);
   const router = useRouter();
   reactExports.useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
@@ -60,18 +61,20 @@ function ErrorComponent({ error, reset }) {
     const e = error;
     const name = String(e?.name ?? "Error");
     const message = String(e?.message ?? "");
-    const stack = String(e?.stack ?? "").split("\n").slice(0, 8).join("\n");
-    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 6).join("\n");
+    const stack = String(e?.stack ?? "").split("\n").slice(0, 12).join("\n");
+    const comp = String(e?.componentStack ?? "").split("\n").slice(0, 8).join("\n");
     details = `${name}: ${message}
 
-${stack}${comp ? "\n\n" + comp : ""}`;
+${stack}${comp ? "\n\nComponent Stack:\n" + comp : ""}`;
   } catch {
     details = "Unknown error (could not stringify)";
   }
+  const saneMessage = typeof error?.message === "string" ? error.message : typeof error?.toString === "function" ? error.toString() : "Unknown error type";
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex min-h-screen items-center justify-center bg-background px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-xl text-center", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-semibold tracking-tight text-foreground", children: "This page didn't load" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-2 text-sm text-muted-foreground", children: "Something went wrong on our end. You can try refreshing or head back home." }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "mt-4 text-left text-xs text-red-400 bg-neutral-900/50 rounded-lg p-3 overflow-auto max-h-72 whitespace-pre-wrap border border-red-500/20", children: details }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mt-4 text-sm font-bold text-red-400 bg-red-950/60 rounded-lg px-3 py-2", children: saneMessage }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("pre", { className: "mt-2 text-left text-xs text-red-300 bg-yellow-950/80 rounded-lg p-3 overflow-auto max-h-80 whitespace-pre-wrap border border-red-500/30", children: details }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6 flex flex-wrap justify-center gap-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
