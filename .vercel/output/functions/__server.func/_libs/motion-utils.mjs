@@ -153,6 +153,9 @@ export {
   isZeroValueString as o,
   pipe as p,
   isObject as q,
+  circOut as r,
   secondsToMilliseconds as s,
+  addUniqueItem as t,
+  removeItem as u,
   velocityPerSecond as v
 };

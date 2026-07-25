@@ -1,4 +1,4 @@
-import { M as MotionGlobalConfig, n as noop, c as clamp, p as pipe, m as millisecondsToSeconds, s as secondsToMilliseconds, v as velocityPerSecond, i as invariant, a as progress, b as isEasingArray, e as easingDefinitionToFunction, d as easeInOut, f as memo, g as isBezierDefinition, h as circInOut, j as backInOut, k as anticipate, S as SubscriptionManager, l as isNumericalString, o as isZeroValueString, q as isObject } from "./motion-utils.mjs";
+import { M as MotionGlobalConfig, n as noop, c as clamp, p as pipe, m as millisecondsToSeconds, s as secondsToMilliseconds, v as velocityPerSecond, i as invariant, a as progress, b as isEasingArray, e as easingDefinitionToFunction, d as easeInOut, f as memo, g as isBezierDefinition, h as circInOut, j as backInOut, k as anticipate, S as SubscriptionManager, l as isNumericalString, o as isZeroValueString, q as isObject, r as circOut, t as addUniqueItem, u as removeItem } from "./motion-utils.mjs";
 const stepsOrder = [
   "setup",
   // Compute
@@ -139,7 +139,7 @@ function createRenderBatcher(scheduleNextBatch, allowKeepAlive) {
   };
   return { schedule, cancel, state, steps };
 }
-const { schedule: frame, cancel: cancelFrame, state: frameData } = /* @__PURE__ */ createRenderBatcher(typeof requestAnimationFrame !== "undefined" ? requestAnimationFrame : noop, true);
+const { schedule: frame, cancel: cancelFrame, state: frameData, steps: frameSteps } = /* @__PURE__ */ createRenderBatcher(typeof requestAnimationFrame !== "undefined" ? requestAnimationFrame : noop, true);
 let now;
 function clearTime() {
   now = void 0;
@@ -1071,7 +1071,7 @@ class JSAnimation extends WithPromise {
     const { generator, totalDuration, mixKeyframes, mirroredGenerator, resolvedDuration, calculatedDuration } = this;
     if (this.startTime === null)
       return generator.next(0);
-    const { delay = 0, keyframes: keyframes2, repeat, repeatType, repeatDelay, type, onUpdate, finalKeyframe } = this.options;
+    const { delay: delay2 = 0, keyframes: keyframes2, repeat, repeatType, repeatDelay, type, onUpdate, finalKeyframe } = this.options;
     if (this.speed > 0) {
       this.startTime = Math.min(this.startTime, timestamp);
     } else if (this.speed < 0) {
@@ -1082,7 +1082,7 @@ class JSAnimation extends WithPromise {
     } else {
       this.updateTime(timestamp);
     }
-    const timeWithoutDelay = this.currentTime - delay * (this.playbackSpeed >= 0 ? 1 : -1);
+    const timeWithoutDelay = this.currentTime - delay2 * (this.playbackSpeed >= 0 ? 1 : -1);
     const isInDelayPhase = this.playbackSpeed >= 0 ? timeWithoutDelay < 0 : timeWithoutDelay > totalDuration;
     this.currentTime = Math.max(timeWithoutDelay, 0);
     if (this.state === "finished" && this.holdTime === null) {
@@ -1150,8 +1150,8 @@ class JSAnimation extends WithPromise {
     return millisecondsToSeconds(this.calculatedDuration);
   }
   get iterationDuration() {
-    const { delay = 0 } = this.options || {};
-    return this.duration + millisecondsToSeconds(delay);
+    const { delay: delay2 = 0 } = this.options || {};
+    return this.duration + millisecondsToSeconds(delay2);
   }
   get time() {
     return millisecondsToSeconds(this.currentTime);
@@ -1579,7 +1579,7 @@ function mapEasingToNativeEasing(easing, duration) {
     return supportedWaapiEasing[easing];
   }
 }
-function startWaapiAnimation(element, valueName, keyframes2, { delay = 0, duration = 300, repeat = 0, repeatType = "loop", ease: ease2 = "easeOut", times } = {}, pseudoElement = void 0) {
+function startWaapiAnimation(element, valueName, keyframes2, { delay: delay2 = 0, duration = 300, repeat = 0, repeatType = "loop", ease: ease2 = "easeOut", times } = {}, pseudoElement = void 0) {
   const keyframeOptions = {
     [valueName]: keyframes2
   };
@@ -1589,7 +1589,7 @@ function startWaapiAnimation(element, valueName, keyframes2, { delay = 0, durati
   if (Array.isArray(easing))
     keyframeOptions.easing = easing;
   const options = {
-    delay,
+    delay: delay2,
     duration,
     easing: !Array.isArray(easing) ? easing : "linear",
     fill: "both",
@@ -1705,8 +1705,8 @@ class NativeAnimation extends WithPromise {
     return millisecondsToSeconds(Number(duration));
   }
   get iterationDuration() {
-    const { delay = 0 } = this.options || {};
-    return this.duration + millisecondsToSeconds(delay);
+    const { delay: delay2 = 0 } = this.options || {};
+    return this.duration + millisecondsToSeconds(delay2);
   }
   get time() {
     return millisecondsToSeconds(Number(this.animation.currentTime) || 0);
@@ -1905,7 +1905,7 @@ function supportsBrowserAnimation(options) {
 }
 const MAX_RESOLVE_DELAY = 40;
 class AsyncMotionValueAnimation extends WithPromise {
-  constructor({ autoplay = true, delay = 0, type = "keyframes", repeat = 0, repeatDelay = 0, repeatType = "loop", keyframes: keyframes2, name, motionValue: motionValue2, element, ...options }) {
+  constructor({ autoplay = true, delay: delay2 = 0, type = "keyframes", repeat = 0, repeatDelay = 0, repeatType = "loop", keyframes: keyframes2, name, motionValue: motionValue2, element, ...options }) {
     super();
     this.stop = () => {
       if (this._animation) {
@@ -1917,7 +1917,7 @@ class AsyncMotionValueAnimation extends WithPromise {
     this.createdAt = time.now();
     const optionsWithDefaults = {
       autoplay,
-      delay,
+      delay: delay2,
       type,
       repeat,
       repeatDelay,
@@ -1933,12 +1933,12 @@ class AsyncMotionValueAnimation extends WithPromise {
   }
   onKeyframesResolved(keyframes2, finalKeyframe, options, sync) {
     this.keyframeResolver = void 0;
-    const { name, type, velocity, delay, isHandoff, onUpdate } = options;
+    const { name, type, velocity, delay: delay2, isHandoff, onUpdate } = options;
     this.resolvedAt = time.now();
     let canAnimateValue = true;
     if (!canAnimate(keyframes2, name, type, velocity)) {
       canAnimateValue = false;
-      if (MotionGlobalConfig.instantAnimations || !delay) {
+      if (MotionGlobalConfig.instantAnimations || !delay2) {
         onUpdate?.(getFinalKeyframe(keyframes2, options, finalKeyframe));
       }
       keyframes2[0] = keyframes2[keyframes2.length - 1];
@@ -2387,9 +2387,9 @@ function isTransitionDefined(transition) {
 }
 const animateMotionValue = (name, value, target, transition = {}, element, isHandoff) => (onComplete) => {
   const valueTransition = getValueTransition(transition, name) || {};
-  const delay = valueTransition.delay || transition.delay || 0;
+  const delay2 = valueTransition.delay || transition.delay || 0;
   let { elapsed = 0 } = transition;
-  elapsed = elapsed - secondsToMilliseconds(delay);
+  elapsed = elapsed - secondsToMilliseconds(delay2);
   const options = {
     keyframes: Array.isArray(target) ? target : [null, target],
     ease: "easeOut",
@@ -2547,7 +2547,7 @@ function shouldBlockAnimation({ protectedKeys, needsAnimating }, key) {
   needsAnimating[key] = false;
   return shouldBlock;
 }
-function animateTarget(visualElement, targetAndTransition, { delay = 0, transitionOverride, type } = {}) {
+function animateTarget(visualElement, targetAndTransition, { delay: delay2 = 0, transitionOverride, type } = {}) {
   let { transition, transitionEnd, ...target } = targetAndTransition;
   const defaultTransition = visualElement.getDefaultTransition();
   transition = transition ? resolveTransition(transition, defaultTransition) : defaultTransition;
@@ -2559,7 +2559,7 @@ function animateTarget(visualElement, targetAndTransition, { delay = 0, transiti
   const animationTypeState = type && visualElement.animationState && visualElement.animationState.getState()[type];
   const path = transition?.path;
   if (path) {
-    path.animateVisualElement(visualElement, target, transition, delay, animations);
+    path.animateVisualElement(visualElement, target, transition, delay2, animations);
   }
   for (const key in target) {
     const value = visualElement.getValue(key, visualElement.latestValues[key] ?? null);
@@ -2568,7 +2568,7 @@ function animateTarget(visualElement, targetAndTransition, { delay = 0, transiti
       continue;
     }
     const valueTransition = {
-      delay,
+      delay: delay2,
       ...getValueTransition(transition || {}, key)
     };
     if (skipAnimations)
@@ -2628,13 +2628,13 @@ function animateVariant(visualElement, variant, options = {}) {
     return Promise.all([getAnimation(), getChildAnimations(options.delay)]);
   }
 }
-function animateChildren(visualElement, variant, delay = 0, delayChildren = 0, staggerChildren = 0, staggerDirection = 1, options) {
+function animateChildren(visualElement, variant, delay2 = 0, delayChildren = 0, staggerChildren = 0, staggerDirection = 1, options) {
   const animations = [];
   for (const child of visualElement.variantChildren) {
     child.notify("AnimationStart", variant);
     animations.push(animateVariant(child, variant, {
       ...options,
-      delay: delay + (typeof delayChildren === "function" ? 0 : delayChildren) + calcChildStagger(visualElement.variantChildren, child, delayChildren, staggerChildren, staggerDirection)
+      delay: delay2 + (typeof delayChildren === "function" ? 0 : delayChildren) + calcChildStagger(visualElement.variantChildren, child, delayChildren, staggerChildren, staggerDirection)
     }).then(() => child.notify("AnimationComplete", variant)));
   }
   return Promise.all(animations);
@@ -2961,10 +2961,32 @@ function isHTMLElement(element) {
 }
 const { schedule: microtask } = /* @__PURE__ */ createRenderBatcher(queueMicrotask, false);
 const isDragging = {
+  x: false,
   y: false
 };
 function isDragActive() {
-  return isDragging.y;
+  return isDragging.x || isDragging.y;
+}
+function setDragLock(axis) {
+  if (axis === "x" || axis === "y") {
+    if (isDragging[axis]) {
+      return null;
+    } else {
+      isDragging[axis] = true;
+      return () => {
+        isDragging[axis] = false;
+      };
+    }
+  } else {
+    if (isDragging.x || isDragging.y) {
+      return null;
+    } else {
+      isDragging.x = isDragging.y = true;
+      return () => {
+        isDragging.x = isDragging.y = false;
+      };
+    }
+  }
 }
 function setupGesture(elementOrSelector, options) {
   const elements = resolveElements(elementOrSelector);
@@ -3060,6 +3082,10 @@ const keyboardAccessibleElements = /* @__PURE__ */ new Set([
 function isElementKeyboardAccessible(element) {
   return keyboardAccessibleElements.has(element.tagName) || element.isContentEditable === true;
 }
+const textInputElements = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]);
+function isElementTextInput(element) {
+  return textInputElements.has(element.tagName) || element.isContentEditable === true;
+}
 const isPressing = /* @__PURE__ */ new WeakSet();
 function filterEvents(callback) {
   return (event) => {
@@ -3090,7 +3116,7 @@ const enableKeyboardPress = (focusEvent, eventOptions) => {
   element.addEventListener("blur", () => element.removeEventListener("keydown", handleKeydown), eventOptions);
 };
 function isValidPressEvent(event) {
-  return isPrimaryPointer(event) && true;
+  return isPrimaryPointer(event) && !isDragActive();
 }
 const claimedPointerDownEvents = /* @__PURE__ */ new WeakSet();
 function press(targetOrSelector, onPressStart, options = {}) {
@@ -3140,8 +3166,111 @@ function press(targetOrSelector, onPressStart, options = {}) {
   });
   return cancelEvents;
 }
+function isSVGElement(element) {
+  return isObject(element) && "ownerSVGElement" in element;
+}
+const resizeHandlers = /* @__PURE__ */ new WeakMap();
+let observer;
+const getSize = (borderBoxAxis, svgAxis, htmlAxis) => (target, borderBoxSize) => {
+  if (borderBoxSize && borderBoxSize[0]) {
+    return borderBoxSize[0][borderBoxAxis + "Size"];
+  } else if (isSVGElement(target) && "getBBox" in target) {
+    return target.getBBox()[svgAxis];
+  } else {
+    return target[htmlAxis];
+  }
+};
+const getWidth = /* @__PURE__ */ getSize("inline", "width", "offsetWidth");
+const getHeight = /* @__PURE__ */ getSize("block", "height", "offsetHeight");
+function notifyTarget({ target, borderBoxSize }) {
+  resizeHandlers.get(target)?.forEach((handler) => {
+    handler(target, {
+      get width() {
+        return getWidth(target, borderBoxSize);
+      },
+      get height() {
+        return getHeight(target, borderBoxSize);
+      }
+    });
+  });
+}
+function notifyAll(entries) {
+  entries.forEach(notifyTarget);
+}
+function createResizeObserver() {
+  if (typeof ResizeObserver === "undefined")
+    return;
+  observer = new ResizeObserver(notifyAll);
+}
+function resizeElement(target, handler) {
+  if (!observer)
+    createResizeObserver();
+  const elements = resolveElements(target);
+  elements.forEach((element) => {
+    let elementHandlers = resizeHandlers.get(element);
+    if (!elementHandlers) {
+      elementHandlers = /* @__PURE__ */ new Set();
+      resizeHandlers.set(element, elementHandlers);
+    }
+    elementHandlers.add(handler);
+    observer?.observe(element);
+  });
+  return () => {
+    elements.forEach((element) => {
+      const elementHandlers = resizeHandlers.get(element);
+      elementHandlers?.delete(handler);
+      if (!elementHandlers?.size) {
+        observer?.unobserve(element);
+      }
+    });
+  };
+}
+const windowCallbacks = /* @__PURE__ */ new Set();
+let windowResizeHandler;
+function createWindowResizeHandler() {
+  windowResizeHandler = () => {
+    const info = {
+      get width() {
+        return window.innerWidth;
+      },
+      get height() {
+        return window.innerHeight;
+      }
+    };
+    windowCallbacks.forEach((callback) => callback(info));
+  };
+  window.addEventListener("resize", windowResizeHandler);
+}
+function resizeWindow(callback) {
+  windowCallbacks.add(callback);
+  if (!windowResizeHandler)
+    createWindowResizeHandler();
+  return () => {
+    windowCallbacks.delete(callback);
+    if (!windowCallbacks.size && typeof windowResizeHandler === "function") {
+      window.removeEventListener("resize", windowResizeHandler);
+      windowResizeHandler = void 0;
+    }
+  };
+}
+function resize(a, b) {
+  return typeof a === "function" ? resizeWindow(a) : resizeElement(a, b);
+}
+function isSVGSVGElement(element) {
+  return isSVGElement(element) && element.tagName === "svg";
+}
 const valueTypes = [...dimensionValueTypes, color, complex];
 const findValueType = (v) => valueTypes.find(testValueType(v));
+const createAxisDelta = () => ({
+  translate: 0,
+  scale: 1,
+  origin: 0,
+  originPoint: 0
+});
+const createDelta = () => ({
+  x: createAxisDelta(),
+  y: createAxisDelta()
+});
 const createAxis = () => ({ min: 0, max: 0 });
 const createBox = () => ({
   x: createAxis(),
@@ -3653,6 +3782,9 @@ function convertBoundingBoxToBox({ top, left, right, bottom }) {
     y: { min: top, max: bottom }
   };
 }
+function convertBoxToBoundingBox({ x, y }) {
+  return { top: y.min, right: x.max, bottom: y.max, left: x.min };
+}
 function transformBoxPoints(point, transformPoint) {
   if (!transformPoint)
     return point;
@@ -3665,8 +3797,106 @@ function transformBoxPoints(point, transformPoint) {
     right: bottomRight.x
   };
 }
+function isIdentityScale(scale2) {
+  return scale2 === void 0 || scale2 === 1;
+}
+function hasScale({ scale: scale2, scaleX: scaleX2, scaleY: scaleY2 }) {
+  return !isIdentityScale(scale2) || !isIdentityScale(scaleX2) || !isIdentityScale(scaleY2);
+}
+function hasTransform(values) {
+  return hasScale(values) || has2DTranslate(values) || values.z || values.rotate || values.rotateX || values.rotateY || values.skewX || values.skewY;
+}
+function has2DTranslate(values) {
+  return is2DTranslate(values.x) || is2DTranslate(values.y);
+}
+function is2DTranslate(value) {
+  return value && value !== "0%";
+}
+function scalePoint(point, scale2, originPoint) {
+  const distanceFromOrigin = point - originPoint;
+  const scaled = scale2 * distanceFromOrigin;
+  return originPoint + scaled;
+}
+function applyPointDelta(point, translate, scale2, originPoint, boxScale) {
+  if (boxScale !== void 0) {
+    point = scalePoint(point, boxScale, originPoint);
+  }
+  return scalePoint(point, scale2, originPoint) + translate;
+}
+function applyAxisDelta(axis, translate = 0, scale2 = 1, originPoint, boxScale) {
+  axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
+  axis.max = applyPointDelta(axis.max, translate, scale2, originPoint, boxScale);
+}
+function applyBoxDelta(box, { x, y }) {
+  applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
+  applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
+}
+const TREE_SCALE_SNAP_MIN = 0.999999999999;
+const TREE_SCALE_SNAP_MAX = 1.0000000000001;
+function applyTreeDeltas(box, treeScale, treePath, isSharedTransition = false) {
+  const treeLength = treePath.length;
+  if (!treeLength)
+    return;
+  treeScale.x = treeScale.y = 1;
+  let node;
+  let delta;
+  for (let i = 0; i < treeLength; i++) {
+    node = treePath[i];
+    delta = node.projectionDelta;
+    const { visualElement } = node.options;
+    if (visualElement && visualElement.props.style && visualElement.props.style.display === "contents") {
+      continue;
+    }
+    if (isSharedTransition && node.options.layoutScroll && node.scroll && node !== node.root) {
+      translateAxis(box.x, -node.scroll.offset.x);
+      translateAxis(box.y, -node.scroll.offset.y);
+    }
+    if (delta) {
+      treeScale.x *= delta.x.scale;
+      treeScale.y *= delta.y.scale;
+      applyBoxDelta(box, delta);
+    }
+    if (isSharedTransition && hasTransform(node.latestValues)) {
+      transformBox(box, node.latestValues, node.layout?.layoutBox);
+    }
+  }
+  if (treeScale.x < TREE_SCALE_SNAP_MAX && treeScale.x > TREE_SCALE_SNAP_MIN) {
+    treeScale.x = 1;
+  }
+  if (treeScale.y < TREE_SCALE_SNAP_MAX && treeScale.y > TREE_SCALE_SNAP_MIN) {
+    treeScale.y = 1;
+  }
+}
+function translateAxis(axis, distance) {
+  axis.min += distance;
+  axis.max += distance;
+}
+function transformAxis(axis, axisTranslate, axisScale, boxScale, axisOrigin = 0.5) {
+  const originPoint = mixNumber$1(axis.min, axis.max, axisOrigin);
+  applyAxisDelta(axis, axisTranslate, axisScale, originPoint, boxScale);
+}
+function resolveAxisTranslate(value, axis) {
+  if (typeof value === "string") {
+    return parseFloat(value) / 100 * (axis.max - axis.min);
+  }
+  return value;
+}
+function transformBox(box, transform, sourceBox) {
+  const resolveBox = sourceBox ?? box;
+  transformAxis(box.x, resolveAxisTranslate(transform.x, resolveBox.x), transform.scaleX, transform.scale, transform.originX);
+  transformAxis(box.y, resolveAxisTranslate(transform.y, resolveBox.y), transform.scaleY, transform.scale, transform.originY);
+}
 function measureViewportBox(instance, transformPoint) {
   return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint));
+}
+function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
+  const viewportBox = measureViewportBox(element, transformPagePoint);
+  const { scroll } = rootProjectionNode2;
+  if (scroll) {
+    translateAxis(viewportBox.x, scroll.offset.x);
+    translateAxis(viewportBox.y, scroll.offset.y);
+  }
+  return viewportBox;
 }
 const translateAlias = {
   x: "translateX",
@@ -3717,12 +3947,12 @@ function buildTransform(latestValues, transform, transformTemplate) {
 }
 function buildHTMLStyles(state, latestValues, transformTemplate) {
   const { style, vars, transformOrigin } = state;
-  let hasTransform = false;
+  let hasTransform2 = false;
   let hasTransformOrigin = false;
   for (const key in latestValues) {
     const value = latestValues[key];
     if (transformProps.has(key)) {
-      hasTransform = true;
+      hasTransform2 = true;
       continue;
     } else if (isCSSVariableName(key)) {
       vars[key] = value;
@@ -3738,7 +3968,7 @@ function buildHTMLStyles(state, latestValues, transformTemplate) {
     }
   }
   if (!latestValues.transform) {
-    if (hasTransform || transformTemplate) {
+    if (hasTransform2 || transformTemplate) {
       style.transform = buildTransform(latestValues, state.transform, transformTemplate);
     } else if (style.transform) {
       style.transform = "none";
@@ -4246,16 +4476,1483 @@ function createState() {
     exit: createTypeState()
   };
 }
+function copyAxisInto(axis, originAxis) {
+  axis.min = originAxis.min;
+  axis.max = originAxis.max;
+}
+function copyBoxInto(box, originBox) {
+  copyAxisInto(box.x, originBox.x);
+  copyAxisInto(box.y, originBox.y);
+}
+function copyAxisDeltaInto(delta, originDelta) {
+  delta.translate = originDelta.translate;
+  delta.scale = originDelta.scale;
+  delta.originPoint = originDelta.originPoint;
+  delta.origin = originDelta.origin;
+}
+const SCALE_PRECISION = 1e-4;
+const SCALE_MIN = 1 - SCALE_PRECISION;
+const SCALE_MAX = 1 + SCALE_PRECISION;
+const TRANSLATE_PRECISION = 0.01;
+const TRANSLATE_MIN = 0 - TRANSLATE_PRECISION;
+const TRANSLATE_MAX = 0 + TRANSLATE_PRECISION;
+function calcLength(axis) {
+  return axis.max - axis.min;
+}
+function isNear(value, target, maxDistance) {
+  return Math.abs(value - target) <= maxDistance;
+}
+function calcAxisDelta(delta, source, target, origin = 0.5) {
+  delta.origin = origin;
+  delta.originPoint = mixNumber$1(source.min, source.max, delta.origin);
+  delta.scale = calcLength(target) / calcLength(source);
+  delta.translate = mixNumber$1(target.min, target.max, delta.origin) - delta.originPoint;
+  if (delta.scale >= SCALE_MIN && delta.scale <= SCALE_MAX || isNaN(delta.scale)) {
+    delta.scale = 1;
+  }
+  if (delta.translate >= TRANSLATE_MIN && delta.translate <= TRANSLATE_MAX || isNaN(delta.translate)) {
+    delta.translate = 0;
+  }
+}
+function calcBoxDelta(delta, source, target, origin) {
+  calcAxisDelta(delta.x, source.x, target.x, origin ? origin.originX : void 0);
+  calcAxisDelta(delta.y, source.y, target.y, origin ? origin.originY : void 0);
+}
+function calcRelativeAxis(target, relative, parent, anchor = 0) {
+  const anchorPoint = anchor ? mixNumber$1(parent.min, parent.max, anchor) : parent.min;
+  target.min = anchorPoint + relative.min;
+  target.max = target.min + calcLength(relative);
+}
+function calcRelativeBox(target, relative, parent, anchor) {
+  calcRelativeAxis(target.x, relative.x, parent.x, anchor?.x);
+  calcRelativeAxis(target.y, relative.y, parent.y, anchor?.y);
+}
+function calcRelativeAxisPosition(target, layout, parent, anchor = 0) {
+  const anchorPoint = anchor ? mixNumber$1(parent.min, parent.max, anchor) : parent.min;
+  target.min = layout.min - anchorPoint;
+  target.max = target.min + calcLength(layout);
+}
+function calcRelativePosition(target, layout, parent, anchor) {
+  calcRelativeAxisPosition(target.x, layout.x, parent.x, anchor?.x);
+  calcRelativeAxisPosition(target.y, layout.y, parent.y, anchor?.y);
+}
+function removePointDelta(point, translate, scale2, originPoint, boxScale) {
+  point -= translate;
+  point = scalePoint(point, 1 / scale2, originPoint);
+  if (boxScale !== void 0) {
+    point = scalePoint(point, 1 / boxScale, originPoint);
+  }
+  return point;
+}
+function removeAxisDelta(axis, translate = 0, scale2 = 1, origin = 0.5, boxScale, originAxis = axis, sourceAxis = axis) {
+  if (percent.test(translate)) {
+    translate = parseFloat(translate);
+    const relativeProgress = mixNumber$1(sourceAxis.min, sourceAxis.max, translate / 100);
+    translate = relativeProgress - sourceAxis.min;
+  }
+  if (typeof translate !== "number")
+    return;
+  let originPoint = mixNumber$1(originAxis.min, originAxis.max, origin);
+  if (axis === originAxis)
+    originPoint -= translate;
+  axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
+  axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
+}
+function removeAxisTransforms(axis, transforms, [key, scaleKey, originKey], origin, sourceAxis) {
+  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
+}
+const xKeys = ["x", "scaleX", "originX"];
+const yKeys = ["y", "scaleY", "originY"];
+function removeBoxTransforms(box, transforms, originBox, sourceBox) {
+  removeAxisTransforms(box.x, transforms, xKeys, originBox ? originBox.x : void 0, sourceBox ? sourceBox.x : void 0);
+  removeAxisTransforms(box.y, transforms, yKeys, originBox ? originBox.y : void 0, sourceBox ? sourceBox.y : void 0);
+}
+function isAxisDeltaZero(delta) {
+  return delta.translate === 0 && delta.scale === 1;
+}
+function isDeltaZero(delta) {
+  return isAxisDeltaZero(delta.x) && isAxisDeltaZero(delta.y);
+}
+function axisEquals(a, b) {
+  return a.min === b.min && a.max === b.max;
+}
+function boxEquals(a, b) {
+  return axisEquals(a.x, b.x) && axisEquals(a.y, b.y);
+}
+function axisEqualsRounded(a, b) {
+  return Math.round(a.min) === Math.round(b.min) && Math.round(a.max) === Math.round(b.max);
+}
+function boxEqualsRounded(a, b) {
+  return axisEqualsRounded(a.x, b.x) && axisEqualsRounded(a.y, b.y);
+}
+function aspectRatio(box) {
+  return calcLength(box.x) / calcLength(box.y);
+}
+function axisDeltaEquals(a, b) {
+  return a.translate === b.translate && a.scale === b.scale && a.originPoint === b.originPoint;
+}
+function eachAxis(callback) {
+  return [callback("x"), callback("y")];
+}
+function buildProjectionTransform(delta, treeScale, latestTransform) {
+  let transform = "";
+  const xTranslate = delta.x.translate / treeScale.x;
+  const yTranslate = delta.y.translate / treeScale.y;
+  const zTranslate = latestTransform?.z || 0;
+  if (xTranslate || yTranslate || zTranslate) {
+    transform = `translate3d(${xTranslate}px, ${yTranslate}px, ${zTranslate}px) `;
+  }
+  if (treeScale.x !== 1 || treeScale.y !== 1) {
+    transform += `scale(${1 / treeScale.x}, ${1 / treeScale.y}) `;
+  }
+  if (latestTransform) {
+    const { transformPerspective, rotate: rotate2, pathRotation, rotateX, rotateY, skewX, skewY } = latestTransform;
+    if (transformPerspective)
+      transform = `perspective(${transformPerspective}px) ${transform}`;
+    if (rotate2)
+      transform += `rotate(${rotate2}deg) `;
+    if (pathRotation)
+      transform += `rotate(${pathRotation}deg) `;
+    if (rotateX)
+      transform += `rotateX(${rotateX}deg) `;
+    if (rotateY)
+      transform += `rotateY(${rotateY}deg) `;
+    if (skewX)
+      transform += `skewX(${skewX}deg) `;
+    if (skewY)
+      transform += `skewY(${skewY}deg) `;
+  }
+  const elementScaleX = delta.x.scale * treeScale.x;
+  const elementScaleY = delta.y.scale * treeScale.y;
+  if (elementScaleX !== 1 || elementScaleY !== 1) {
+    transform += `scale(${elementScaleX}, ${elementScaleY})`;
+  }
+  return transform || "none";
+}
+const borderLabels = [
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderBottomLeftRadius",
+  "borderBottomRightRadius"
+];
+const numBorders = borderLabels.length;
+const asNumber = (value) => typeof value === "string" ? parseFloat(value) : value;
+const isPx = (value) => typeof value === "number" || px.test(value);
+function mixValues(target, follow, lead, progress2, shouldCrossfadeOpacity, isOnlyMember) {
+  if (shouldCrossfadeOpacity) {
+    target.opacity = mixNumber$1(0, lead.opacity ?? 1, easeCrossfadeIn(progress2));
+    target.opacityExit = mixNumber$1(follow.opacity ?? 1, 0, easeCrossfadeOut(progress2));
+  } else if (isOnlyMember) {
+    target.opacity = mixNumber$1(follow.opacity ?? 1, lead.opacity ?? 1, progress2);
+  }
+  for (let i = 0; i < numBorders; i++) {
+    const borderLabel = borderLabels[i];
+    let followRadius = getRadius(follow, borderLabel);
+    let leadRadius = getRadius(lead, borderLabel);
+    if (followRadius === void 0 && leadRadius === void 0)
+      continue;
+    followRadius || (followRadius = 0);
+    leadRadius || (leadRadius = 0);
+    const canMix = followRadius === 0 || leadRadius === 0 || isPx(followRadius) === isPx(leadRadius);
+    if (canMix) {
+      target[borderLabel] = Math.max(mixNumber$1(asNumber(followRadius), asNumber(leadRadius), progress2), 0);
+      if (percent.test(leadRadius) || percent.test(followRadius)) {
+        target[borderLabel] += "%";
+      }
+    } else {
+      target[borderLabel] = leadRadius;
+    }
+  }
+  if (follow.rotate || lead.rotate) {
+    target.rotate = mixNumber$1(follow.rotate || 0, lead.rotate || 0, progress2);
+  }
+}
+function getRadius(values, radiusName) {
+  return values[radiusName] !== void 0 ? values[radiusName] : values.borderRadius;
+}
+const easeCrossfadeIn = /* @__PURE__ */ compress(0, 0.5, circOut);
+const easeCrossfadeOut = /* @__PURE__ */ compress(0.5, 0.95, noop);
+function compress(min, max, easing) {
+  return (p) => {
+    if (p < min)
+      return 0;
+    if (p > max)
+      return 1;
+    return easing(progress(min, max, p));
+  };
+}
+function animateSingleValue(value, keyframes2, options) {
+  const motionValue$1 = isMotionValue(value) ? value : motionValue(value);
+  motionValue$1.start(animateMotionValue("", motionValue$1, keyframes2, options));
+  return motionValue$1.animation;
+}
 function addDomEvent(target, eventName, handler, options = { passive: true }) {
   target.addEventListener(eventName, handler, options);
   return () => target.removeEventListener(eventName, handler);
 }
+const compareByDepth = (a, b) => a.depth - b.depth;
+class FlatTree {
+  constructor() {
+    this.children = [];
+    this.isDirty = false;
+  }
+  add(child) {
+    addUniqueItem(this.children, child);
+    this.isDirty = true;
+  }
+  remove(child) {
+    removeItem(this.children, child);
+    this.isDirty = true;
+  }
+  forEach(callback) {
+    this.isDirty && this.children.sort(compareByDepth);
+    this.isDirty = false;
+    this.children.forEach(callback);
+  }
+}
+function delay(callback, timeout) {
+  const start = time.now();
+  const checkElapsed = ({ timestamp }) => {
+    const elapsed = timestamp - start;
+    if (elapsed >= timeout) {
+      cancelFrame(checkElapsed);
+      callback(elapsed - timeout);
+    }
+  };
+  frame.setup(checkElapsed, true);
+  return () => cancelFrame(checkElapsed);
+}
 function resolveMotionValue(value) {
   return isMotionValue(value) ? value.get() : value;
 }
+class NodeStack {
+  constructor() {
+    this.members = [];
+  }
+  add(node) {
+    addUniqueItem(this.members, node);
+    for (let i = this.members.length - 1; i >= 0; i--) {
+      const member = this.members[i];
+      if (member === node || member === this.lead || member === this.prevLead)
+        continue;
+      const inst = member.instance;
+      if ((!inst || inst.isConnected === false) && !member.snapshot) {
+        removeItem(this.members, member);
+        member.unmount();
+      }
+    }
+    node.scheduleRender();
+  }
+  remove(node) {
+    removeItem(this.members, node);
+    if (node === this.prevLead)
+      this.prevLead = void 0;
+    if (node === this.lead) {
+      const prevLead = this.members[this.members.length - 1];
+      if (prevLead)
+        this.promote(prevLead);
+    }
+  }
+  relegate(node) {
+    for (let i = this.members.indexOf(node) - 1; i >= 0; i--) {
+      const member = this.members[i];
+      if (member.isPresent !== false && member.instance?.isConnected !== false) {
+        this.promote(member);
+        return true;
+      }
+    }
+    return false;
+  }
+  promote(node, preserveFollowOpacity) {
+    const prevLead = this.lead;
+    if (node === prevLead)
+      return;
+    this.prevLead = prevLead;
+    this.lead = node;
+    node.show();
+    if (prevLead) {
+      prevLead.updateSnapshot();
+      node.scheduleRender();
+      const { layoutDependency: prevDep } = prevLead.options;
+      const { layoutDependency: nextDep } = node.options;
+      if (prevDep === void 0 || prevDep !== nextDep) {
+        node.resumeFrom = prevLead;
+        if (preserveFollowOpacity)
+          prevLead.preserveOpacity = true;
+        if (prevLead.snapshot) {
+          node.snapshot = prevLead.snapshot;
+          node.snapshot.latestValues = prevLead.animationValues || prevLead.latestValues;
+        }
+        if (node.root?.isUpdating)
+          node.isLayoutDirty = true;
+      }
+      if (node.options.crossfade === false)
+        prevLead.hide();
+    }
+  }
+  exitAnimationComplete() {
+    this.members.forEach((member) => {
+      member.options.onExitComplete?.();
+      member.resumingFrom?.options.onExitComplete?.();
+    });
+  }
+  scheduleRender() {
+    this.members.forEach((member) => member.instance && member.scheduleRender(false));
+  }
+  removeLeadSnapshot() {
+    if (this.lead?.snapshot)
+      this.lead.snapshot = void 0;
+  }
+}
+const globalProjectionState = {
+  /**
+   * Global flag as to whether the tree has animated since the last time
+   * we resized the window
+   */
+  hasAnimatedSinceResize: true,
+  /**
+   * We set this to true once, on the first update. Any nodes added to the tree beyond that
+   * update will be given a `data-projection-id` attribute.
+   */
+  hasEverUpdated: false
+};
+const transformAxes = ["", "X", "Y", "Z"];
+const animationTarget = 1e3;
+let id = 0;
+function resetDistortingTransform(key, visualElement, values, sharedAnimationValues) {
+  const { latestValues } = visualElement;
+  if (latestValues[key]) {
+    values[key] = latestValues[key];
+    visualElement.setStaticValue(key, 0);
+    if (sharedAnimationValues) {
+      sharedAnimationValues[key] = 0;
+    }
+  }
+}
+function cancelTreeOptimisedTransformAnimations(projectionNode) {
+  projectionNode.hasCheckedOptimisedAppear = true;
+  if (projectionNode.root === projectionNode)
+    return;
+  const { visualElement } = projectionNode.options;
+  if (!visualElement)
+    return;
+  const appearId = getOptimisedAppearId(visualElement);
+  if (window.MotionHasOptimisedAnimation(appearId, "transform")) {
+    const { layout, layoutId } = projectionNode.options;
+    window.MotionCancelOptimisedAnimation(appearId, "transform", frame, !(layout || layoutId));
+  }
+  const { parent } = projectionNode;
+  if (parent && !parent.hasCheckedOptimisedAppear) {
+    cancelTreeOptimisedTransformAnimations(parent);
+  }
+}
+function createProjectionNode({ attachResizeListener, defaultParent, measureScroll, checkIsScrollRoot, resetTransform }) {
+  return class ProjectionNode {
+    constructor(latestValues = {}, parent = defaultParent?.()) {
+      this.id = id++;
+      this.animationId = 0;
+      this.animationCommitId = 0;
+      this.children = /* @__PURE__ */ new Set();
+      this.options = {};
+      this.isTreeAnimating = false;
+      this.isAnimationBlocked = false;
+      this.isLayoutDirty = false;
+      this.isProjectionDirty = false;
+      this.isSharedProjectionDirty = false;
+      this.isTransformDirty = false;
+      this.updateManuallyBlocked = false;
+      this.updateBlockedByResize = false;
+      this.isUpdating = false;
+      this.isSVG = false;
+      this.needsReset = false;
+      this.shouldResetTransform = false;
+      this.hasCheckedOptimisedAppear = false;
+      this.treeScale = { x: 1, y: 1 };
+      this.eventHandlers = /* @__PURE__ */ new Map();
+      this.hasTreeAnimated = false;
+      this.layoutVersion = 0;
+      this.updateScheduled = false;
+      this.scheduleUpdate = () => this.update();
+      this.projectionUpdateScheduled = false;
+      this.checkUpdateFailed = () => {
+        if (this.isUpdating) {
+          this.isUpdating = false;
+          this.clearAllSnapshots();
+        }
+      };
+      this.updateProjection = () => {
+        this.projectionUpdateScheduled = false;
+        this.nodes.forEach(propagateDirtyNodes);
+        this.nodes.forEach(resolveTargetDelta);
+        this.nodes.forEach(calcProjection);
+        this.nodes.forEach(cleanDirtyNodes);
+      };
+      this.resolvedRelativeTargetAt = 0;
+      this.linkedParentVersion = 0;
+      this.hasProjected = false;
+      this.isVisible = true;
+      this.animationProgress = 0;
+      this.sharedNodes = /* @__PURE__ */ new Map();
+      this.latestValues = latestValues;
+      this.root = parent ? parent.root || parent : this;
+      this.path = parent ? [...parent.path, parent] : [];
+      this.parent = parent;
+      this.depth = parent ? parent.depth + 1 : 0;
+      for (let i = 0; i < this.path.length; i++) {
+        this.path[i].shouldResetTransform = true;
+      }
+      if (this.root === this)
+        this.nodes = new FlatTree();
+    }
+    addEventListener(name, handler) {
+      if (!this.eventHandlers.has(name)) {
+        this.eventHandlers.set(name, new SubscriptionManager());
+      }
+      return this.eventHandlers.get(name).add(handler);
+    }
+    notifyListeners(name, ...args) {
+      const subscriptionManager = this.eventHandlers.get(name);
+      subscriptionManager && subscriptionManager.notify(...args);
+    }
+    hasListeners(name) {
+      return this.eventHandlers.has(name);
+    }
+    /**
+     * Lifecycles
+     */
+    mount(instance) {
+      if (this.instance)
+        return;
+      this.isSVG = isSVGElement(instance) && !isSVGSVGElement(instance);
+      this.instance = instance;
+      const { layoutId, layout, visualElement } = this.options;
+      if (visualElement && !visualElement.current) {
+        visualElement.mount(instance);
+      }
+      this.root.nodes.add(this);
+      this.parent && this.parent.children.add(this);
+      if (this.root.hasTreeAnimated && (layout || layoutId)) {
+        this.isLayoutDirty = true;
+      }
+      if (attachResizeListener) {
+        let cancelDelay;
+        let innerWidth = 0;
+        const resizeUnblockUpdate = () => this.root.updateBlockedByResize = false;
+        frame.read(() => {
+          innerWidth = window.innerWidth;
+        });
+        attachResizeListener(instance, () => {
+          const newInnerWidth = window.innerWidth;
+          if (newInnerWidth === innerWidth)
+            return;
+          innerWidth = newInnerWidth;
+          this.root.updateBlockedByResize = true;
+          cancelDelay && cancelDelay();
+          cancelDelay = delay(resizeUnblockUpdate, 250);
+          if (globalProjectionState.hasAnimatedSinceResize) {
+            globalProjectionState.hasAnimatedSinceResize = false;
+            this.nodes.forEach(finishAnimation);
+          }
+        });
+      }
+      if (layoutId) {
+        this.root.registerSharedNode(layoutId, this);
+      }
+      if (this.options.animate !== false && visualElement && (layoutId || layout)) {
+        this.addEventListener("didUpdate", ({ delta, hasLayoutChanged, hasRelativeLayoutChanged, layout: newLayout }) => {
+          if (this.isTreeAnimationBlocked()) {
+            this.target = void 0;
+            this.relativeTarget = void 0;
+            return;
+          }
+          const layoutTransition = this.options.transition || visualElement.getDefaultTransition() || defaultLayoutTransition;
+          const { onLayoutAnimationStart, onLayoutAnimationComplete } = visualElement.getProps();
+          const hasTargetChanged = !this.targetLayout || !boxEqualsRounded(this.targetLayout, newLayout);
+          const hasOnlyRelativeTargetChanged = !hasLayoutChanged && hasRelativeLayoutChanged;
+          if (this.options.layoutRoot || this.resumeFrom || hasOnlyRelativeTargetChanged || hasLayoutChanged && (hasTargetChanged || !this.currentAnimation)) {
+            if (this.resumeFrom) {
+              this.resumingFrom = this.resumeFrom;
+              this.resumingFrom.resumingFrom = void 0;
+            }
+            const animationOptions = {
+              ...getValueTransition(layoutTransition, "layout"),
+              onPlay: onLayoutAnimationStart,
+              onComplete: onLayoutAnimationComplete
+            };
+            if (visualElement.shouldReduceMotion || this.options.layoutRoot) {
+              animationOptions.delay = 0;
+              animationOptions.type = false;
+            }
+            this.startAnimation(animationOptions);
+            this.setAnimationOrigin(delta, hasOnlyRelativeTargetChanged, animationOptions.path);
+          } else {
+            if (!hasLayoutChanged) {
+              finishAnimation(this);
+            }
+            if (this.isLead() && this.options.onExitComplete) {
+              this.options.onExitComplete();
+            }
+          }
+          this.targetLayout = newLayout;
+        });
+      }
+    }
+    unmount() {
+      this.options.layoutId && this.willUpdate();
+      this.root.nodes.remove(this);
+      const stack = this.getStack();
+      stack && stack.remove(this);
+      this.parent && this.parent.children.delete(this);
+      this.instance = void 0;
+      this.eventHandlers.clear();
+      cancelFrame(this.updateProjection);
+    }
+    // only on the root
+    blockUpdate() {
+      this.updateManuallyBlocked = true;
+    }
+    unblockUpdate() {
+      this.updateManuallyBlocked = false;
+    }
+    isUpdateBlocked() {
+      return this.updateManuallyBlocked || this.updateBlockedByResize;
+    }
+    isTreeAnimationBlocked() {
+      return this.isAnimationBlocked || this.parent && this.parent.isTreeAnimationBlocked() || false;
+    }
+    // Note: currently only running on root node
+    startUpdate() {
+      if (this.isUpdateBlocked())
+        return;
+      this.isUpdating = true;
+      this.nodes && this.nodes.forEach(resetSkewAndRotation);
+      this.animationId++;
+    }
+    getTransformTemplate() {
+      const { visualElement } = this.options;
+      return visualElement && visualElement.getProps().transformTemplate;
+    }
+    willUpdate(shouldNotifyListeners = true) {
+      this.root.hasTreeAnimated = true;
+      if (this.root.isUpdateBlocked()) {
+        this.options.onExitComplete && this.options.onExitComplete();
+        return;
+      }
+      if (window.MotionCancelOptimisedAnimation && !this.hasCheckedOptimisedAppear) {
+        cancelTreeOptimisedTransformAnimations(this);
+      }
+      !this.root.isUpdating && this.root.startUpdate();
+      if (this.isLayoutDirty)
+        return;
+      this.isLayoutDirty = true;
+      for (let i = 0; i < this.path.length; i++) {
+        const node = this.path[i];
+        node.shouldResetTransform = true;
+        if (typeof node.latestValues.x === "string" || typeof node.latestValues.y === "string") {
+          node.isLayoutDirty = true;
+        }
+        node.updateScroll("snapshot");
+        if (node.options.layoutRoot) {
+          node.willUpdate(false);
+        }
+      }
+      const { layoutId, layout } = this.options;
+      if (layoutId === void 0 && !layout)
+        return;
+      const transformTemplate = this.getTransformTemplate();
+      this.prevTransformTemplateValue = transformTemplate ? transformTemplate(this.latestValues, "") : void 0;
+      this.updateSnapshot();
+      shouldNotifyListeners && this.notifyListeners("willUpdate");
+    }
+    update() {
+      this.updateScheduled = false;
+      const updateWasBlocked = this.isUpdateBlocked();
+      if (updateWasBlocked) {
+        const wasBlockedByResize = this.updateBlockedByResize;
+        this.unblockUpdate();
+        this.updateBlockedByResize = false;
+        this.clearAllSnapshots();
+        if (wasBlockedByResize) {
+          this.nodes.forEach(forceLayoutMeasure);
+        }
+        this.nodes.forEach(clearMeasurements);
+        return;
+      }
+      if (this.animationId <= this.animationCommitId) {
+        this.nodes.forEach(clearIsLayoutDirty);
+        return;
+      }
+      this.animationCommitId = this.animationId;
+      if (!this.isUpdating) {
+        this.nodes.forEach(clearIsLayoutDirty);
+      } else {
+        this.isUpdating = false;
+        this.nodes.forEach(ensureDraggedNodesSnapshotted);
+        this.nodes.forEach(resetTransformStyle);
+        this.nodes.forEach(updateLayout);
+        this.nodes.forEach(notifyLayoutUpdate);
+      }
+      this.clearAllSnapshots();
+      const now2 = time.now();
+      frameData.delta = clamp(0, 1e3 / 60, now2 - frameData.timestamp);
+      frameData.timestamp = now2;
+      frameData.isProcessing = true;
+      frameSteps.update.process(frameData);
+      frameSteps.preRender.process(frameData);
+      frameSteps.render.process(frameData);
+      frameData.isProcessing = false;
+    }
+    didUpdate() {
+      if (!this.updateScheduled) {
+        this.updateScheduled = true;
+        microtask.read(this.scheduleUpdate);
+      }
+    }
+    clearAllSnapshots() {
+      this.nodes.forEach(clearSnapshot);
+      this.sharedNodes.forEach(removeLeadSnapshots);
+    }
+    scheduleUpdateProjection() {
+      if (!this.projectionUpdateScheduled) {
+        this.projectionUpdateScheduled = true;
+        frame.preRender(this.updateProjection, false, true);
+      }
+    }
+    scheduleCheckAfterUnmount() {
+      frame.postRender(() => {
+        if (this.isLayoutDirty) {
+          this.root.didUpdate();
+        } else {
+          this.root.checkUpdateFailed();
+        }
+      });
+    }
+    /**
+     * Update measurements
+     */
+    updateSnapshot() {
+      if (this.snapshot || !this.instance)
+        return;
+      this.snapshot = this.measure();
+      if (this.snapshot && !calcLength(this.snapshot.measuredBox.x) && !calcLength(this.snapshot.measuredBox.y)) {
+        this.snapshot = void 0;
+      }
+    }
+    updateLayout() {
+      if (!this.instance)
+        return;
+      this.updateScroll();
+      if (!(this.options.alwaysMeasureLayout && this.isLead()) && !this.isLayoutDirty) {
+        return;
+      }
+      if (this.resumeFrom && !this.resumeFrom.instance) {
+        for (let i = 0; i < this.path.length; i++) {
+          const node = this.path[i];
+          node.updateScroll();
+        }
+      }
+      const prevLayout = this.layout;
+      this.layout = this.measure(false);
+      this.layoutVersion++;
+      if (!this.layoutCorrected)
+        this.layoutCorrected = createBox();
+      this.isLayoutDirty = false;
+      this.projectionDelta = void 0;
+      this.notifyListeners("measure", this.layout.layoutBox);
+      const { visualElement } = this.options;
+      visualElement && visualElement.notify("LayoutMeasure", this.layout.layoutBox, prevLayout ? prevLayout.layoutBox : void 0);
+    }
+    updateScroll(phase = "measure") {
+      let needsMeasurement = Boolean(this.options.layoutScroll && this.instance);
+      if (this.scroll && this.scroll.animationId === this.root.animationId && this.scroll.phase === phase) {
+        needsMeasurement = false;
+      }
+      if (needsMeasurement && this.instance) {
+        const isRoot = checkIsScrollRoot(this.instance);
+        this.scroll = {
+          animationId: this.root.animationId,
+          phase,
+          isRoot,
+          offset: measureScroll(this.instance),
+          wasRoot: this.scroll ? this.scroll.isRoot : isRoot
+        };
+      }
+    }
+    resetTransform() {
+      if (!resetTransform)
+        return;
+      const isResetRequested = this.isLayoutDirty || this.shouldResetTransform || this.options.alwaysMeasureLayout;
+      const hasProjection = this.projectionDelta && !isDeltaZero(this.projectionDelta);
+      const transformTemplate = this.getTransformTemplate();
+      const transformTemplateValue = transformTemplate ? transformTemplate(this.latestValues, "") : void 0;
+      const transformTemplateHasChanged = transformTemplateValue !== this.prevTransformTemplateValue;
+      if (isResetRequested && this.instance && (hasProjection || hasTransform(this.latestValues) || transformTemplateHasChanged)) {
+        resetTransform(this.instance, transformTemplateValue);
+        this.shouldResetTransform = false;
+        this.scheduleRender();
+      }
+    }
+    measure(removeTransform = true) {
+      const pageBox = this.measurePageBox();
+      let layoutBox = this.removeElementScroll(pageBox);
+      if (removeTransform) {
+        layoutBox = this.removeTransform(layoutBox);
+      }
+      roundBox(layoutBox);
+      return {
+        animationId: this.root.animationId,
+        measuredBox: pageBox,
+        layoutBox,
+        latestValues: {},
+        source: this.id
+      };
+    }
+    measurePageBox() {
+      const { visualElement } = this.options;
+      if (!visualElement)
+        return createBox();
+      const box = visualElement.measureViewportBox();
+      const wasInScrollRoot = this.scroll?.wasRoot || this.path.some(checkNodeWasScrollRoot);
+      if (!wasInScrollRoot) {
+        const { scroll } = this.root;
+        if (scroll) {
+          translateAxis(box.x, scroll.offset.x);
+          translateAxis(box.y, scroll.offset.y);
+        }
+      }
+      return box;
+    }
+    removeElementScroll(box) {
+      const boxWithoutScroll = createBox();
+      copyBoxInto(boxWithoutScroll, box);
+      if (this.scroll?.wasRoot) {
+        return boxWithoutScroll;
+      }
+      for (let i = 0; i < this.path.length; i++) {
+        const node = this.path[i];
+        const { scroll, options } = node;
+        if (node !== this.root && scroll && options.layoutScroll) {
+          if (scroll.wasRoot) {
+            copyBoxInto(boxWithoutScroll, box);
+          }
+          translateAxis(boxWithoutScroll.x, scroll.offset.x);
+          translateAxis(boxWithoutScroll.y, scroll.offset.y);
+        }
+      }
+      return boxWithoutScroll;
+    }
+    applyTransform(box, transformOnly = false, output) {
+      const withTransforms = output || createBox();
+      copyBoxInto(withTransforms, box);
+      for (let i = 0; i < this.path.length; i++) {
+        const node = this.path[i];
+        if (!transformOnly && node.options.layoutScroll && node.scroll && node !== node.root) {
+          translateAxis(withTransforms.x, -node.scroll.offset.x);
+          translateAxis(withTransforms.y, -node.scroll.offset.y);
+        }
+        if (!hasTransform(node.latestValues))
+          continue;
+        transformBox(withTransforms, node.latestValues, node.layout?.layoutBox);
+      }
+      if (hasTransform(this.latestValues)) {
+        transformBox(withTransforms, this.latestValues, this.layout?.layoutBox);
+      }
+      return withTransforms;
+    }
+    removeTransform(box) {
+      const boxWithoutTransform = createBox();
+      copyBoxInto(boxWithoutTransform, box);
+      for (let i = 0; i < this.path.length; i++) {
+        const node = this.path[i];
+        if (!hasTransform(node.latestValues))
+          continue;
+        let sourceBox;
+        if (node.instance) {
+          hasScale(node.latestValues) && node.updateSnapshot();
+          sourceBox = createBox();
+          copyBoxInto(sourceBox, node.measurePageBox());
+        }
+        removeBoxTransforms(boxWithoutTransform, node.latestValues, node.snapshot?.layoutBox, sourceBox);
+      }
+      if (hasTransform(this.latestValues)) {
+        removeBoxTransforms(boxWithoutTransform, this.latestValues);
+      }
+      return boxWithoutTransform;
+    }
+    setTargetDelta(delta) {
+      this.targetDelta = delta;
+      this.root.scheduleUpdateProjection();
+      this.isProjectionDirty = true;
+    }
+    setOptions(options) {
+      this.options = {
+        ...this.options,
+        ...options,
+        crossfade: options.crossfade !== void 0 ? options.crossfade : true
+      };
+    }
+    clearMeasurements() {
+      this.scroll = void 0;
+      this.layout = void 0;
+      this.snapshot = void 0;
+      this.prevTransformTemplateValue = void 0;
+      this.targetDelta = void 0;
+      this.target = void 0;
+      this.isLayoutDirty = false;
+    }
+    forceRelativeParentToResolveTarget() {
+      if (!this.relativeParent)
+        return;
+      if (this.relativeParent.resolvedRelativeTargetAt !== frameData.timestamp) {
+        this.relativeParent.resolveTargetDelta(true);
+      }
+    }
+    resolveTargetDelta(forceRecalculation = false) {
+      const lead = this.getLead();
+      this.isProjectionDirty || (this.isProjectionDirty = lead.isProjectionDirty);
+      this.isTransformDirty || (this.isTransformDirty = lead.isTransformDirty);
+      this.isSharedProjectionDirty || (this.isSharedProjectionDirty = lead.isSharedProjectionDirty);
+      const isShared = Boolean(this.resumingFrom) || this !== lead;
+      const canSkip = !(forceRecalculation || isShared && this.isSharedProjectionDirty || this.isProjectionDirty || this.parent?.isProjectionDirty || this.attemptToResolveRelativeTarget || this.root.updateBlockedByResize);
+      if (canSkip)
+        return;
+      const { layout, layoutId } = this.options;
+      if (!this.layout || !(layout || layoutId))
+        return;
+      this.resolvedRelativeTargetAt = frameData.timestamp;
+      const relativeParent = this.getClosestProjectingParent();
+      if (relativeParent && this.linkedParentVersion !== relativeParent.layoutVersion && !relativeParent.options.layoutRoot) {
+        this.removeRelativeTarget();
+      }
+      if (!this.targetDelta && !this.relativeTarget) {
+        if (this.options.layoutAnchor !== false && relativeParent && relativeParent.layout) {
+          this.createRelativeTarget(relativeParent, this.layout.layoutBox, relativeParent.layout.layoutBox);
+        } else {
+          this.removeRelativeTarget();
+        }
+      }
+      if (!this.relativeTarget && !this.targetDelta)
+        return;
+      if (!this.target) {
+        this.target = createBox();
+        this.targetWithTransforms = createBox();
+      }
+      if (this.relativeTarget && this.relativeTargetOrigin && this.relativeParent && this.relativeParent.target) {
+        this.forceRelativeParentToResolveTarget();
+        calcRelativeBox(this.target, this.relativeTarget, this.relativeParent.target, this.options.layoutAnchor || void 0);
+      } else if (this.targetDelta) {
+        if (Boolean(this.resumingFrom)) {
+          this.applyTransform(this.layout.layoutBox, false, this.target);
+        } else {
+          copyBoxInto(this.target, this.layout.layoutBox);
+        }
+        applyBoxDelta(this.target, this.targetDelta);
+      } else {
+        copyBoxInto(this.target, this.layout.layoutBox);
+      }
+      if (this.attemptToResolveRelativeTarget) {
+        this.attemptToResolveRelativeTarget = false;
+        if (this.options.layoutAnchor !== false && relativeParent && Boolean(relativeParent.resumingFrom) === Boolean(this.resumingFrom) && !relativeParent.options.layoutScroll && relativeParent.target && this.animationProgress !== 1) {
+          this.createRelativeTarget(relativeParent, this.target, relativeParent.target);
+        } else {
+          this.relativeParent = this.relativeTarget = void 0;
+        }
+      }
+    }
+    getClosestProjectingParent() {
+      if (!this.parent || hasScale(this.parent.latestValues) || has2DTranslate(this.parent.latestValues)) {
+        return void 0;
+      }
+      if (this.parent.isProjecting()) {
+        return this.parent;
+      } else {
+        return this.parent.getClosestProjectingParent();
+      }
+    }
+    isProjecting() {
+      return Boolean((this.relativeTarget || this.targetDelta || this.options.layoutRoot) && this.layout);
+    }
+    createRelativeTarget(relativeParent, layout, parentLayout) {
+      this.relativeParent = relativeParent;
+      this.linkedParentVersion = relativeParent.layoutVersion;
+      this.forceRelativeParentToResolveTarget();
+      this.relativeTarget = createBox();
+      this.relativeTargetOrigin = createBox();
+      calcRelativePosition(this.relativeTargetOrigin, layout, parentLayout, this.options.layoutAnchor || void 0);
+      copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
+    }
+    removeRelativeTarget() {
+      this.relativeParent = this.relativeTarget = void 0;
+    }
+    calcProjection() {
+      const lead = this.getLead();
+      const isShared = Boolean(this.resumingFrom) || this !== lead;
+      let canSkip = true;
+      if (this.isProjectionDirty || this.parent?.isProjectionDirty) {
+        canSkip = false;
+      }
+      if (isShared && (this.isSharedProjectionDirty || this.isTransformDirty)) {
+        canSkip = false;
+      }
+      if (this.resolvedRelativeTargetAt === frameData.timestamp) {
+        canSkip = false;
+      }
+      if (canSkip)
+        return;
+      const { layout, layoutId } = this.options;
+      this.isTreeAnimating = Boolean(this.parent && this.parent.isTreeAnimating || this.currentAnimation || this.pendingAnimation);
+      if (!this.isTreeAnimating) {
+        this.targetDelta = this.relativeTarget = void 0;
+      }
+      if (!this.layout || !(layout || layoutId))
+        return;
+      copyBoxInto(this.layoutCorrected, this.layout.layoutBox);
+      const prevTreeScaleX = this.treeScale.x;
+      const prevTreeScaleY = this.treeScale.y;
+      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, isShared);
+      if (lead.layout && !lead.target && (this.treeScale.x !== 1 || this.treeScale.y !== 1)) {
+        lead.target = lead.layout.layoutBox;
+        lead.targetWithTransforms = createBox();
+      }
+      const { target } = lead;
+      if (!target) {
+        if (this.prevProjectionDelta) {
+          this.createProjectionDeltas();
+          this.scheduleRender();
+        }
+        return;
+      }
+      if (!this.projectionDelta || !this.prevProjectionDelta) {
+        this.createProjectionDeltas();
+      } else {
+        copyAxisDeltaInto(this.prevProjectionDelta.x, this.projectionDelta.x);
+        copyAxisDeltaInto(this.prevProjectionDelta.y, this.projectionDelta.y);
+      }
+      calcBoxDelta(this.projectionDelta, this.layoutCorrected, target, this.latestValues);
+      if (this.treeScale.x !== prevTreeScaleX || this.treeScale.y !== prevTreeScaleY || !axisDeltaEquals(this.projectionDelta.x, this.prevProjectionDelta.x) || !axisDeltaEquals(this.projectionDelta.y, this.prevProjectionDelta.y)) {
+        this.hasProjected = true;
+        this.scheduleRender();
+        this.notifyListeners("projectionUpdate", target);
+      }
+    }
+    hide() {
+      this.isVisible = false;
+    }
+    show() {
+      this.isVisible = true;
+    }
+    scheduleRender(notifyAll2 = true) {
+      this.options.visualElement?.scheduleRender();
+      if (notifyAll2) {
+        const stack = this.getStack();
+        stack && stack.scheduleRender();
+      }
+      if (this.resumingFrom && !this.resumingFrom.instance) {
+        this.resumingFrom = void 0;
+      }
+    }
+    createProjectionDeltas() {
+      this.prevProjectionDelta = createDelta();
+      this.projectionDelta = createDelta();
+      this.projectionDeltaWithTransform = createDelta();
+    }
+    setAnimationOrigin(delta, hasOnlyRelativeTargetChanged = false, pathFn) {
+      const snapshot = this.snapshot;
+      const snapshotLatestValues = snapshot ? snapshot.latestValues : {};
+      const mixedValues = { ...this.latestValues };
+      const targetDelta = createDelta();
+      if (!this.relativeParent || !this.relativeParent.options.layoutRoot) {
+        this.relativeTarget = this.relativeTargetOrigin = void 0;
+      }
+      this.attemptToResolveRelativeTarget = !hasOnlyRelativeTargetChanged;
+      const relativeLayout = createBox();
+      const snapshotSource = snapshot ? snapshot.source : void 0;
+      const layoutSource = this.layout ? this.layout.source : void 0;
+      const isSharedLayoutAnimation = snapshotSource !== layoutSource;
+      const stack = this.getStack();
+      const isOnlyMember = !stack || stack.members.length <= 1;
+      const shouldCrossfadeOpacity = Boolean(isSharedLayoutAnimation && !isOnlyMember && this.options.crossfade === true && !this.path.some(hasOpacityCrossfade));
+      this.animationProgress = 0;
+      let prevRelativeTarget;
+      const interpolate2 = pathFn?.interpolateProjection(delta);
+      this.mixTargetDelta = (latest) => {
+        const progress2 = latest / 1e3;
+        const point = interpolate2?.(progress2);
+        if (point) {
+          targetDelta.x.translate = point.x;
+          targetDelta.x.scale = mixNumber$1(delta.x.scale, 1, progress2);
+          targetDelta.x.origin = delta.x.origin;
+          targetDelta.x.originPoint = delta.x.originPoint;
+          targetDelta.y.translate = point.y;
+          targetDelta.y.scale = mixNumber$1(delta.y.scale, 1, progress2);
+          targetDelta.y.origin = delta.y.origin;
+          targetDelta.y.originPoint = delta.y.originPoint;
+        } else {
+          mixAxisDeltaLinear(targetDelta.x, delta.x, progress2);
+          mixAxisDeltaLinear(targetDelta.y, delta.y, progress2);
+        }
+        this.setTargetDelta(targetDelta);
+        if (this.relativeTarget && this.relativeTargetOrigin && this.layout && this.relativeParent && this.relativeParent.layout) {
+          calcRelativePosition(relativeLayout, this.layout.layoutBox, this.relativeParent.layout.layoutBox, this.options.layoutAnchor || void 0);
+          mixBox(this.relativeTarget, this.relativeTargetOrigin, relativeLayout, progress2);
+          if (prevRelativeTarget && boxEquals(this.relativeTarget, prevRelativeTarget)) {
+            this.isProjectionDirty = false;
+          }
+          if (!prevRelativeTarget)
+            prevRelativeTarget = createBox();
+          copyBoxInto(prevRelativeTarget, this.relativeTarget);
+        }
+        if (isSharedLayoutAnimation) {
+          this.animationValues = mixedValues;
+          mixValues(mixedValues, snapshotLatestValues, this.latestValues, progress2, shouldCrossfadeOpacity, isOnlyMember);
+        }
+        if (point && point.rotate !== void 0) {
+          if (!this.animationValues)
+            this.animationValues = mixedValues;
+          this.animationValues.pathRotation = point.rotate;
+        }
+        this.root.scheduleUpdateProjection();
+        this.scheduleRender();
+        this.animationProgress = progress2;
+      };
+      this.mixTargetDelta(this.options.layoutRoot ? 1e3 : 0);
+    }
+    startAnimation(options) {
+      this.notifyListeners("animationStart");
+      this.currentAnimation?.stop();
+      this.resumingFrom?.currentAnimation?.stop();
+      if (this.pendingAnimation) {
+        cancelFrame(this.pendingAnimation);
+        this.pendingAnimation = void 0;
+      }
+      this.pendingAnimation = frame.update(() => {
+        globalProjectionState.hasAnimatedSinceResize = true;
+        this.motionValue || (this.motionValue = motionValue(0));
+        this.motionValue.jump(0, false);
+        this.currentAnimation = animateSingleValue(this.motionValue, [0, 1e3], {
+          ...options,
+          velocity: 0,
+          isSync: true,
+          onUpdate: (latest) => {
+            this.mixTargetDelta(latest);
+            options.onUpdate && options.onUpdate(latest);
+          },
+          onStop: () => {
+          },
+          onComplete: () => {
+            options.onComplete && options.onComplete();
+            this.completeAnimation();
+          }
+        });
+        if (this.resumingFrom) {
+          this.resumingFrom.currentAnimation = this.currentAnimation;
+        }
+        this.pendingAnimation = void 0;
+      });
+    }
+    completeAnimation() {
+      if (this.resumingFrom) {
+        this.resumingFrom.currentAnimation = void 0;
+        this.resumingFrom.preserveOpacity = void 0;
+      }
+      const stack = this.getStack();
+      stack && stack.exitAnimationComplete();
+      this.resumingFrom = this.currentAnimation = this.animationValues = void 0;
+      this.notifyListeners("animationComplete");
+    }
+    finishAnimation() {
+      if (this.currentAnimation) {
+        this.mixTargetDelta && this.mixTargetDelta(animationTarget);
+        this.currentAnimation.stop();
+      }
+      this.completeAnimation();
+    }
+    applyTransformsToTarget() {
+      const lead = this.getLead();
+      let { targetWithTransforms, target, layout, latestValues } = lead;
+      if (!targetWithTransforms || !target || !layout)
+        return;
+      if (this !== lead && this.layout && layout && shouldAnimatePositionOnly(this.options.animationType, this.layout.layoutBox, layout.layoutBox)) {
+        target = this.target || createBox();
+        const xLength = calcLength(this.layout.layoutBox.x);
+        target.x.min = lead.target.x.min;
+        target.x.max = target.x.min + xLength;
+        const yLength = calcLength(this.layout.layoutBox.y);
+        target.y.min = lead.target.y.min;
+        target.y.max = target.y.min + yLength;
+      }
+      copyBoxInto(targetWithTransforms, target);
+      transformBox(targetWithTransforms, latestValues);
+      calcBoxDelta(this.projectionDeltaWithTransform, this.layoutCorrected, targetWithTransforms, latestValues);
+    }
+    registerSharedNode(layoutId, node) {
+      if (!this.sharedNodes.has(layoutId)) {
+        this.sharedNodes.set(layoutId, new NodeStack());
+      }
+      const stack = this.sharedNodes.get(layoutId);
+      stack.add(node);
+      const config = node.options.initialPromotionConfig;
+      node.promote({
+        transition: config ? config.transition : void 0,
+        preserveFollowOpacity: config && config.shouldPreserveFollowOpacity ? config.shouldPreserveFollowOpacity(node) : void 0
+      });
+    }
+    isLead() {
+      const stack = this.getStack();
+      return stack ? stack.lead === this : true;
+    }
+    getLead() {
+      const { layoutId } = this.options;
+      return layoutId ? this.getStack()?.lead || this : this;
+    }
+    getPrevLead() {
+      const { layoutId } = this.options;
+      return layoutId ? this.getStack()?.prevLead : void 0;
+    }
+    getStack() {
+      const { layoutId } = this.options;
+      if (layoutId)
+        return this.root.sharedNodes.get(layoutId);
+    }
+    promote({ needsReset, transition, preserveFollowOpacity } = {}) {
+      const stack = this.getStack();
+      if (stack)
+        stack.promote(this, preserveFollowOpacity);
+      if (needsReset) {
+        this.projectionDelta = void 0;
+        this.needsReset = true;
+      }
+      if (transition)
+        this.setOptions({ transition });
+    }
+    relegate() {
+      const stack = this.getStack();
+      if (stack) {
+        return stack.relegate(this);
+      } else {
+        return false;
+      }
+    }
+    resetSkewAndRotation() {
+      const { visualElement } = this.options;
+      if (!visualElement)
+        return;
+      let hasDistortingTransform = false;
+      const { latestValues } = visualElement;
+      if (latestValues.z || latestValues.rotate || latestValues.rotateX || latestValues.rotateY || latestValues.rotateZ || latestValues.skewX || latestValues.skewY) {
+        hasDistortingTransform = true;
+      }
+      if (!hasDistortingTransform)
+        return;
+      const resetValues = {};
+      if (latestValues.z) {
+        resetDistortingTransform("z", visualElement, resetValues, this.animationValues);
+      }
+      for (let i = 0; i < transformAxes.length; i++) {
+        resetDistortingTransform(`rotate${transformAxes[i]}`, visualElement, resetValues, this.animationValues);
+        resetDistortingTransform(`skew${transformAxes[i]}`, visualElement, resetValues, this.animationValues);
+      }
+      visualElement.render();
+      for (const key in resetValues) {
+        visualElement.setStaticValue(key, resetValues[key]);
+        if (this.animationValues) {
+          this.animationValues[key] = resetValues[key];
+        }
+      }
+      visualElement.scheduleRender();
+    }
+    applyProjectionStyles(targetStyle, styleProp) {
+      if (!this.instance || this.isSVG)
+        return;
+      if (!this.isVisible) {
+        targetStyle.visibility = "hidden";
+        return;
+      }
+      const transformTemplate = this.getTransformTemplate();
+      if (this.needsReset) {
+        this.needsReset = false;
+        targetStyle.visibility = "";
+        targetStyle.opacity = "";
+        targetStyle.pointerEvents = resolveMotionValue(styleProp?.pointerEvents) || "";
+        targetStyle.transform = transformTemplate ? transformTemplate(this.latestValues, "") : "none";
+        return;
+      }
+      const lead = this.getLead();
+      if (!this.projectionDelta || !this.layout || !lead.target) {
+        if (this.options.layoutId) {
+          targetStyle.opacity = this.latestValues.opacity !== void 0 ? this.latestValues.opacity : 1;
+          targetStyle.pointerEvents = resolveMotionValue(styleProp?.pointerEvents) || "";
+        }
+        if (this.hasProjected && !hasTransform(this.latestValues)) {
+          targetStyle.transform = transformTemplate ? transformTemplate({}, "") : "none";
+          this.hasProjected = false;
+        }
+        return;
+      }
+      targetStyle.visibility = "";
+      const valuesToRender = lead.animationValues || lead.latestValues;
+      this.applyTransformsToTarget();
+      let transform = buildProjectionTransform(this.projectionDeltaWithTransform, this.treeScale, valuesToRender);
+      if (transformTemplate) {
+        transform = transformTemplate(valuesToRender, transform);
+      }
+      targetStyle.transform = transform;
+      const { x, y } = this.projectionDelta;
+      targetStyle.transformOrigin = `${x.origin * 100}% ${y.origin * 100}% 0`;
+      if (lead.animationValues) {
+        targetStyle.opacity = lead === this ? valuesToRender.opacity ?? this.latestValues.opacity ?? 1 : this.preserveOpacity ? this.latestValues.opacity : valuesToRender.opacityExit;
+      } else {
+        targetStyle.opacity = lead === this ? valuesToRender.opacity !== void 0 ? valuesToRender.opacity : "" : valuesToRender.opacityExit !== void 0 ? valuesToRender.opacityExit : 0;
+      }
+      for (const key in scaleCorrectors) {
+        if (valuesToRender[key] === void 0)
+          continue;
+        const { correct, applyTo, isCSSVariable } = scaleCorrectors[key];
+        const corrected = transform === "none" ? valuesToRender[key] : correct(valuesToRender[key], lead);
+        if (applyTo) {
+          const num = applyTo.length;
+          for (let i = 0; i < num; i++) {
+            targetStyle[applyTo[i]] = corrected;
+          }
+        } else {
+          if (isCSSVariable) {
+            this.options.visualElement.renderState.vars[key] = corrected;
+          } else {
+            targetStyle[key] = corrected;
+          }
+        }
+      }
+      if (this.options.layoutId) {
+        targetStyle.pointerEvents = lead === this ? resolveMotionValue(styleProp?.pointerEvents) || "" : "none";
+      }
+    }
+    clearSnapshot() {
+      this.resumeFrom = this.snapshot = void 0;
+    }
+    // Only run on root
+    resetTree() {
+      this.root.nodes.forEach((node) => node.currentAnimation?.stop());
+      this.root.nodes.forEach(clearMeasurements);
+      this.root.sharedNodes.clear();
+    }
+  };
+}
+function updateLayout(node) {
+  node.updateLayout();
+}
+function notifyLayoutUpdate(node) {
+  const snapshot = node.resumeFrom?.snapshot || node.snapshot;
+  if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
+    const { layoutBox: layout, measuredBox: measuredLayout } = node.layout;
+    const { animationType } = node.options;
+    const isShared = snapshot.source !== node.layout.source;
+    if (animationType === "size") {
+      eachAxis((axis) => {
+        const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
+        const length = calcLength(axisSnapshot);
+        axisSnapshot.min = layout[axis].min;
+        axisSnapshot.max = axisSnapshot.min + length;
+      });
+    } else if (animationType === "x" || animationType === "y") {
+      const snapAxis = animationType === "x" ? "y" : "x";
+      copyAxisInto(isShared ? snapshot.measuredBox[snapAxis] : snapshot.layoutBox[snapAxis], layout[snapAxis]);
+    } else if (shouldAnimatePositionOnly(animationType, snapshot.layoutBox, layout)) {
+      eachAxis((axis) => {
+        const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
+        const length = calcLength(layout[axis]);
+        axisSnapshot.max = axisSnapshot.min + length;
+        if (node.relativeTarget && !node.currentAnimation) {
+          node.isProjectionDirty = true;
+          node.relativeTarget[axis].max = node.relativeTarget[axis].min + length;
+        }
+      });
+    }
+    const layoutDelta = createDelta();
+    calcBoxDelta(layoutDelta, layout, snapshot.layoutBox);
+    const visualDelta = createDelta();
+    if (isShared) {
+      calcBoxDelta(visualDelta, node.applyTransform(measuredLayout, true), snapshot.measuredBox);
+    } else {
+      calcBoxDelta(visualDelta, layout, snapshot.layoutBox);
+    }
+    const hasLayoutChanged = !isDeltaZero(layoutDelta);
+    let hasRelativeLayoutChanged = false;
+    if (!node.resumeFrom) {
+      const relativeParent = node.getClosestProjectingParent();
+      if (relativeParent && !relativeParent.resumeFrom) {
+        const { snapshot: parentSnapshot, layout: parentLayout } = relativeParent;
+        if (parentSnapshot && parentLayout) {
+          const anchor = node.options.layoutAnchor || void 0;
+          const relativeSnapshot = createBox();
+          calcRelativePosition(relativeSnapshot, snapshot.layoutBox, parentSnapshot.layoutBox, anchor);
+          const relativeLayout = createBox();
+          calcRelativePosition(relativeLayout, layout, parentLayout.layoutBox, anchor);
+          if (!boxEqualsRounded(relativeSnapshot, relativeLayout)) {
+            hasRelativeLayoutChanged = true;
+          }
+          if (relativeParent.options.layoutRoot) {
+            node.relativeTarget = relativeLayout;
+            node.relativeTargetOrigin = relativeSnapshot;
+            node.relativeParent = relativeParent;
+          }
+        }
+      }
+    }
+    node.notifyListeners("didUpdate", {
+      layout,
+      snapshot,
+      delta: visualDelta,
+      layoutDelta,
+      hasLayoutChanged,
+      hasRelativeLayoutChanged
+    });
+  } else if (node.isLead()) {
+    const { onExitComplete } = node.options;
+    onExitComplete && onExitComplete();
+  }
+  node.options.transition = void 0;
+}
+function propagateDirtyNodes(node) {
+  if (!node.parent)
+    return;
+  if (!node.isProjecting()) {
+    node.isProjectionDirty = node.parent.isProjectionDirty;
+  }
+  node.isSharedProjectionDirty || (node.isSharedProjectionDirty = Boolean(node.isProjectionDirty || node.parent.isProjectionDirty || node.parent.isSharedProjectionDirty));
+  node.isTransformDirty || (node.isTransformDirty = node.parent.isTransformDirty);
+}
+function cleanDirtyNodes(node) {
+  node.isProjectionDirty = node.isSharedProjectionDirty = node.isTransformDirty = false;
+}
+function clearSnapshot(node) {
+  node.clearSnapshot();
+}
+function clearMeasurements(node) {
+  node.clearMeasurements();
+}
+function forceLayoutMeasure(node) {
+  node.isLayoutDirty = true;
+  node.updateLayout();
+}
+function clearIsLayoutDirty(node) {
+  node.isLayoutDirty = false;
+}
+function ensureDraggedNodesSnapshotted(node) {
+  if (node.isAnimationBlocked && node.layout && !node.isLayoutDirty) {
+    node.snapshot = node.layout;
+    node.isLayoutDirty = true;
+  }
+}
+function resetTransformStyle(node) {
+  const { visualElement } = node.options;
+  if (visualElement && visualElement.getProps().onBeforeLayoutMeasure) {
+    visualElement.notify("BeforeLayoutMeasure");
+  }
+  node.resetTransform();
+}
+function finishAnimation(node) {
+  node.finishAnimation();
+  node.targetDelta = node.relativeTarget = node.target = void 0;
+  node.isProjectionDirty = true;
+}
+function resolveTargetDelta(node) {
+  node.resolveTargetDelta();
+}
+function calcProjection(node) {
+  node.calcProjection();
+}
+function resetSkewAndRotation(node) {
+  node.resetSkewAndRotation();
+}
+function removeLeadSnapshots(stack) {
+  stack.removeLeadSnapshot();
+}
+function mixAxisDeltaLinear(output, delta, p) {
+  output.translate = mixNumber$1(delta.translate, 0, p);
+  output.scale = mixNumber$1(delta.scale, 1, p);
+  output.origin = delta.origin;
+  output.originPoint = delta.originPoint;
+}
+function mixAxis(output, from, to, p) {
+  output.min = mixNumber$1(from.min, to.min, p);
+  output.max = mixNumber$1(from.max, to.max, p);
+}
+function mixBox(output, from, to, p) {
+  mixAxis(output.x, from.x, to.x, p);
+  mixAxis(output.y, from.y, to.y, p);
+}
+function hasOpacityCrossfade(node) {
+  return node.animationValues && node.animationValues.opacityExit !== void 0;
+}
+const defaultLayoutTransition = {
+  duration: 0.45,
+  ease: [0.4, 0, 0.1, 1]
+};
+const userAgentContains = (string) => typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().includes(string);
+const roundPoint = userAgentContains("applewebkit/") && !userAgentContains("chrome/") ? Math.round : noop;
+function roundAxis(axis) {
+  axis.min = roundPoint(axis.min);
+  axis.max = roundPoint(axis.max);
+}
+function roundBox(box) {
+  roundAxis(box.x);
+  roundAxis(box.y);
+}
+function shouldAnimatePositionOnly(animationType, snapshot, layout) {
+  return animationType === "position" || animationType === "preserve-aspect" && !isNear(aspectRatio(snapshot), aspectRatio(layout), 0.2);
+}
+function checkNodeWasScrollRoot(node) {
+  return node !== node.root && node.scroll?.wasRoot;
+}
+const DocumentProjectionNode = createProjectionNode({
+  attachResizeListener: (ref, notify) => addDomEvent(ref, "resize", notify),
+  measureScroll: () => ({
+    x: document.documentElement.scrollLeft || document.body?.scrollLeft || 0,
+    y: document.documentElement.scrollTop || document.body?.scrollTop || 0
+  }),
+  checkIsScrollRoot: () => true
+});
+const rootProjectionNode = {
+  current: void 0
+};
+const HTMLProjectionNode = createProjectionNode({
+  measureScroll: (instance) => ({
+    x: instance.scrollLeft,
+    y: instance.scrollTop
+  }),
+  defaultParent: () => {
+    if (!rootProjectionNode.current) {
+      const documentNode = new DocumentProjectionNode({});
+      documentNode.mount(window);
+      documentNode.setOptions({ layoutScroll: true });
+      rootProjectionNode.current = documentNode;
+    }
+    return rootProjectionNode.current;
+  },
+  resetTransform: (instance, value) => {
+    instance.style.transform = value !== void 0 ? value : "none";
+  },
+  checkIsScrollRoot: (instance) => Boolean(window.getComputedStyle(instance).position === "fixed")
+});
 export {
+  createBox as A,
+  eachAxis as B,
+  measurePageBox as C,
+  convertBoxToBoundingBox as D,
+  convertBoundingBoxToBox as E,
   Feature as F,
+  addValueToWillChange as G,
   HTMLVisualElement as H,
+  animateMotionValue as I,
+  setDragLock as J,
+  resize as K,
+  percent as L,
+  isElementTextInput as M,
+  microtask as N,
+  globalProjectionState as O,
+  HTMLProjectionNode as P,
+  hover as Q,
+  press as R,
   SVGVisualElement as S,
   isMotionValue as a,
   isControllingVariants as b,
@@ -4276,8 +5973,11 @@ export {
   resolveVariant as q,
   resolveMotionValue as r,
   setFeatureDefinitions as s,
-  hover as t,
-  frame as u,
-  addDomEvent as v,
-  press as w
+  isPrimaryPointer as t,
+  addDomEvent as u,
+  frameData as v,
+  frame as w,
+  cancelFrame as x,
+  mixNumber$1 as y,
+  calcLength as z
 };
