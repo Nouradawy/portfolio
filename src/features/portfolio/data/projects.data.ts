@@ -1,10 +1,4 @@
 import type { Project } from "../domain/entities/Project";
-import newHomeScreen from "@/features/Cinematic Catalog Design/src/imports/Home_screen_community.png";
-import newVotingScreen from "@/features/Cinematic Catalog Design/src/imports/community_-_votting.png";
-import newMaintenanceScreen from "@/features/Cinematic Catalog Design/src/imports/maintinace-reporting.png";
-import newGatekeeperScreen from "@/features/Cinematic Catalog Design/src/imports/gatekeeper_pass_verification_qr.png";
-import newPatrolScreen from "@/features/Cinematic Catalog Design/src/imports/patrol hub ar (4).png";
-import newSupervisorScreen from "@/features/Cinematic Catalog Design/src/imports/supervisor_incident_control_room.png";
 
 // Project content preserved from the original projectsData.jsx.
 export const projects: Project[] = [
@@ -42,12 +36,12 @@ export const projects: Project[] = [
         type: "youtube",
         url: "https://www.youtube.com/embed/h4EeJwGHUIE?mute=1&rel=0&playsinline=1",
       },
-      newHomeScreen,
-      newVotingScreen,
-      newMaintenanceScreen,
-      newGatekeeperScreen,
-      newPatrolScreen,
-      newSupervisorScreen,
+      "/assets/projects/Whatsunity/catalog/Home_screen_community.png",
+      "/assets/projects/Whatsunity/catalog/community_-_votting.png",
+      "/assets/projects/Whatsunity/catalog/maintinace-reporting.png",
+      "/assets/projects/Whatsunity/catalog/gatekeeper_pass_verification_qr.png",
+      "/assets/projects/Whatsunity/catalog/patrol_Home (1).png",
+      "/assets/projects/Whatsunity/catalog/supervisor_incident_control_room.png",
       "/assets/projects/Whatsunity/Screenshot_20251212_130927.png",
       "/assets/projects/Whatsunity/Screenshot_20251212_131138.png",
       "/assets/projects/Whatsunity/Screenshot_20251212_131212.png",

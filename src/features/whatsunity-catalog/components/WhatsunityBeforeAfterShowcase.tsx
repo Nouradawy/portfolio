@@ -17,15 +17,15 @@ import {
   Zap,
 } from "lucide-react";
 
-import legacyHome from "/assets/projects/Whatsunity/Screenshot_20251212_130927.png";
-import legacyVoting from "/assets/projects/Whatsunity/Screenshot_20251212_131138.png";
-import legacyMaintenance from "/assets/projects/Whatsunity/Screenshot_20251212_131212.png";
-import legacyGate from "/assets/projects/Whatsunity/Screenshot_20251212_131717.png";
+const legacyHome = "/assets/projects/Whatsunity/Screenshot_20251212_130927.png";
+const legacyVoting = "/assets/projects/Whatsunity/Screenshot_20251212_131138.png";
+const legacyMaintenance = "/assets/projects/Whatsunity/Screenshot_20251212_131212.png";
+const legacyGate = "/assets/projects/Whatsunity/Screenshot_20251212_131717.png";
 
-import newHome from "@/features/Cinematic Catalog Design/src/imports/Home_screen_community.png";
-import newVoting from "@/features/Cinematic Catalog Design/src/imports/community_-_votting.png";
-import newMaintenance from "@/features/Cinematic Catalog Design/src/imports/maintinace-reporting.png";
-import newGate from "@/features/Cinematic Catalog Design/src/imports/gatekeeper_pass_verification_qr.png";
+const newHome = "/assets/projects/Whatsunity/catalog/Home_screen_community.png";
+const newVoting = "/assets/projects/Whatsunity/catalog/community_-_votting.png";
+const newMaintenance = "/assets/projects/Whatsunity/catalog/maintinace-reporting.png";
+const newGate = "/assets/projects/Whatsunity/catalog/gatekeeper_pass_verification_qr.png";
 
 interface ComparisonItem {
   id: string;

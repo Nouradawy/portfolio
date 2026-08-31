@@ -1,83 +1,83 @@
-import homeScreen from "../imports/Home_screen_community.png"
-import emptySocial from "../imports/empty-social_.png"
-import social from "../imports/social.png"
-import chatting from "../imports/chatting.png"
-import communityVote from "../imports/creating_community_vote.png"
-import communityVoteResults from "../imports/community_-_votting.png"
-import maintenanceList from "../imports/maintinace-reporting.png"
-import maintenanceCreate from "../imports/creatting-new_report.png"
-import chatAttachments from "../imports/image-1.png"
-import chatPoll from "../imports/Screenshot_20260830_111028.png"
-import buildingChat from "../imports/image-2.png"
-import buildingLedger from "../imports/image-3.png"
-import directory from "../imports/image-8.png"
+const homeScreen = "/assets/projects/Whatsunity/catalog/Home_screen_community.png";
+const emptySocial = "/assets/projects/Whatsunity/catalog/empty-social_.png";
+const social = "/assets/projects/Whatsunity/catalog/social.png";
+const chatting = "/assets/projects/Whatsunity/catalog/chatting.png";
+const communityVote = "/assets/projects/Whatsunity/catalog/creating_community_vote.png";
+const communityVoteResults = "/assets/projects/Whatsunity/catalog/community_-_votting.png";
+const maintenanceList = "/assets/projects/Whatsunity/catalog/maintinace-reporting.png";
+const maintenanceCreate = "/assets/projects/Whatsunity/catalog/creatting-new_report.png";
+const chatAttachments = "/assets/projects/Whatsunity/catalog/image-1.png";
+const chatPoll = "/assets/projects/Whatsunity/catalog/Screenshot_20260830_111028.png";
+const buildingChat = "/assets/projects/Whatsunity/catalog/image-2.png";
+const buildingLedger = "/assets/projects/Whatsunity/catalog/image-3.png";
+const directory = "/assets/projects/Whatsunity/catalog/image-8.png";
 
 // Security Center & Gate Operations Assets
-import gatekeeperOverstayedStream from "../imports/gatekeeper_overstayed_stream.png"
-import gatekeeperUnitSearch34 from "../imports/gatekeeper_unit_search_34.png"
-import gatekeeperUnitDirectiveArabic from "../imports/gatekeeper_unit_directive_arabic.png"
-import gatekeeperCourierVerification from "../imports/gatekeeper_courier_verification.png"
-import gatekeeperPassVerificationQr from "../imports/gatekeeper_pass_verification_qr.png"
-import gatekeeperPassDetailsOps from "../imports/gatekeeper_pass_details_operations.png"
-import gatekeeperPatrolDispatched from "../imports/gatekeeper_patrol_dispatched.png"
-import gatekeeperPassObservationModal from "../imports/gatekeeper_pass_observation_modal.png"
-import gatekeeperManualEntry from "../imports/gatekeeper_manual_entry.png"
-import gatekeeperGuardShiftPortal from "../imports/gatekeeper_guard_shift_portal.png"
-import gatekeeperIncidentDispatchModal from "../imports/gatekeeper_incident_dispatch_modal.png"
-import gatekeeperActivityLogbook from "../imports/gatekeeper_activity_logbook.png"
-import securityReports from "../imports/image-5.png"
-import lostFound from "../imports/image-6.png"
+const gatekeeperOverstayedStream = "/assets/projects/Whatsunity/catalog/gatekeeper_overstayed_stream.png";
+const gatekeeperUnitSearch34 = "/assets/projects/Whatsunity/catalog/gatekeeper_unit_search_34.png";
+const gatekeeperUnitDirectiveArabic = "/assets/projects/Whatsunity/catalog/gatekeeper_unit_directive_arabic.png";
+const gatekeeperCourierVerification = "/assets/projects/Whatsunity/catalog/gatekeeper_courier_verification.png";
+const gatekeeperPassVerificationQr = "/assets/projects/Whatsunity/catalog/gatekeeper_pass_verification_qr.png";
+const gatekeeperPassDetailsOps = "/assets/projects/Whatsunity/catalog/gatekeeper_pass_details_operations.png";
+const gatekeeperPatrolDispatched = "/assets/projects/Whatsunity/catalog/gatekeeper_patrol_dispatched.png";
+const gatekeeperPassObservationModal = "/assets/projects/Whatsunity/catalog/gatekeeper_pass_observation_modal.png";
+const gatekeeperManualEntry = "/assets/projects/Whatsunity/catalog/gatekeeper_manual_entry.png";
+const gatekeeperGuardShiftPortal = "/assets/projects/Whatsunity/catalog/gatekeeper_guard_shift_portal.png";
+const gatekeeperIncidentDispatchModal = "/assets/projects/Whatsunity/catalog/gatekeeper_incident_dispatch_modal.png";
+const gatekeeperActivityLogbook = "/assets/projects/Whatsunity/catalog/gatekeeper_activity_logbook.png";
+const securityReports = "/assets/projects/Whatsunity/catalog/image-5.png";
+const lostFound = "/assets/projects/Whatsunity/catalog/image-6.png";
 
 // Mobile Patrol Guard Assets
-import patrolPortalHome from "../imports/patrol_Home (1).png"
-import patrolCheckpointsHub from "../imports/patrol hub ar (4).png"
-import patrolIncidentExpanded from "../imports/patrol report ar expanded.png"
-import patrolIncidentFeedMetrics from "../imports/patrol reports ar.png"
-import patrolTacticalDispatchRoom from "../imports/patrol (7).png"
-import patrolAssignedQueueReorder from "../imports/patrol (8).png"
+const patrolPortalHome = "/assets/projects/Whatsunity/catalog/patrol_Home (1).png";
+const patrolCheckpointsHub = "/assets/projects/Whatsunity/catalog/patrol hub ar (4).png";
+const patrolIncidentExpanded = "/assets/projects/Whatsunity/catalog/patrol report ar expanded.png";
+const patrolIncidentFeedMetrics = "/assets/projects/Whatsunity/catalog/patrol reports ar.png";
+const patrolTacticalDispatchRoom = "/assets/projects/Whatsunity/catalog/patrol (7).png";
+const patrolAssignedQueueReorder = "/assets/projects/Whatsunity/catalog/patrol (8).png";
 
 // Security Supervisor Assets
-import supervisorPortalHome from "../imports/supervisor_portal_home.png"
-import supervisorShiftRosterLive from "../imports/supervisor_shift_roster_live.png"
-import supervisorShiftArchitectureSetup from "../imports/supervisor_shift_architecture_setup.png"
-import supervisorShiftCalendarAssign from "../imports/supervisor_shift_calendar_assign.png"
-import supervisorActivityLogbookTimeline from "../imports/supervisor_activity_logbook_timeline.png"
-import supervisorIncidentControlRoom from "../imports/supervisor_incident_control_room.png"
-import supervisorGuardTeamRoster from "../imports/supervisor_guard_team_roster.png"
+const supervisorPortalHome = "/assets/projects/Whatsunity/catalog/supervisor_portal_home.png";
+const supervisorShiftRosterLive = "/assets/projects/Whatsunity/catalog/supervisor_shift_roster_live.png";
+const supervisorShiftArchitectureSetup = "/assets/projects/Whatsunity/catalog/supervisor_shift_architecture_setup.png";
+const supervisorShiftCalendarAssign = "/assets/projects/Whatsunity/catalog/supervisor_shift_calendar_assign.png";
+const supervisorActivityLogbookTimeline = "/assets/projects/Whatsunity/catalog/supervisor_activity_logbook_timeline.png";
+const supervisorIncidentControlRoom = "/assets/projects/Whatsunity/catalog/supervisor_incident_control_room.png";
+const supervisorGuardTeamRoster = "/assets/projects/Whatsunity/catalog/supervisor_guard_team_roster.png";
 
 // Head of Security Assets
-import headSecurityGatepostsPatrolSectors from "../imports/head_security_gateposts_patrol_sectors.png"
-import headSecurityGatePassesRegistry from "../imports/head_security_gate_passes_registry.png"
-import headSecurityTeamShiftsMaster from "../imports/head_security_team_shifts_master.png"
+const headSecurityGatepostsPatrolSectors = "/assets/projects/Whatsunity/catalog/head_security_gateposts_patrol_sectors.png";
+const headSecurityGatePassesRegistry = "/assets/projects/Whatsunity/catalog/head_security_gate_passes_registry.png";
+const headSecurityTeamShiftsMaster = "/assets/projects/Whatsunity/catalog/head_security_team_shifts_master.png";
 
 // Maintenance Coordinator & Technician Assets
-import maintenanceCoordinatorTriageDesk from "../imports/maintenance_coordinator_triage_desk.png"
-import maintenanceCoordinatorWorkOrders from "../imports/maintenance_coordinator_work_orders.png"
-import technicianPortalAssignedOrders from "../imports/technician_portal_assigned_orders.png"
-import technicianHistoryCompletedLog from "../imports/technician_history_completed_log.png"
+const maintenanceCoordinatorTriageDesk = "/assets/projects/Whatsunity/catalog/maintenance_coordinator_triage_desk.png";
+const maintenanceCoordinatorWorkOrders = "/assets/projects/Whatsunity/catalog/maintenance_coordinator_work_orders.png";
+const technicianPortalAssignedOrders = "/assets/projects/Whatsunity/catalog/technician_portal_assigned_orders.png";
+const technicianHistoryCompletedLog = "/assets/projects/Whatsunity/catalog/technician_history_completed_log.png";
 
 // Chief Engineer Assets
-import chiefEngineerPortalTakeover from "../imports/chief_engineer_portal_takeover.png"
-import chiefEngineerIncidentsEscalationFeed from "../imports/chief_engineer_incidents_escalation_feed.png"
-import chiefEngineerDispatchModalWorkOrder from "../imports/chief_engineer_dispatch_modal_work_order.png"
-import chiefEngineerTeamsCapacityWorkload from "../imports/chief_engineer_teams_capacity_workload.png"
-import chiefEngineerSchedulesHolidaysCalendar from "../imports/chief_engineer_schedules_holidays_calendar.png"
+const chiefEngineerPortalTakeover = "/assets/projects/Whatsunity/catalog/chief_engineer_portal_takeover.png";
+const chiefEngineerIncidentsEscalationFeed = "/assets/projects/Whatsunity/catalog/chief_engineer_incidents_escalation_feed.png";
+const chiefEngineerDispatchModalWorkOrder = "/assets/projects/Whatsunity/catalog/chief_engineer_dispatch_modal_work_order.png";
+const chiefEngineerTeamsCapacityWorkload = "/assets/projects/Whatsunity/catalog/chief_engineer_teams_capacity_workload.png";
+const chiefEngineerSchedulesHolidaysCalendar = "/assets/projects/Whatsunity/catalog/chief_engineer_schedules_holidays_calendar.png";
 
 // Community Manager & Governance Assets
-import managerPortalHome from "../imports/manager_portal_home.png"
-import managerActivitiesIncidentsTriage from "../imports/manager_activities_incidents_triage.png"
-import managerGovernanceFinesPenalties from "../imports/manager_governance_fines_penalties.png"
-import managerGovernanceTreasuryFund from "../imports/manager_governance_treasury_fund.png"
-import managerPenaltiesPriceListModal from "../imports/manager_penalties_price_list_modal.png"
+const managerPortalHome = "/assets/projects/Whatsunity/catalog/manager_portal_home.png";
+const managerActivitiesIncidentsTriage = "/assets/projects/Whatsunity/catalog/manager_activities_incidents_triage.png";
+const managerGovernanceFinesPenalties = "/assets/projects/Whatsunity/catalog/manager_governance_fines_penalties.png";
+const managerGovernanceTreasuryFund = "/assets/projects/Whatsunity/catalog/manager_governance_treasury_fund.png";
+const managerPenaltiesPriceListModal = "/assets/projects/Whatsunity/catalog/manager_penalties_price_list_modal.png";
 
 // Subscription & Plans
-import profileSubscription from "../imports/profile_subscription.png"
-import subscriptionTiers from "../imports/subscription_tiers_sandbox.png"
+const profileSubscription = "/assets/projects/Whatsunity/catalog/profile_subscription.png";
+const subscriptionTiers = "/assets/projects/Whatsunity/catalog/subscription_tiers_sandbox.png";
 
 // Admin Console
-import adminVerification from "../imports/admin_members_verification.png"
-import adminMemberActions from "../imports/admin_member_actions_ban.png"
-import adminBroadcast from "../imports/admin_broadcast_publisher.png"
+const adminVerification = "/assets/projects/Whatsunity/catalog/admin_members_verification.png";
+const adminMemberActions = "/assets/projects/Whatsunity/catalog/admin_member_actions_ban.png";
+const adminBroadcast = "/assets/projects/Whatsunity/catalog/admin_broadcast_publisher.png";
 
 export type Locale = "ar" | "en"
 
