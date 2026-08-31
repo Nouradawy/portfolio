@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portfolio of Noureldin Adawy — a full-stack software engineer building polished products with Flutter, Spring Boot, and React.",
+          "Portfolio of Noureldin Adawy — a full-stack software engineer building polished products with Flutter, Appwrite, Spring Boot, and React.",
       },
       { property: "og:title", content: "Noureldin — Full-Stack Software Engineer" },
       {

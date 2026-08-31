@@ -1,9 +1,11 @@
 import { AnimatePresence, m } from "framer-motion";
-import { ChevronDown, Github, Smartphone, Globe, ImageIcon, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, Github, Smartphone, Globe, ImageIcon, X, ChevronLeft, ChevronRight, BookOpen, SlidersHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Project } from "../../domain/entities/Project";
 import { fadeUp } from "../animations/variants";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { WhatsunityCatalogModal } from "@/features/whatsunity-catalog/components/WhatsunityCatalogModal";
+import { WhatsunityCatalogInline } from "@/features/whatsunity-catalog/components/WhatsunityCatalogInline";
 
 
 interface Props {
@@ -17,6 +19,9 @@ export function TimelineItem({ project }: Props) {
   const [galleryHovered, setGalleryHovered] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [catalogModalOpen, setCatalogModalOpen] = useState(false);
+  const [catalogInitialTab, setCatalogInitialTab] = useState<"catalog" | "evolution">("catalog");
+  const [catalogInlineOpen, setCatalogInlineOpen] = useState(false);
   const hasImages = project.images.length > 0;
   const showGallery = hovered || open;
 
@@ -171,14 +176,47 @@ export function TimelineItem({ project }: Props) {
             <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
               {project.startDate} — {project.endDate}
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[9px] uppercase tracking-widest text-muted-foreground">
-              {isMobile ? (
-                <Smartphone className="h-3 w-3" />
-              ) : (
-                <Globe className="h-3 w-3" />
-              )}
-              {project.platform}
-            </span>
+            {project.platforms && project.platforms.length > 0 ? (
+              project.platforms.map((p, idx) => {
+                const isObj = typeof p === "object";
+                const name = isObj ? p.name : p;
+                const isComingSoon = isObj && Boolean(p.isComingSoon);
+                const isPwa = name.toLowerCase().includes("pwa");
+                const isWeb = name.toLowerCase().includes("web");
+
+                return (
+                  <span
+                    key={idx}
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[9px] uppercase tracking-widest ${
+                      isComingSoon
+                        ? "border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-slate-500 dark:text-slate-400 opacity-75"
+                        : "border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/10 text-foreground"
+                    }`}
+                  >
+                    {isPwa || isWeb ? (
+                      <Globe className="h-3 w-3 text-cyan-500 dark:text-cyan-400" />
+                    ) : (
+                      <Smartphone className={`h-3 w-3 ${isComingSoon ? "text-slate-400" : "text-blue-500 dark:text-blue-400"}`} />
+                    )}
+                    <span>{name}</span>
+                    {isComingSoon && (
+                      <span className="rounded-full bg-amber-500/20 px-1.5 py-0.2 text-[8px] font-bold text-amber-600 dark:text-amber-300">
+                        Coming Soon
+                      </span>
+                    )}
+                  </span>
+                );
+              })
+            ) : (
+              <span className="inline-flex items-center gap-1 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2.5 py-0.5 text-[9px] uppercase tracking-widest text-muted-foreground">
+                {isMobile ? (
+                  <Smartphone className="h-3 w-3" />
+                ) : (
+                  <Globe className="h-3 w-3" />
+                )}
+                {project.platform}
+              </span>
+            )}
           </div>
 
           <h3 className="mt-2.5 font-display text-2xl tracking-wide text-foreground md:text-3xl">
@@ -196,38 +234,96 @@ export function TimelineItem({ project }: Props) {
             </p>
           ) : null}
 
-          <div className="mt-4 flex items-center gap-3">
-            <button
-              onClick={() => setOpen((o) => !o)}
-              className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-magenta transition hover:text-foreground"
-              aria-expanded={open}
-            >
-              {open ? "Show less" : "Show more"}
-              <m.span
-                animate={{ rotate: open ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2.5">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setOpen((o) => !o)}
+                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-magenta transition hover:text-foreground"
+                aria-expanded={open}
               >
-                <ChevronDown className="h-4 w-4" />
-              </m.span>
-            </button>
-            {hasImages && !showGallery ? (
-              <span className="hidden md:inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                <ImageIcon className="h-3 w-3" />
-                {project.images.length} screens
-              </span>
-            ) : null}
-            {project.github ? (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-                className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] uppercase tracking-widest text-foreground transition-colors hover:border-magenta hover:text-magenta"
-              >
-                <Github className="h-3 w-3" />
-                Source
-              </a>
-            ) : null}
+                {open ? "Show less" : "Show more"}
+                <m.span
+                  animate={{ rotate: open ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </m.span>
+              </button>
+              {hasImages && !showGallery ? (
+                <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  <ImageIcon className="h-3 w-3" />
+                  {project.images.length} screens
+                </span>
+              ) : null}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {project.hasCatalog && (
+                <>
+                  <div className="inline-flex items-center rounded-full border border-blue-500/40 bg-gradient-to-r from-blue-600/15 via-violet-600/15 to-magenta/15 p-0.5 shadow-glow-electric backdrop-blur">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCatalogInitialTab("catalog");
+                        setCatalogModalOpen(true);
+                      }}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm transition-all hover:bg-blue-500 hover:shadow-glow-electric active:scale-95"
+                    >
+                      <BookOpen className="h-3 w-3" />
+                      <span>Case Study</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setCatalogInlineOpen((v) => !v)}
+                      title={catalogInlineOpen ? "Hide inline preview" : "Expand inline preview"}
+                      className="px-2 py-1 text-[10px] font-semibold text-blue-300 transition-colors hover:text-white"
+                    >
+                      {catalogInlineOpen ? "Collapse" : "Preview"}
+                    </button>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCatalogInitialTab("evolution");
+                      setCatalogModalOpen(true);
+                    }}
+                    className="group/btn inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300 shadow-sm backdrop-blur transition-all duration-200 hover:border-cyan-400/80 hover:bg-gradient-to-r hover:from-cyan-500/25 hover:to-blue-600/25 hover:text-white hover:shadow-[0_0_14px_rgba(6,182,212,0.25)] active:scale-95"
+                  >
+                    <SlidersHorizontal className="h-3 w-3 text-cyan-400 transition-transform duration-200 group-hover/btn:rotate-90 group-hover/btn:text-cyan-200" />
+                    <span>UI/UX Evolution</span>
+                  </button>
+                </>
+              )}
+
+              {project.github ? (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 px-2.5 py-1 text-[11px] uppercase tracking-wider text-foreground transition-colors hover:border-magenta hover:text-magenta"
+                >
+                  <Github className="h-3 w-3" />
+                  Source
+                </a>
+              ) : null}
+            </div>
           </div>
+
+          <AnimatePresence initial={false}>
+            {project.hasCatalog && catalogInlineOpen && (
+              <m.div
+                key="catalog-inline"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <WhatsunityCatalogInline onOpenFullscreen={() => setCatalogModalOpen(true)} />
+              </m.div>
+            )}
+          </AnimatePresence>
 
           <AnimatePresence initial={false}>
             {open && (
@@ -239,7 +335,7 @@ export function TimelineItem({ project }: Props) {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <div className="mt-4 space-y-4 border-t border-white/10 pt-4">
+                <div className="mt-4 space-y-4 border-t border-black/10 dark:border-white/10 pt-4">
                   {restPoints.length > 0 && (
                     <ul className="space-y-2 text-sm leading-relaxed text-muted-foreground">
                       {restPoints.map((point, i) => (
@@ -258,7 +354,7 @@ export function TimelineItem({ project }: Props) {
                       {project.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] uppercase tracking-widest text-foreground"
+                          className="rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2.5 py-0.5 text-[10px] uppercase tracking-widest text-foreground"
                         >
                           {tech}
                         </span>
@@ -338,7 +434,16 @@ export function TimelineItem({ project }: Props) {
           })()}
         </DialogContent>
       </Dialog>
+
+      {project.hasCatalog && (
+        <WhatsunityCatalogModal
+          open={catalogModalOpen}
+          onClose={() => setCatalogModalOpen(false)}
+          initialTab={catalogInitialTab}
+        />
+      )}
     </m.li>
   );
 }
+
 

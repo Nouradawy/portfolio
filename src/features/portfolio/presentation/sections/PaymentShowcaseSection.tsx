@@ -140,7 +140,7 @@ function PaymentShowcaseInner() {
                 <button
                   type="button"
                   onClick={() => setShowTestCredentials((v) => !v)}
-                  className="flex items-center gap-1 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold uppercase tracking-tighter transition-all hover:bg-white/10"
+                  className="flex items-center gap-1 rounded-md border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-2 py-1 text-[10px] font-bold uppercase tracking-tighter transition-all hover:bg-black/10 dark:hover:bg-white/10"
                 >
                   {showTestCredentials ? (
                     <EyeOff className="h-3 w-3" />
@@ -160,7 +160,7 @@ function PaymentShowcaseInner() {
                     transition={{ duration: 0.3 }}
                     className="mb-6 overflow-hidden"
                   >
-                    <div className="grid grid-cols-1 gap-4 rounded-lg border border-white/10 bg-white/5 p-4 sm:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-4 rounded-lg border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/5 p-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-magenta">
                           <CreditCard className="h-3 w-3" />
@@ -173,7 +173,7 @@ function PaymentShowcaseInner() {
                             key={c.value}
                             type="button"
                             onClick={() => handleCopy(c.value, c.label)}
-                            className="flex w-full items-center justify-between rounded surface-soft p-1.5 text-[10px] transition-colors hover:border-white/10"
+                            className="flex w-full items-center justify-between rounded surface-soft p-1.5 text-[10px] transition-colors hover:border-black/15 dark:hover:border-white/10"
                           >
                             <code className={`font-mono ${c.tone}`}>{c.value}</code>
                             <Copy className="h-3 w-3 text-muted-foreground" />
@@ -196,10 +196,10 @@ function PaymentShowcaseInner() {
                             key={c.label}
                             type="button"
                             onClick={() => handleCopy(c.value, c.label)}
-                            className="flex w-full flex-col rounded surface-soft p-1.5 text-left text-[10px] transition-colors hover:border-white/10"
+                            className="flex w-full flex-col rounded surface-soft p-1.5 text-left text-[10px] transition-colors hover:border-black/15 dark:hover:border-white/10"
                           >
                             <span className="opacity-60">{c.label}:</span>
-                            <code className="break-all font-mono text-sky-400">{c.value}</code>
+                            <code className="break-all font-mono text-blue-600 dark:text-sky-400">{c.value}</code>
                           </button>
                         ))}
                       </div>
@@ -234,8 +234,8 @@ function PaymentShowcaseInner() {
                         onClick={() => setAmount(val)}
                         className={`rounded-lg border py-2 font-bold transition-all ${
                           amount === val
-                            ? "border-magenta bg-magenta/10 text-magenta"
-                            : "border-white/10 text-muted-foreground hover:border-magenta/40"
+                            ? "border-magenta bg-magenta/15 text-magenta shadow-[0_0_14px_rgba(217,70,239,0.3)]"
+                            : "border-black/10 dark:border-white/10 text-muted-foreground hover:border-magenta/40"
                         }`}
                       >
                         ${val}
@@ -247,10 +247,10 @@ function PaymentShowcaseInner() {
                         const custom = window.prompt("Enter amount:");
                         if (custom && !Number.isNaN(Number(custom))) setAmount(Number(custom));
                       }}
-                      className={`rounded-lg border py-2 transition-all ${
+                      className={`rounded-lg border py-2 font-bold transition-all ${
                         ![5, 10, 25].includes(amount)
-                          ? "border-magenta bg-magenta/10 text-magenta"
-                          : "border-white/10 text-muted-foreground hover:border-magenta/40"
+                          ? "border-magenta bg-magenta/15 text-magenta shadow-[0_0_14px_rgba(217,70,239,0.3)]"
+                          : "border-black/10 dark:border-white/10 text-muted-foreground hover:border-magenta/40"
                       }`}
                     >
                       {![5, 10, 25].includes(amount) ? `$${amount}` : "Custom"}
@@ -271,10 +271,10 @@ function PaymentShowcaseInner() {
                         key={id}
                         type="button"
                         onClick={() => setPaymentMethod(id)}
-                        className={`flex flex-1 items-center justify-center gap-2 rounded-lg border-2 p-4 transition-all ${
+                        className={`flex flex-1 items-center justify-center gap-2 rounded-lg border-2 p-4 font-semibold transition-all ${
                           paymentMethod === id
-                            ? "border-magenta bg-magenta/5"
-                            : "border-white/10 hover:bg-white/5"
+                            ? "border-magenta bg-magenta/15 text-magenta shadow-[0_0_18px_rgba(217,70,239,0.25)]"
+                            : "border-black/10 dark:border-white/10 text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5"
                         }`}
                       >
                         <Icon
@@ -298,10 +298,18 @@ function PaymentShowcaseInner() {
                     <button
                       type="submit"
                       disabled={!stripe || isProcessing}
-                      className="w-full rounded-xl py-4 font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-lg transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="group relative w-full overflow-hidden rounded-xl py-4 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_0_32px_rgba(217,70,239,0.55)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
                       style={{ background: "var(--gradient-aurora)" }}
                     >
-                      {isProcessing ? "Processing…" : `Support $${amount}`}
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 -z-10 opacity-70 blur-xl transition-opacity group-hover:opacity-100"
+                        style={{ background: "var(--gradient-aurora)" }}
+                      />
+                      <div className="flex items-center justify-center gap-2">
+                        <Sparkles className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+                        <span>{isProcessing ? "Processing Contribution…" : `Support $${amount}`}</span>
+                      </div>
                     </button>
                   </>
                 ) : (
@@ -373,7 +381,7 @@ function PaymentShowcaseInner() {
           <button
             type="button"
             onClick={() => setShowBreakdown((v) => !v)}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.25em] text-foreground backdrop-blur-md transition-all hover:border-magenta hover:bg-magenta/10"
+            className="inline-flex items-center gap-2 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.25em] text-foreground backdrop-blur-md transition-all hover:border-magenta hover:bg-magenta/10"
           >
             {showBreakdown ? "Hide Breakdown" : "Read Architectural Breakdown"}
             <ChevronDown
@@ -391,7 +399,7 @@ function PaymentShowcaseInner() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="mt-10 overflow-hidden"
             >
-              <div className="glass-card mx-auto max-w-4xl rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-8 md:p-12">
+              <div className="glass-card mx-auto max-w-4xl rounded-3xl border border-black/10 dark:border-white/10 p-8 md:p-12">
                 {/* Eyebrow */}
                 <div className="mb-6 flex items-center gap-3">
                   <span className="rounded-full border border-magenta/40 bg-magenta/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-magenta">
@@ -509,7 +517,7 @@ class ProcessPayment {
 
                 {/* Two-column footer cards */}
                 <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                  <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] p-6">
                     <div className="mb-3 flex items-center gap-2 text-magenta">
                       <Sparkles className="h-4 w-4" />
                       <span className="text-[11px] font-bold uppercase tracking-[0.2em]">
@@ -527,7 +535,7 @@ class ProcessPayment {
                       </li>
                     </ul>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                  <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] p-6">
                     <div className="mb-3 flex items-center gap-2 text-violet-glow">
                       <Lightbulb className="h-4 w-4" />
                       <span className="text-[11px] font-bold uppercase tracking-[0.2em]">

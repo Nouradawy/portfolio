@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noureldin Mohamed Yehia — Software Engineer Resume</title>
+  <meta name="description" content="Resume of Noureldin Mohamed Yehia — Software Engineer | Full-Stack Developer | Founder (Flutter, Spring Boot, React, AI Engineering)." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --bg-page: #e2e8f0;
+      --bg-paper: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #334155;
+      --text-light: #64748b;
+      --border-color: #cbd5e1;
+      
+      --accent: #1d4ed8;
+      --accent-dark: #1e40af;
+      --accent-soft: #eff6ff;
+      --accent-purple: #6b21a8;
+      --accent-purple-soft: #faf5ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      padding: 30px 16px;
+    }
+
+    /* Screen Action Bar */
+    .action-bar {
+      max-width: 820px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 14px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    .action-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .action-bar-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1d4ed8, #6b21a8);
+      color: #ffffff;
+      box-shadow: 0 2px 12px rgba(29,78,216,0.35);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f8fafc;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    /* A4 Paper Container */
+    .a4-paper {
+      width: 100%;
+      max-width: 820px;
+      min-height: 1160px;
+      margin: 0 auto;
+      background: var(--bg-paper);
+      padding: 48px 52px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    /* Header — Column Stacked */
+    .resume-header {
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+    }
+
+    .header-column {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .resume-name {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .resume-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+    }
+
+    .contact-item:hover {
+      color: var(--accent);
+    }
+
+    .contact-item svg {
+      width: 15px;
+      height: 15px;
+      stroke-width: 2.2;
+      color: var(--accent);
+    }
+
+    /* 2-Column Body Layout */
+    .resume-body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .main-column {
+      flex: 1 1 62%;
+      width: 62%;
+      min-width: 0;
+    }
+
+    .side-column {
+      flex: 0 0 35%;
+      width: 35%;
+      min-width: 0;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 22px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    /* Experience Items */
+    .experience-item {
+      margin-bottom: 18px;
+    }
+
+    .experience-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .exp-role-company {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .exp-company {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .exp-dates {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .exp-sub {
+      font-size: 12.5px;
+      font-style: italic;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+
+    .bullet-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 15px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    /* Sidebar Blocks */
+    .skills-group {
+      margin-bottom: 14px;
+    }
+
+    .skills-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill-tag {
+      font-size: 11.5px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      border: 1px solid #bfdbfe;
+      padding: 2.5px 8px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .skill-tag.ai-tag {
+      background: var(--accent-purple-soft);
+      color: var(--accent-purple);
+      border-color: #e9d5ff;
+    }
+
+    /* Education */
+    .edu-item {
+      margin-bottom: 14px;
+    }
+
+    .edu-degree {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .edu-school {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .edu-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-light);
+      font-family: var(--font-mono);
+      margin-top: 3px;
+    }
+
+    .gpa-badge {
+      font-weight: 700;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Languages */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      padding: 3px 0;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .lang-name {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .lang-level {
+      color: var(--text-muted);
+    }
+
+    /* ─── A4 PRINT & PDF STYLES ─── */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm;
+      }
+
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        box-sizing: border-box !important;
+      }
+
+      html, body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        color: #0f172a !important;
+      }
+
+      .action-bar {
+        display: none !important;
+      }
+
+      .a4-paper {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+
+      .resume-header {
+        border-bottom: 2.5px solid #1d4ed8 !important;
+        padding-bottom: 14px !important;
+        margin-bottom: 18px !important;
+      }
+
+      .resume-name {
+        font-size: 28px !important;
+      }
+
+      .resume-title {
+        font-size: 13.5px !important;
+      }
+
+      /* STRICT 2-COLUMN IN PRINT */
+      .resume-body {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        gap: 24px !important;
+        width: 100% !important;
+      }
+
+      .main-column {
+        width: 62% !important;
+        flex: 0 0 62% !important;
+      }
+
+      .side-column {
+        width: 35% !important;
+        flex: 0 0 35% !important;
+      }
+
+      .section, .experience-item, .edu-item, .skills-group {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .skill-tag {
+        border: 1px solid #bfdbfe !important;
+        background: #eff6ff !important;
+        color: #1e40af !important;
+      }
+
+      .skill-tag.ai-tag {
+        border: 1px solid #e9d5ff !important;
+        background: #faf5ff !important;
+        color: #6b21a8 !important;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+    }
+
+    /* Screen-Only Mobile Rule */
+    @media screen and (max-width: 768px) {
+      .resume-body {
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .main-column, .side-column {
+        width: 100%;
+        flex: 1 1 100%;
+      }
+
+      .a4-paper {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Action Bar -->
+  <div class="action-bar">
+    <div class="action-bar-left">
+      <span class="action-bar-title">Noureldin Adawy · A4 Printable Resume</span>
+    </div>
+    <div class="action-buttons">
+      <a href="/" class="btn btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Portfolio
+      </a>
+      <button onclick="window.print()" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        Download / Print PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 Paper Document Sheet -->
+  <main class="a4-paper">
+    <!-- Header: Name & Title as Column Stack -->
+    <header class="resume-header">
+      <div class="header-column">
+        <h1 class="resume-name">NOURELDIN MOHAMED YEHIA</h1>
+        <div class="resume-title">Software Engineer | Full-Stack Developer | Founder</div>
+      </div>
+      <div class="contact-grid">
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          (+20) 01020007093
+        </span>
+        <a href="mailto:nouradawy@hotmail.com" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          nouradawy@hotmail.com
+        </a>
+        <a href="https://linkedin.com/in/nouradawy" target="_blank" rel="noreferrer" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          linkedin.com/in/nouradawy
+        </a>
+        <a href="https://github.com/Nouradawy" target="_blank" rel="noreferrer" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          github.com/Nouradawy
+        </a>
+        <a href="https://www.nouradawy.tech" target="_blank" rel="noreferrer" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          nouradawy.tech
+        </a>
+      </div>
+    </header>
+
+    <!-- Body Columns: 2-Column Architecture -->
+    <div class="resume-body">
+      <!-- Main Column (62%): Summary + Experience -->
+      <div class="main-column">
+        <!-- Summary -->
+        <section class="section">
+          <h2 class="section-title">Professional Summary</h2>
+          <p class="summary-text">
+            Founder and Software Engineer focused on building high-impact systems from first principles. Experienced in owning the full product lifecycle — from architectural design and self-hosted infrastructure to production-grade mobile and web applications. Passionate about Clean Architecture, simplifying complex systems, and leveraging AI engineering (Cursor, Antigravity, Claude LLMs, MCPs) to accelerate development cycles.
+          </p>
+        </section>
+
+        <!-- Experience -->
+        <section class="section">
+          <h2 class="section-title">Engineering Experience</h2>
+
+          <!-- WhatsUnity -->
+          <article class="experience-item">
+            <div class="exp-header">
+              <div class="exp-role-company">
+                Founder & Lead Mobile Engineer · <span class="exp-company">WhatsUnity</span>
+              </div>
+              <div class="exp-dates">09/2024 – 02/2026</div>
+            </div>
+            <div class="exp-sub">Offline-first multi-tenant residential operating system & governance engine</div>
+            <ul class="bullet-list">
+              <li>Engineered a comprehensive mobile platform using <strong>Flutter & BLoC</strong> to digitize compound operations, mapping tenants to structured building/unit models for verified neighbor interactions.</li>
+              <li>Designed a specialized voting architecture separating high-stakes community governance from high-velocity chat streams, ensuring cryptographic data integrity.</li>
+              <li>Integrated <strong>Appwrite & Supabase</strong> backends deployed via Docker to power real-time announcements and a unified "Report History" system for Maintenance, Care, and Security dispatch.</li>
+              <li>Built a rich-media chat engine supporting Cloudflare R2 / Drive attachments and voice notes with interactive waveforms.</li>
+              <li>Engineered multi-platform distribution across <strong>Android</strong> and <strong>PWA Web</strong> with an offline-first SQLite sync pipeline.</li>
+            </ul>
+          </article>
+
+          <!-- Medicare -->
+          <article class="experience-item">
+            <div class="exp-header">
+              <div class="exp-role-company">
+                Full-Stack Software Engineer · <span class="exp-company">Medicare</span>
+              </div>
+              <div class="exp-dates">03/2023 – 03/2026</div>
+            </div>
+            <div class="exp-sub">Full-stack multi-role medical services platform & scheduling system</div>
+            <ul class="bullet-list">
+              <li>Architected and developed a full-stack platform using <strong>React</strong> for the web client and <strong>Spring Boot</strong> for high-throughput, secure RESTful APIs.</li>
+              <li>Implemented optimized <strong>MySQL indexing</strong> to manage high-concurrency appointment scheduling and encrypted patient health records.</li>
+              <li>Implemented <strong>Spring Security & JWT</strong> with role-based access control (Doctor, Patient, Clinic Administrator) and multi-factor verification.</li>
+              <li>Enforced Clean Architecture principles, automated unit/integration test suites, and containerized Docker cloud deployments.</li>
+            </ul>
+          </article>
+        </section>
+      </div>
+
+      <!-- Sidebar Column (35%): Skills, Education, Languages -->
+      <div class="side-column">
+        <!-- Technical Skills -->
+        <section class="section">
+          <h2 class="section-title">Technical Skills</h2>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Mobile Engineering</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Flutter</span>
+              <span class="skill-tag">Dart 3</span>
+              <span class="skill-tag">BLoC / Cubit</span>
+              <span class="skill-tag">Provider</span>
+              <span class="skill-tag">SQLite</span>
+              <span class="skill-tag">Platform Channels</span>
+              <span class="skill-tag">Localization</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Backend & Cloud</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Spring Boot</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Appwrite</span>
+              <span class="skill-tag">Supabase</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">CI/CD</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Frontend & Web</div>
+            <div class="skill-tags">
+              <span class="skill-tag">React 19</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">TanStack Router</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">Framer Motion</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">AI & Agentic Systems</div>
+            <div class="skill-tags">
+              <span class="skill-tag ai-tag">Cursor AI</span>
+              <span class="skill-tag ai-tag">Antigravity 2.0</span>
+              <span class="skill-tag ai-tag">Claude 3.7 / 3.5</span>
+              <span class="skill-tag ai-tag">MCP Protocols</span>
+              <span class="skill-tag ai-tag">Agent Rules (.md)</span>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <div class="skills-group-title">Architecture & Design</div>
+            <div class="skill-tags">
+              <span class="skill-tag">Clean Architecture</span>
+              <span class="skill-tag">SOLID</span>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">Adobe XD</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="section">
+          <h2 class="section-title">Education</h2>
+
+          <div class="edu-item">
+            <div class="edu-degree">Diploma in Computer Science</div>
+            <div class="edu-school">Cairo University</div>
+            <div class="edu-meta">
+              <span>08/2025 – 01/2026</span>
+              <span class="gpa-badge">GPA 3.2 / 4.0</span>
+            </div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-degree">Bachelor's in Construction & Building</div>
+            <div class="edu-school">Arab Academy for Science & Technology (AASTMT — ABET)</div>
+            <div class="edu-meta">
+              <span>01/2009 – 02/2015</span>
+              <span class="gpa-badge">GPA 2.4 / 4.0</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Languages -->
+        <section class="section">
+          <h2 class="section-title">Languages</h2>
+          <div class="lang-item">
+            <span class="lang-name">Arabic</span>
+            <span class="lang-level">Native</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <span class="lang-level">Advanced / Professional</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

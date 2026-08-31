@@ -1,6 +1,6 @@
 export interface Skill {
   name: string;
-  category: "Mobile" | "Backend" | "Frontend" | "Architecture";
+  category: "Mobile" | "Backend" | "Frontend" | "Architecture" | "AI & Agents";
   blurb: string;
   /** Long-form description shown when a card is opened. */
   detail?: string;

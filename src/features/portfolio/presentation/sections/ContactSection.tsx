@@ -186,8 +186,10 @@ export function ContactSection() {
             <button
               type="submit"
               disabled={buttonText === "Sending..."}
-              className={`group flex w-full items-center justify-center space-x-2 rounded-xl py-4 font-bold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-0.5 ${
-                isSuccess ? "bg-emerald-500 shadow-emerald-500/20" : "shadow-magenta/30"
+              className={`group relative flex w-full items-center justify-center space-x-2 rounded-xl py-4 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 ${
+                isSuccess
+                  ? "bg-emerald-500 shadow-[0_0_24px_rgba(16,185,129,0.4)]"
+                  : "shadow-[0_0_24px_rgba(217,70,239,0.35)] hover:shadow-[0_0_36px_rgba(217,70,239,0.55)]"
               }`}
               style={!isSuccess ? { background: "var(--gradient-aurora)" } : undefined}
             >

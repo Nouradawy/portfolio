@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { Smartphone, Code2, Server, Atom, Layers, GitBranch, Plus } from "lucide-react";
+import { Smartphone, Code2, Server, Atom, Layers, GitBranch, Plus, Bot, Cpu } from "lucide-react";
 import { staggerContainer, fadeUp } from "../animations/variants";
 import { skills } from "../../data/skills.data";
 
@@ -38,6 +38,13 @@ const accentByCategory = {
     iconBg: "bg-electric/10 group-hover:bg-electric/20",
     iconColor: "text-electric",
   },
+  "AI & Agents": {
+    label: "text-cyan-500 dark:text-cyan-400",
+    glow: "bg-cyan-500/15 group-hover:bg-cyan-500/25",
+    border: "group-hover:border-cyan-400/50",
+    iconBg: "bg-cyan-500/10 group-hover:bg-cyan-500/20",
+    iconColor: "text-cyan-500 dark:text-cyan-400",
+  },
 } as const;
 
 const iconByName: Record<string, React.ReactNode> = {
@@ -47,6 +54,8 @@ const iconByName: Record<string, React.ReactNode> = {
   React: <Atom size={22} strokeWidth={1.5} />,
   "Clean Architecture": <Layers size={22} strokeWidth={1.5} />,
   "BLoC / Cubit": <GitBranch size={22} strokeWidth={1.5} />,
+  "AI Engineering": <Bot size={22} strokeWidth={1.5} />,
+  "MCP & Agent Skills": <Cpu size={22} strokeWidth={1.5} />,
 };
 
 // Watermark logos burned into the bottom-right of each card.
@@ -67,6 +76,14 @@ const watermarkByName: Record<
     kind: "icon",
     node: <GitBranch size={140} strokeWidth={1} />,
   },
+  "AI Engineering": {
+    kind: "icon",
+    node: <Bot size={140} strokeWidth={1} />,
+  },
+  "MCP & Agent Skills": {
+    kind: "icon",
+    node: <Cpu size={140} strokeWidth={1} />,
+  },
 };
 
 // Puzzle bento spans — tight, asymmetric, edge-sharing.
@@ -77,6 +94,8 @@ const spans = [
   "md:col-span-2", // React
   "md:col-span-3", // Clean Architecture
   "md:col-span-3", // BLoC / Cubit
+  "md:col-span-4", // AI Engineering (hero)
+  "md:col-span-2", // MCP & Agent Skills
 ];
 
 // Group skills into bento rows so the detail panel can drop right under the
@@ -85,6 +104,7 @@ const rows: number[][] = [
   [0, 1], // Flutter | Dart
   [2, 3], // Spring Boot | React
   [4, 5], // Clean Architecture | BLoC / Cubit
+  [6, 7], // AI Engineering | MCP & Agent Skills
 ];
 
 export function PortfolioSummarySection() {
@@ -116,9 +136,8 @@ export function PortfolioSummarySection() {
           >
             From the first paper sketch to a polished production build. I write
             Flutter for mobile, Spring Boot for the API, and React for the web —
-            all glued together with{" "}
-            <span className="text-foreground">Clean Architecture</span> so each
-            layer can evolve on its own. Tap any card to dive deeper.
+            accelerated by <span className="text-foreground font-semibold">AI Engineering</span> (Cursor, Antigravity, Claude LLMs, MCPs) and structured with{" "}
+            <span className="text-foreground font-semibold">Clean Architecture</span>. Tap any card to dive deeper.
           </m.p>
         </m.div>
 
@@ -150,10 +169,9 @@ export function PortfolioSummarySection() {
                         onClick={() => setOpenIndex(isOpen ? null : i)}
                         aria-expanded={isOpen}
                         aria-controls={`stack-detail-${rowIdx}`}
-                        className={`group relative overflow-hidden rounded-3xl border bg-white/[0.02] p-5 text-left transition-all duration-500 hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric/60 md:p-8 ${
-                          isOpen ? "border-white/30" : "border-white/10"
+                        className={`group relative overflow-hidden rounded-3xl border p-5 text-left transition-all duration-500 bg-card border-black/10 dark:border-white/10 shadow-sm dark:shadow-none hover:shadow-md dark:hover:bg-white/[0.04] focus:outline-none focus-visible:ring-2 focus-visible:ring-electric/60 md:p-8 ${
+                          isOpen ? "border-black/30 dark:border-white/30 ring-1 ring-electric/30" : ""
                         } ${accent.border} ${spans[i] ?? "md:col-span-2"}`}
-
                       >
                         {/* ambient bloom */}
                         <div
@@ -193,8 +211,8 @@ export function PortfolioSummarySection() {
                         {/* Expand affordance */}
                         <div
                           aria-hidden
-                          className={`absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] transition-all duration-300 ${accent.iconColor} ${
-                            isOpen ? "rotate-45 bg-white/10" : "group-hover:scale-110"
+                          className={`absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border border-black/10 dark:border-white/15 bg-black/5 dark:bg-white/[0.04] transition-all duration-300 ${accent.iconColor} ${
+                            isOpen ? "rotate-45 bg-black/10 dark:bg-white/10" : "group-hover:scale-110"
                           }`}
                         >
                           <Plus size={14} strokeWidth={2} />
@@ -203,7 +221,7 @@ export function PortfolioSummarySection() {
                         <div className="relative flex h-full flex-col justify-between gap-8">
                           <div className="flex items-center gap-3">
                             <div
-                              className={`flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 transition-all duration-500 ${accent.iconBg} ${accent.iconColor}`}
+                              className={`flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 dark:border-white/10 transition-all duration-500 ${accent.iconBg} ${accent.iconColor}`}
                             >
                               {iconByName[skill.name]}
                             </div>
@@ -240,7 +258,7 @@ export function PortfolioSummarySection() {
                       className="overflow-hidden"
                     >
                       <div
-                        className={`relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 md:p-10 ${activeAccent.border}`}
+                        className={`relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-card dark:bg-white/[0.03] p-8 shadow-lg dark:shadow-none md:p-10 ${activeAccent.border}`}
                       >
                         <div
                           aria-hidden
@@ -267,7 +285,7 @@ export function PortfolioSummarySection() {
                               {activeSkill.highlights.map((h) => (
                                 <li
                                   key={h}
-                                  className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-foreground/90"
+                                  className="flex items-start gap-3 rounded-2xl border border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.03] p-4 text-sm text-foreground/90"
                                 >
                                   <span
                                     className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${activeAccent.iconBg}`}

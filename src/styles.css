@@ -14,6 +14,8 @@
 
   --font-display: "Bebas Neue", sans-serif;
   --font-sans: "Inter", sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  --font-latin: "Inter", system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -47,23 +49,23 @@
 :root {
   --radius: 0.75rem;
 
-  /* LIGHT THEME — soft cinematic light */
-  --background: oklch(0.985 0.005 250);
-  --foreground: oklch(0.18 0.03 265);
+  /* LIGHT THEME — pristine frosted canvas with high-contrast typography */
+  --background: oklch(0.985 0.004 250);
+  --foreground: oklch(0.14 0.03 265);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.03 265);
+  --card-foreground: oklch(0.14 0.03 265);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.03 265);
+  --popover-foreground: oklch(0.14 0.03 265);
 
   --primary: oklch(0.55 0.22 265);
   --primary-foreground: oklch(0.99 0.005 250);
 
   --secondary: oklch(0.94 0.01 265);
-  --secondary-foreground: oklch(0.2 0.03 265);
+  --secondary-foreground: oklch(0.16 0.03 265);
 
-  --muted: oklch(0.94 0.01 265);
-  --muted-foreground: oklch(0.45 0.02 265);
+  --muted: oklch(0.95 0.01 265);
+  --muted-foreground: oklch(0.42 0.02 265);
 
   --accent: oklch(0.55 0.25 295);
   --accent-foreground: oklch(0.99 0.005 250);
@@ -71,18 +73,18 @@
   --destructive: oklch(0.6 0.24 25);
   --destructive-foreground: oklch(0.99 0.005 250);
 
-  --border: oklch(0.18 0.03 265 / 12%);
-  --input: oklch(0.18 0.03 265 / 14%);
+  --border: oklch(0.14 0.03 265 / 10%);
+  --input: oklch(0.14 0.03 265 / 12%);
   --ring: oklch(0.55 0.22 265);
 
-  /* Brand accent palette — tuned for light bg */
-  --electric: oklch(0.58 0.22 265);
-  --violet-glow: oklch(0.55 0.27 295);
-  --magenta: oklch(0.6 0.31 340);
+  /* Brand accent palette — tuned for crisp light background */
+  --electric: oklch(0.52 0.23 260);
+  --violet-glow: oklch(0.50 0.28 295);
+  --magenta: oklch(0.56 0.31 340);
 
-  --glow-electric: 0 0 80px color-mix(in oklab, var(--electric) 30%, transparent);
-  --glow-violet: 0 0 80px color-mix(in oklab, var(--violet-glow) 30%, transparent);
-  --glow-magenta: 0 0 80px color-mix(in oklab, var(--magenta) 25%, transparent);
+  --glow-electric: 0 0 60px color-mix(in oklab, var(--electric) 22%, transparent);
+  --glow-violet: 0 0 60px color-mix(in oklab, var(--violet-glow) 22%, transparent);
+  --glow-magenta: 0 0 60px color-mix(in oklab, var(--magenta) 20%, transparent);
 
   --gradient-aurora: linear-gradient(
     135deg,
@@ -91,54 +93,78 @@
     var(--magenta) 100%
   );
 
-  /* Surface mixers used by glass utilities */
-  --surface-tint: oklch(0.18 0.03 265);
-  --surface-tint-strong: oklch(0.18 0.03 265);
+  /* Surface tokens used by glass and card utilities */
+  --surface-card-bg: rgba(255, 255, 255, 0.85);
+  --surface-card-border: rgba(15, 23, 42, 0.08);
+  --surface-card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+
+  --surface-input-bg: rgba(255, 255, 255, 0.95);
+  --surface-input-border: rgba(15, 23, 42, 0.12);
+
+  --surface-soft-bg: rgba(15, 23, 42, 0.035);
+  --surface-soft-border: rgba(15, 23, 42, 0.08);
 
   /* Body backdrop ellipses */
-  --bg-glow-1: color-mix(in oklab, var(--electric) 10%, transparent);
-  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 8%, transparent);
+  --bg-glow-1: color-mix(in oklab, var(--electric) 8%, transparent);
+  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 6%, transparent);
 }
 
 .dark {
   /* DARK THEME — cinematic slate-950 base */
-  --background: oklch(0.13 0.03 265);
+  --background: oklch(0.12 0.03 265);
   --foreground: oklch(0.98 0.005 250);
 
-  --card: oklch(0.17 0.035 265);
+  --card: oklch(0.16 0.035 265);
   --card-foreground: oklch(0.98 0.005 250);
-  --popover: oklch(0.15 0.035 265);
+  --popover: oklch(0.14 0.035 265);
   --popover-foreground: oklch(0.98 0.005 250);
 
   --primary: oklch(0.72 0.21 255);
-  --primary-foreground: oklch(0.12 0.03 265);
+  --primary-foreground: oklch(0.99 0.005 250);
 
   --secondary: oklch(0.22 0.04 265);
   --secondary-foreground: oklch(0.98 0.005 250);
 
   --muted: oklch(0.22 0.03 265);
-  --muted-foreground: oklch(0.7 0.02 255);
+  --muted-foreground: oklch(0.72 0.02 255);
 
-  --accent: oklch(0.62 0.27 295);
-  --accent-foreground: oklch(0.98 0.005 250);
+  --accent: oklch(0.65 0.28 295);
+  --accent-foreground: oklch(0.99 0.005 250);
 
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.72 0.21 255);
+  --destructive: oklch(0.65 0.25 25);
+  --destructive-foreground: oklch(0.99 0.005 250);
 
-  --electric: oklch(0.72 0.21 255);
-  --violet-glow: oklch(0.62 0.27 295);
-  --magenta: oklch(0.68 0.31 340);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.74 0.22 255);
 
-  --glow-electric: 0 0 80px color-mix(in oklab, var(--electric) 45%, transparent);
-  --glow-violet: 0 0 80px color-mix(in oklab, var(--violet-glow) 45%, transparent);
-  --glow-magenta: 0 0 80px color-mix(in oklab, var(--magenta) 40%, transparent);
+  --electric: oklch(0.74 0.22 255);
+  --violet-glow: oklch(0.70 0.29 295);
+  --magenta: oklch(0.72 0.32 340);
 
-  --surface-tint: white;
-  --surface-tint-strong: white;
+  --glow-electric: 0 0 80px color-mix(in oklab, var(--electric) 50%, transparent);
+  --glow-violet: 0 0 80px color-mix(in oklab, var(--violet-glow) 50%, transparent);
+  --glow-magenta: 0 0 80px color-mix(in oklab, var(--magenta) 45%, transparent);
 
-  --bg-glow-1: color-mix(in oklab, var(--electric) 18%, transparent);
-  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 14%, transparent);
+  --gradient-aurora: linear-gradient(
+    135deg,
+    oklch(0.68 0.24 255) 0%,
+    oklch(0.66 0.30 300) 50%,
+    oklch(0.70 0.33 345) 100%
+  );
+
+  --surface-card-bg: rgba(255, 255, 255, 0.038);
+  --surface-card-border: rgba(255, 255, 255, 0.09);
+  --surface-card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+
+  --surface-input-bg: rgba(255, 255, 255, 0.06);
+  --surface-input-border: rgba(255, 255, 255, 0.13);
+
+  --surface-soft-bg: rgba(255, 255, 255, 0.045);
+  --surface-soft-border: rgba(255, 255, 255, 0.09);
+
+  --bg-glow-1: color-mix(in oklab, var(--electric) 20%, transparent);
+  --bg-glow-2: color-mix(in oklab, var(--violet-glow) 16%, transparent);
 }
 
 @layer base {
@@ -172,19 +198,21 @@
 }
 
 @utility glass-card {
-  background: color-mix(in oklab, var(--surface-tint) 5%, transparent);
+  background: var(--surface-card-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in oklab, var(--surface-tint) 10%, transparent);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--surface-card-border);
+  box-shadow: var(--surface-card-shadow);
 }
 
 @utility surface-input {
-  background: color-mix(in oklab, var(--surface-tint) 6%, transparent);
-  border: 1px solid color-mix(in oklab, var(--surface-tint) 14%, transparent);
+  background: var(--surface-input-bg);
+  border: 1px solid var(--surface-input-border);
 }
 
 @utility surface-soft {
-  background: color-mix(in oklab, var(--surface-tint) 4%, transparent);
-  border: 1px solid color-mix(in oklab, var(--surface-tint) 10%, transparent);
+  background: var(--surface-soft-bg);
+  border: 1px solid var(--surface-soft-border);
 }
 
 @utility surface-code {
@@ -240,3 +268,50 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
+
+/* WhatsUnity Catalog Print & Presentation Utilities */
+.catalog-arabic {
+  font-family: var(--font-arabic);
+}
+
+.catalog-latin {
+  font-family: var(--font-latin);
+}
+
+@media print {
+  body.catalog-printing * {
+    visibility: hidden;
+  }
+  body.catalog-printing #catalog-print-container,
+  body.catalog-printing #catalog-print-container * {
+    visibility: visible;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body.catalog-printing #catalog-print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  .catalog-page {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    min-width: 297mm !important;
+    max-height: 210mm !important;
+    min-height: 210mm !important;
+    aspect-ratio: auto !important;
+    break-after: page !important;
+    page-break-after: always !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
+  }
+}
+

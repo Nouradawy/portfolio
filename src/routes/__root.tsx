@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Portfolio of Nouradawy — Full-Stack Engineer building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+          "Portfolio of Nouradawy — Full-Stack Engineer building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
       },
       { name: "robots", content: "index,follow,max-image-preview:large" },
       { name: "theme-color", content: "#0e0e0e" },
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+          "Building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
       },
       { property: "og:url", content: "https://www.nouradawy.tech/" },
       { property: "og:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
@@ -128,13 +128,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "twitter:description",
         content:
-          "Building high-performance web and mobile experiences with React, Flutter, Supabase and Spring.",
+          "Building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
       },
       { name: "twitter:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
     ],
     links: [
       { rel: "canonical", href: "https://www.nouradawy.tech/" },
       { rel: "icon", type: "image/png", href: "/assets/favicon-rounded.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [

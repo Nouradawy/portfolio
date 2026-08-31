@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, MessageCircle } from "lucide-react";
+import { ArrowDown, Download, MessageCircle, FileText } from "lucide-react";
 import { PaperAirplane } from "../components/PaperAirplane";
 import { Signature } from "../components/Signature";
 import { MatrixRain } from "../components/MatrixRain";
@@ -59,7 +59,7 @@ export function HeroSection() {
       >
         <motion.span
           variants={fadeUp}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-4 py-1.5 text-xs uppercase tracking-[0.25em] text-muted-foreground backdrop-blur-md"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-electric shadow-glow-electric" />
           Full-Stack Software Engineer
@@ -93,8 +93,8 @@ export function HeroSection() {
           engineer crafting polished products across{" "}
           <span className="text-electric font-medium">Flutter</span>,{" "}
           <span className="text-violet-600 dark:text-violet-glow font-medium">Spring Boot</span>,
-          and <span className="text-magenta font-medium">React</span>, with Clean Architecture from
-          mobile to web.
+          and <span className="text-magenta font-medium">React</span>, amplified by{" "}
+          <span className="text-cyan-500 dark:text-cyan-400 font-medium">AI Engineering & MCPs</span>, with Clean Architecture from mobile to web.
         </motion.p>
 
         <motion.div
@@ -102,10 +102,9 @@ export function HeroSection() {
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <a
-            href={resumeAsset.url}
+            href="/resume.html"
             target="_blank"
             rel="noreferrer"
-            download="Noureldin-Resume.pdf"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-7 py-3 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
             style={{ background: "var(--gradient-aurora)" }}
           >
@@ -114,8 +113,8 @@ export function HeroSection() {
               className="absolute inset-0 -z-10 opacity-60 blur-2xl transition-opacity group-hover:opacity-90"
               style={{ background: "var(--gradient-aurora)" }}
             />
-            <Download className="h-4 w-4" />
-            Resume
+            <FileText className="h-4 w-4" />
+            Resume (HTML & PDF)
           </a>
 
           <a
@@ -128,7 +127,7 @@ export function HeroSection() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-16">
-          <Signature className="h-16 w-56 opacity-90 dark:invert-0 invert" />
+          <Signature className="h-16 w-56 opacity-95" />
         </motion.div>
       </motion.div>
 

@@ -1,4 +1,10 @@
 import type { Project } from "../domain/entities/Project";
+import newHomeScreen from "@/features/Cinematic Catalog Design/src/imports/Home_screen_community.png";
+import newVotingScreen from "@/features/Cinematic Catalog Design/src/imports/community_-_votting.png";
+import newMaintenanceScreen from "@/features/Cinematic Catalog Design/src/imports/maintinace-reporting.png";
+import newGatekeeperScreen from "@/features/Cinematic Catalog Design/src/imports/gatekeeper_pass_verification_qr.png";
+import newPatrolScreen from "@/features/Cinematic Catalog Design/src/imports/patrol hub ar (4).png";
+import newSupervisorScreen from "@/features/Cinematic Catalog Design/src/imports/supervisor_incident_control_room.png";
 
 // Project content preserved from the original projectsData.jsx.
 export const projects: Project[] = [
@@ -8,24 +14,40 @@ export const projects: Project[] = [
     appIdea: "Real time community app",
     position: "Founder & Flutter Engineer",
     platform: "Android",
+    platforms: [
+      { name: "Android" },
+      { name: "PWA Version" },
+      { name: "iOS", isComingSoon: true },
+    ],
     category: "Mobile Apps",
     startDate: "Aug 2025",
     endDate: "JAN 2026",
     year: "2026",
     github: "https://github.com/Nouradawy/super_app.git",
+    hasCatalog: true,
+    catalogLabel: "Interactive Case Study (20+ Screens)",
     descriptionPoints: [
-      "Developed a comprehensive mobile platform using Flutter and Bloc to digitize compound management, enabling structured tenant organization by mapping users to specific buildings and apartment units for verified neighbor interactions.",
-      "Built a dedicated polling and voting module detached from general chat streams. Residents vote on community situations using visual analytics, ensuring critical decision-making data is not lost in daily conversation flow.",
-      "Integrated a full-stack Supabase backend for Admin-to-Resident announcements and a unified Report History system for Maintenance, Care Services, and Security requests.",
-      "Deployed a self-hosted backend using Docker, DuckDNS, and Edge Functions, ensuring data privacy and low-latency real-time chat via REST APIs and WebSockets.",
-      "Designed a rich-media chat interface supporting Google Drive integration for file sharing and voice notes with visual waveforms.",
+      "Architected an enterprise offline-first mobile operating system in Flutter and Dart 3 using a local SQLite Master model for 0ms optimistic UI mutations and background worker sync with Last-Write-Wins (LWW) conflict resolution.",
+      "Engineered a scalable Appwrite Cloud backend partitioned into 6 dedicated databases (Auth, Social, Admin, Maintenance, Security, Services) with granular RBAC enforced via native Appwrite Teams.",
+      "Built a polymorphic Dual Messaging Engine decoupling chat transport into Appwrite Realtime (WebSockets) for premium tiered complexes and Telegram MTProto for zero-database-cost community communication.",
+      "Developed a 4-tier physical security suite (Gatekeeper, Mobile Patrol, Security Supervisor, Head of Security) with sub-4-second offline QR pass verification, live overstay vehicle tracking, guard attendance geofencing, and emergency incident dispatch.",
+      "Created an end-to-end 5-role engineering maintenance lifecycle (Submitted → Triage → Dispatched → In-Progress → Quality Sign-off) with automated SLA countdowns, technician work order logging, and repair photo proofs.",
+      "Implemented a direct-to-edge storage pipeline with Cloudflare R2 and short-lived pre-signed URLs generated via Appwrite Edge Functions, bypassing backend proxy bottlenecks for high-res media, voice notes with visual waveforms, and PDF attachments.",
+      "Engineered a standalone community governance module with real-time visual analytics, quorum threshold tracking, and token-verified resident balloting detached from high-velocity chat feeds.",
+      "Strictly enforced Clean Architecture with zero third-party code generation (freezed and build_runner completely eliminated in favor of Dart 3 sealed classes, pattern matching, and records).",
     ],
-    stack: ["Flutter", "BLoC", "Supabase", "Docker", "WebSockets"],
+    stack: ["Flutter", "Dart 3", "Appwrite", "SQLite", "Telegram API", "Cloudflare R2", "BLoC", "Clean Architecture"],
     images: [
       {
         type: "youtube",
         url: "https://www.youtube.com/embed/h4EeJwGHUIE?mute=1&rel=0&playsinline=1",
       },
+      newHomeScreen,
+      newVotingScreen,
+      newMaintenanceScreen,
+      newGatekeeperScreen,
+      newPatrolScreen,
+      newSupervisorScreen,
       "/assets/projects/Whatsunity/Screenshot_20251212_130927.png",
       "/assets/projects/Whatsunity/Screenshot_20251212_131138.png",
       "/assets/projects/Whatsunity/Screenshot_20251212_131212.png",

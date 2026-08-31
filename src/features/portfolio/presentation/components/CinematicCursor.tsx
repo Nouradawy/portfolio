@@ -104,14 +104,14 @@ export function CinematicCursor() {
       {/* Easing ring */}
       <div
         ref={ringRef}
-        className="cc-ring absolute h-9 w-9 rounded-full border border-white/40 backdrop-blur-[2px] transition-[width,height,background-color,border-color,opacity] duration-200 ease-out"
-        style={{ willChange: "transform", boxShadow: "0 0 24px rgba(120,160,255,0.35)" }}
+        className="cc-ring absolute h-9 w-9 rounded-full border border-black/25 dark:border-white/40 backdrop-blur-[2px] transition-[width,height,background-color,border-color,opacity] duration-200 ease-out"
+        style={{ willChange: "transform", boxShadow: "0 0 24px color-mix(in oklab, var(--electric) 35%, transparent)" }}
       />
       {/* Precise dot */}
       <div
         ref={dotRef}
         className="absolute h-1.5 w-1.5 rounded-full bg-foreground"
-        style={{ willChange: "transform", boxShadow: "0 0 12px rgba(255,255,255,0.6)" }}
+        style={{ willChange: "transform", boxShadow: "0 0 12px color-mix(in oklab, var(--foreground) 50%, transparent)" }}
       />
 
       <style>{`

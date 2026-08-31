@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
+  --font-latin: 'Inter', system-ui, sans-serif;
+
+  /* Swiss editorial: neutrals + one blue accent (matches WhatsUnity) */
+  --color-ink: #0f172a;
+  --color-slate: #475569;
+  --color-muted: #94a3b8;
+  --color-hairline: #e6eaf0;
+  --color-stage: #eef2f8;
+  --color-paper: #ffffff;
+
+  --color-brand: #2563eb;
+  --color-brand-deep: #1d4ed8;
+  --color-brand-tint: #eff4ff;
+  --color-brand-chip: #e0e9ff;
+
+  /* App category colors (reused where a screen maps to one) */
+  --color-cat-maintenance: #16a34a;
+  --color-cat-security: #f59e0b;
+  --color-cat-care: #2563eb;
+  --color-cat-directory: #2563eb;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-latin {
+  font-family: var(--font-latin);
+}
+
+/* Hide scrollbars until scrolling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+*:hover {
+  scrollbar-color: var(--color-hairline) transparent;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+@media print {
+  @page {
+    size: 297mm 210mm;
+    margin: 0mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 297mm !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    display: block !important;
+    width: 297mm !important;
+  }
+
+  .catalog-page {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    min-width: 297mm !important;
+    max-height: 210mm !important;
+    min-height: 210mm !important;
+    aspect-ratio: auto !important;
+    break-after: page !important;
+    page-break-after: always !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    position: relative !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .catalog-page:last-child {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+}

@@ -48,7 +48,7 @@ export function ProjectsTimelineSection() {
                   className={`rounded-full px-3 py-1 text-[10px] uppercase tracking-widest transition-all ${
                     active
                       ? "text-primary-foreground shadow-glow-electric"
-                      : "border border-white/10 bg-white/5 text-muted-foreground hover:text-foreground"
+                      : "border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 text-muted-foreground hover:text-foreground"
                   }`}
                   style={active ? { background: "var(--gradient-aurora)" } : undefined}
                 >
@@ -59,7 +59,7 @@ export function ProjectsTimelineSection() {
           </div>
 
           {/* Year rail */}
-          <div className="mt-8 flex flex-col gap-1 border-l border-white/10 pl-4">
+          <div className="mt-8 flex flex-col gap-1 border-l border-black/10 dark:border-white/10 pl-4">
             <button
               type="button"
               onClick={() => setActiveYear(null)}

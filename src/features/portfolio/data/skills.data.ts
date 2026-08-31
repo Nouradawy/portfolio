@@ -73,4 +73,28 @@ export const skills: Skill[] = [
       "BlocObserver for traceable flows",
     ],
   },
+  {
+    name: "AI Engineering",
+    category: "AI & Agents",
+    blurb: "Cursor, Antigravity & Claude LLMs.",
+    detail:
+      "Engineering autonomous software development workflows with Cursor, Antigravity, and state-of-the-art Claude 3.7 / 3.5 Sonnet LLMs. Driving rapid full-stack scaffolding, automated test generation, and pair-programming with deep contextual awareness and rigorous verification.",
+    highlights: [
+      "Claude 3.7 / 3.5 Sonnet & hybrid thinking models",
+      "Cursor & Antigravity IDE agent orchestration",
+      "Autonomous plan-execute-verify task loops",
+    ],
+  },
+  {
+    name: "MCP & Agent Skills",
+    category: "AI & Agents",
+    blurb: "Model Context Protocol & Markdown Rules.",
+    detail:
+      "Architecting extensible tool ecosystems and deterministic workflows for autonomous agents. Building Model Context Protocol (MCP) servers (tools, memory, live databases) and orchestrating structured agent behaviors, workflows, and skills entirely via version-controlled Markdown files (SKILL.md, .agents/, rules/*.md).",
+    highlights: [
+      "Custom MCP Tool Servers (Eager & Lazy loading)",
+      "Executable SKILL.md workflow playbooks",
+      "Deterministic Markdown Agent Rules (.agents/ & rules/*.md)",
+    ],
+  },
 ];

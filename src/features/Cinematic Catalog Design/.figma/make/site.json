@@ -1,0 +1,10 @@
+{
+  "description": "Organizes and presents detailed cinematic catalogs of application features by user role, enabling clear, professional client presentations in A4 landscape format.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
