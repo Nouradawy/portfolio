@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LazyMotion, domAnimation } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "../features/portfolio/presentation/theme/ThemeProvider";
 
 function NotFoundComponent() {
   return (
@@ -139,8 +140,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Bebas+Neue&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap",
       },
+      { rel: "alternate", type: "text/markdown", href: "/whatsunity.md" },
+      { rel: "alternate", href: "/llms.txt" },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [
@@ -183,10 +186,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LazyMotion features={domAnimation}>
-        <Outlet />
-      </LazyMotion>
-      <Analytics />
+      <ThemeProvider>
+        <LazyMotion features={domAnimation}>
+          <Outlet />
+        </LazyMotion>
+        <Analytics />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

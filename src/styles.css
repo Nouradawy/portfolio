@@ -49,6 +49,12 @@
 :root {
   --radius: 0.75rem;
 
+  /* Motion tokens adhering to Emil Kowalski / Apple design engineering standards */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
   /* LIGHT THEME — pristine frosted canvas with high-contrast typography */
   --background: oklch(0.985 0.004 250);
   --foreground: oklch(0.14 0.03 265);
@@ -312,6 +318,65 @@
     box-shadow: none !important;
     margin: 0 auto !important;
     overflow: hidden !important;
+  }
+}
+
+/* WhatsUnity Typographic System */
+.wu-font-ar-display {
+  font-family: 'Cairo', 'Tajawal', 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0.04em;
+  line-height: 1.45;
+}
+
+.wu-font-ar-body {
+  font-family: 'Tajawal', 'Cairo', 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0.02em;
+  line-height: 1.75;
+}
+
+.wu-font-en-display {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  letter-spacing: -0.015em;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+.wu-font-en-body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  letter-spacing: normal;
+  line-height: 1.625;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+.wu-font-mono {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Tactile Button Press Physics & Smooth Micro-Interactions */
+.wu-pressable {
+  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out), opacity 160ms var(--ease-out);
+  will-change: transform;
+}
+
+.wu-pressable:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .wu-pressable-hover:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

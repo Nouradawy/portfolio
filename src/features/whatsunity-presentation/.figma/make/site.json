@@ -1,0 +1,10 @@
+{
+  "description": "Create stunning, cinematic B2B pitch decks with dynamic animations and transitions, designed to effectively showcase WhatsUnity's innovative solutions.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

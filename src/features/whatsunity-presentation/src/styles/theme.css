@@ -1,0 +1,44 @@
+:root {
+  --background: #05070a;
+  --foreground: #eef2f6;
+  --card: #0b1016;
+  --card-foreground: #eef2f6;
+  --primary: #00e28a;
+  --primary-foreground: #04140c;
+  --secondary: #121a23;
+  --secondary-foreground: #cfd8e3;
+  --muted: #0e141b;
+  --muted-foreground: #7d8b9c;
+  --accent: #00e28a;
+  --accent-foreground: #04140c;
+  --danger: #ff4d5e;
+  --border: rgba(255, 255, 255, 0.08);
+  --ring: #00e28a;
+  --radius: 1rem;
+
+  --font-display: "Cairo", system-ui, sans-serif;
+  --font-body: "Tajawal", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}

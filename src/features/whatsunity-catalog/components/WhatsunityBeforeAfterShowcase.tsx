@@ -265,7 +265,9 @@ export function WhatsunityBeforeAfterShowcase({ onOpenCatalog }: { onOpenCatalog
                   : "border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-slate-200"
               }`}
             >
-              <IconComp className="h-4 w-4" style={{ color: comp.accentColor }} />
+              <span style={{ color: comp.accentColor }} className="flex items-center">
+                <IconComp className="h-4 w-4" />
+              </span>
               <span>{comp.title}</span>
             </button>
           );

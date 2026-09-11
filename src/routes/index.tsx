@@ -1,7 +1,6 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/features/portfolio/presentation/theme/ThemeProvider";
 import { Navbar } from "@/features/portfolio/presentation/components/Navbar";
 import { CinematicCursor } from "@/features/portfolio/presentation/components/CinematicCursor";
 import { HeroSection } from "@/features/portfolio/presentation/sections/HeroSection";
@@ -56,29 +55,32 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    document.documentElement.dir = "ltr";
+    document.documentElement.lang = "en";
+  }, []);
+
   return (
-    <ThemeProvider>
-      <main className="min-h-screen bg-background text-foreground">
-        <CinematicCursor />
-        <Navbar />
-        <HeroSection />
-        <Suspense fallback={<SectionSkeleton />}>
-          <PortfolioSummarySection />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton />}>
-          <PaymentShowcaseSection />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton />}>
-          <ProjectsTimelineSection />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton />}>
-          <ContactSection />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton />}>
-          <FooterSection />
-        </Suspense>
-        <Toaster />
-      </main>
-    </ThemeProvider>
+    <main className="min-h-screen bg-background text-foreground">
+      <CinematicCursor />
+      <Navbar />
+      <HeroSection />
+      <Suspense fallback={<SectionSkeleton />}>
+        <PortfolioSummarySection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <PaymentShowcaseSection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <ProjectsTimelineSection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <ContactSection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <FooterSection />
+      </Suspense>
+      <Toaster />
+    </main>
   );
 }

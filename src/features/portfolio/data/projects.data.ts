@@ -18,8 +18,7 @@ export const projects: Project[] = [
     endDate: "JAN 2026",
     year: "2026",
     github: "https://github.com/Nouradawy/super_app.git",
-    hasCatalog: true,
-    catalogLabel: "Interactive Case Study (20+ Screens)",
+    landingPageUrl: "/whatsunity",
     descriptionPoints: [
       "Architected an enterprise offline-first mobile operating system in Flutter and Dart 3 using a local SQLite Master model for 0ms optimistic UI mutations and background worker sync with Last-Write-Wins (LWW) conflict resolution.",
       "Engineered a scalable Appwrite Cloud backend partitioned into 6 dedicated databases (Auth, Social, Admin, Maintenance, Security, Services) with granular RBAC enforced via native Appwrite Teams.",

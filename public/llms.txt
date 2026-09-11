@@ -1,0 +1,21 @@
+# Nouradawy — Full-Stack & Mobile Systems Engineer
+> Portfolio & Technical Index: https://www.nouradawy.tech/
+
+This file is optimized for consumption by AI agents (Cursor, ChatGPT, Gemini, Claude, Perplexity) and developer tooling.
+
+## Primary Projects & Systems
+
+- [WhatsUnity Residential OS](/whatsunity.md): Enterprise offline-first residential operating system built with Flutter and Clean Architecture. Replaces chaotic WhatsApp groups with unit-verified resident directories, automated facility requests, dual-engine messaging (Appwrite Realtime + Telegram MTProto), 100% offline cryptographic QR gatekeeping, and an end-to-end 5-role engineering maintenance lifecycle.
+- [Portfolio Source & Architecture](https://www.nouradawy.tech/): High-performance portfolio showcasing full-stack mobile, backend, and web systems built with Flutter, React 19, Vite, TanStack Router, Appwrite, and Supabase.
+
+## Key Technical Proficiencies
+
+- **Mobile & Architecture**: Flutter (Dart 3, Clean Architecture, BLoC/Cubit, Sealed Classes, Zero Code-Gen), Android (Kotlin), iOS, SQLite Local Master, Hive.
+- **Backend & Cloud**: Appwrite Cloud & Self-Hosted, PostgreSQL, Supabase, Spring Boot (Java), Node.js, Cloudflare R2 Edge Object Storage.
+- **Security & Protocols**: Cryptographic QR Validation, AES-256 GCM, Role-Based Access Control (RBAC), WebSocket Realtime, Telegram MTProto API.
+- **Frontend**: React 19, TypeScript, TanStack Router, TanStack Query, Tailwind CSS, Framer Motion.
+
+## Full Documentation for Agents
+
+- [WhatsUnity Deep Technical Architecture & Case Study](/whatsunity.md): Full markdown document with architecture diagrams, data contracts, sync algorithms, and role matrix.
+- [WhatsUnity Live Landing Page](https://www.nouradawy.tech/whatsunity): Interactive landing page with live 20+ screen catalog and presentation deck.

@@ -1,12 +1,10 @@
 import { AnimatePresence, m } from "framer-motion";
-import { ChevronDown, Github, Smartphone, Globe, ImageIcon, X, ChevronLeft, ChevronRight, BookOpen, SlidersHorizontal } from "lucide-react";
+import { ChevronDown, Github, Smartphone, Globe, ImageIcon, X, ChevronLeft, ChevronRight, Sparkles, ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { Project } from "../../domain/entities/Project";
 import { fadeUp } from "../animations/variants";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { WhatsunityCatalogModal } from "@/features/whatsunity-catalog/components/WhatsunityCatalogModal";
-import { WhatsunityCatalogInline } from "@/features/whatsunity-catalog/components/WhatsunityCatalogInline";
-
+import { WhatsUnityLogoText } from "@/features/whatsunity-landing/components/WhatsUnityLogoText";
 
 interface Props {
   project: Project;
@@ -19,9 +17,6 @@ export function TimelineItem({ project }: Props) {
   const [galleryHovered, setGalleryHovered] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const [catalogModalOpen, setCatalogModalOpen] = useState(false);
-  const [catalogInitialTab, setCatalogInitialTab] = useState<"catalog" | "evolution">("catalog");
-  const [catalogInlineOpen, setCatalogInlineOpen] = useState(false);
   const hasImages = project.images.length > 0;
   const showGallery = hovered || open;
 
@@ -258,43 +253,26 @@ export function TimelineItem({ project }: Props) {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {project.hasCatalog && (
-                <>
-                  <div className="inline-flex items-center rounded-full border border-blue-500/40 bg-gradient-to-r from-blue-600/15 via-violet-600/15 to-magenta/15 p-0.5 shadow-glow-electric backdrop-blur">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setCatalogInitialTab("catalog");
-                        setCatalogModalOpen(true);
-                      }}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm transition-all hover:bg-blue-500 hover:shadow-glow-electric active:scale-95"
-                    >
-                      <BookOpen className="h-3 w-3" />
-                      <span>Case Study</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCatalogInlineOpen((v) => !v)}
-                      title={catalogInlineOpen ? "Hide inline preview" : "Expand inline preview"}
-                      className="px-2 py-1 text-[10px] font-semibold text-blue-300 transition-colors hover:text-white"
-                    >
-                      {catalogInlineOpen ? "Collapse" : "Preview"}
-                    </button>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCatalogInitialTab("evolution");
-                      setCatalogModalOpen(true);
-                    }}
-                    className="group/btn inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300 shadow-sm backdrop-blur transition-all duration-200 hover:border-cyan-400/80 hover:bg-gradient-to-r hover:from-cyan-500/25 hover:to-blue-600/25 hover:text-white hover:shadow-[0_0_14px_rgba(6,182,212,0.25)] active:scale-95"
-                  >
-                    <SlidersHorizontal className="h-3 w-3 text-cyan-400 transition-transform duration-200 group-hover/btn:rotate-90 group-hover/btn:text-cyan-200" />
-                    <span>UI/UX Evolution</span>
-                  </button>
-                </>
+              {(project.landingPageUrl || project.id === "whatsunity") && (
+                <a
+                  href={project.landingPageUrl || "/whatsunity"}
+                  className="group/landing inline-flex items-center rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3 py-1.5 shadow-sm backdrop-blur transition-all duration-200 hover:border-emerald-400/80 hover:bg-gradient-to-r hover:from-emerald-500/25 hover:to-teal-500/25 hover:shadow-[0_0_16px_rgba(16,185,129,0.35)] active:scale-95"
+                >
+                  <WhatsUnityLogoText fontSize={14} />
+                </a>
               )}
+
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 px-2.5 py-1 text-[11px] uppercase tracking-wider text-foreground transition-colors hover:border-magenta hover:text-magenta"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  Live Demo
+                </a>
+              ) : null}
 
               {project.github ? (
                 <a
@@ -309,21 +287,6 @@ export function TimelineItem({ project }: Props) {
               ) : null}
             </div>
           </div>
-
-          <AnimatePresence initial={false}>
-            {project.hasCatalog && catalogInlineOpen && (
-              <m.div
-                key="catalog-inline"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <WhatsunityCatalogInline onOpenFullscreen={() => setCatalogModalOpen(true)} />
-              </m.div>
-            )}
-          </AnimatePresence>
 
           <AnimatePresence initial={false}>
             {open && (
@@ -434,14 +397,6 @@ export function TimelineItem({ project }: Props) {
           })()}
         </DialogContent>
       </Dialog>
-
-      {project.hasCatalog && (
-        <WhatsunityCatalogModal
-          open={catalogModalOpen}
-          onClose={() => setCatalogModalOpen(false)}
-          initialTab={catalogInitialTab}
-        />
-      )}
     </m.li>
   );
 }

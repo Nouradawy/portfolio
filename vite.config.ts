@@ -4,7 +4,7 @@ export default defineConfig({
   nitro: {
     preset: "vercel",
     noExternals: ["tslib"],
-  },
+  } as any,
   tanstackStart: {
     server: { entry: "server" },
   },

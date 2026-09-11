@@ -68,6 +68,17 @@ export function CinematicCursor() {
     };
     raf = requestAnimationFrame(tick);
 
+    // Set initial transform immediately
+    if (dotRef.current) {
+      dotRef.current.style.transform = `translate3d(${tx}px, ${ty}px, 0) translate(-50%, -50%)`;
+    }
+    if (ringRef.current) {
+      ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+    }
+    if (spotRef.current) {
+      spotRef.current.style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, -50%)`;
+    }
+
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerdown", onDown);
     window.addEventListener("pointerup", onUp);
@@ -83,18 +94,18 @@ export function CinematicCursor() {
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointerover", onOver);
-      document.documentElement.style.cursor = prevCursor;
+      document.documentElement.style.cursor = prevCursor || "";
     };
   }, []);
 
   if (!enabled) return null;
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[9999]">
+    <div aria-hidden dir="ltr" className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
       {/* Soft spotlight that lags far behind — gives the scene a film-light feel */}
       <div
         ref={spotRef}
-        className="absolute h-[520px] w-[520px] rounded-full opacity-[0.18] blur-3xl"
+        className="absolute top-0 left-0 h-[520px] w-[520px] rounded-full opacity-[0.18] blur-3xl"
         style={{
           background:
             "radial-gradient(circle, color-mix(in oklab, var(--electric) 70%, transparent) 0%, transparent 60%)",
@@ -104,13 +115,13 @@ export function CinematicCursor() {
       {/* Easing ring */}
       <div
         ref={ringRef}
-        className="cc-ring absolute h-9 w-9 rounded-full border border-black/25 dark:border-white/40 backdrop-blur-[2px] transition-[width,height,background-color,border-color,opacity] duration-200 ease-out"
+        className="cc-ring absolute top-0 left-0 h-9 w-9 rounded-full border border-black/25 dark:border-white/40 backdrop-blur-[2px] transition-[width,height,background-color,border-color,opacity] duration-200 ease-out"
         style={{ willChange: "transform", boxShadow: "0 0 24px color-mix(in oklab, var(--electric) 35%, transparent)" }}
       />
       {/* Precise dot */}
       <div
         ref={dotRef}
-        className="absolute h-1.5 w-1.5 rounded-full bg-foreground"
+        className="absolute top-0 left-0 h-1.5 w-1.5 rounded-full bg-foreground"
         style={{ willChange: "transform", boxShadow: "0 0 12px color-mix(in oklab, var(--foreground) 50%, transparent)" }}
       />
 
