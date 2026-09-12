@@ -42,7 +42,7 @@ export function WhatsunityCtaFooter({ locale, content, onOpenCatalog }: Props) {
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
               <a
-                href="https://wa.me/201099682855?text=Hello%20Noureldin,%20I'm%20interested%20in%20deploying%20or%20licensing%20WhatsUnity%20for%20our%20community."
+                href="https://wa.me/nouradawy?text=Hello%20Noureldin,%20I'm%20interested%20in%20deploying%20or%20licensing%20WhatsUnity%20for%20our%20community."
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-6 py-3.5 text-sm font-extrabold text-white shadow-[0_4px_25px_rgba(16,185,129,0.35)] wu-pressable hover:shadow-[0_6px_30px_rgba(16,185,129,0.45)] hover:brightness-105 ${
@@ -53,15 +53,16 @@ export function WhatsunityCtaFooter({ locale, content, onOpenCatalog }: Props) {
                 <span>{cta.primaryBtn}</span>
               </a>
 
-              <a
-                href="mailto:nouradawy.dev@gmail.com?subject=WhatsUnity%20Commercial%20Inquiry%20&%20Deployment"
+              <Link
+                to="/"
+                hash="contact"
                 className={`inline-flex items-center gap-2 rounded-2xl border border-slate-300/90 bg-white px-5 py-3.5 text-sm font-bold text-slate-800 shadow-sm wu-pressable hover:border-emerald-500 hover:bg-emerald-50/70 hover:text-emerald-800 dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:border-emerald-400/50 dark:hover:bg-white/10 ${
                   isRtl ? "wu-font-ar-display" : "wu-font-en-display"
                 }`}
               >
                 <Mail className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                <span>{isRtl ? "مراسلة بريدية" : "Email Inquiry"}</span>
-              </a>
+                <span>{isRtl ? "نموذج المراسلة المباشر" : "Contact Form"}</span>
+              </Link>
 
               <button
                 type="button"

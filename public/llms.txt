@@ -5,7 +5,7 @@ This file is optimized for consumption by AI agents (Cursor, ChatGPT, Gemini, Cl
 
 ## Primary Projects & Systems
 
-- [WhatsUnity Residential OS](/whatsunity.md): Enterprise offline-first residential operating system built with Flutter and Clean Architecture. Replaces chaotic WhatsApp groups with unit-verified resident directories, automated facility requests, dual-engine messaging (Appwrite Realtime + Telegram MTProto), 100% offline cryptographic QR gatekeeping, and an end-to-end 5-role engineering maintenance lifecycle.
+- [WhatsUnity Residential OS](/whatsunity.md): One home. One subscription. Your entire household included. WhatsUnity turns your compound into a connected, secure, digitally managed community. Built with Flutter and Clean Architecture, featuring unit-verified resident directories, 100% offline cryptographic QR gatekeeping, dual-engine messaging, and an end-to-end 5-role engineering maintenance lifecycle.
 - [Portfolio Source & Architecture](https://www.nouradawy.tech/): High-performance portfolio showcasing full-stack mobile, backend, and web systems built with Flutter, React 19, Vite, TanStack Router, Appwrite, and Supabase.
 
 ## Key Technical Proficiencies

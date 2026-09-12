@@ -60,6 +60,40 @@ function Index() {
     document.documentElement.lang = "en";
   }, []);
 
+  // Robust hash scroll restoration for cross-page & lazy-loaded section navigation
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (!hash) return;
+
+      let attempts = 0;
+      const maxAttempts = 35; // check for up to ~3.5s while lazy sections suspend/render
+
+      const tryScroll = () => {
+        const targetId = hash.replace("#", "");
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          return true;
+        }
+        return false;
+      };
+
+      if (tryScroll()) return;
+
+      const interval = setInterval(() => {
+        attempts++;
+        if (tryScroll() || attempts >= maxAttempts) {
+          clearInterval(interval);
+        }
+      }, 100);
+    };
+
+    handleHashScroll();
+    window.addEventListener("hashchange", handleHashScroll);
+    return () => window.removeEventListener("hashchange", handleHashScroll);
+  }, []);
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <CinematicCursor />

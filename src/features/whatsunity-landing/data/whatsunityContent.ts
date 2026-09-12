@@ -183,13 +183,13 @@ export interface WhatsunityContent {
 export const whatsunityContent: Record<Locale, WhatsunityContent> = {
   ar: {
     meta: {
-      title: "WhatsUnity — نظام تشغيل الكمبوندات السكنية ومنصة الجيران الموثقة",
+      title: "WhatsUnity — منزل واحد. اشتراك واحد. عائلتك بالكامل مشمولة | نظام تشغيل الكمبوندات",
       description:
-        "منصة B2B متكاملة لإدارة المجمعات السكنية واتحادات الشاغلين. استبدل فوضى مجموعات واتساب بنظام سكني موثق، وبوابات أمنية تعمل دون إنترنت بنسبة 100%، ودورة صيانة هندسية متكاملة لـ 9 أدوار تشغيلية — جاهز للتطبيق الفوري.",
-      ogTitle: "WhatsUnity — نظام تشغيل الكمبوندات وإدارة المجمعات السكنية",
+        "يحوّل WhatsUnity كمبوندك السكني إلى مجتمع مترابط، آمن، ومُدار رقمياً بالكامل. منزل واحد، اشتراك واحد، وكل أفراد أسرتك مشمولون — استبدل فوضى مجموعات الواتساب بنظام سكني موثق، وبوابات أمنية تعمل دون إنترنت بنسبة 100%، ودورة صيانة هندسية لـ 9 أدوار تشغيلية.",
+      ogTitle: "WhatsUnity — منزل واحد. اشتراك واحد. عائلتك بالكامل مشمولة",
       ogDescription:
-        "منظومة عقارية تجارية جاهزة للتسليم: تصاريح زوار مشفرة أوفلاين، محرك مراسلة مزدوج موفر للتكاليف، وحوكمة صيانة شاملة.",
-      badge: "منظومة تجارية متكاملة جاهزة للتسليم · B2B Compound OS v2.4",
+        "يحوّل WhatsUnity كمبوندك إلى مجتمع مترابط، آمن، ومُدار رقمياً بالكامل: تصاريح زوار مشفرة أوفلاين 100%، ومحرك مراسلة مزدوج موفر للتكاليف، وحوكمة صيانة شاملة.",
+      badge: "منزل واحد · اشتراك واحد · عائلتك بالكامل مشمولة · B2B Compound OS v2.4",
     },
     nav: {
       caseStudy: "دراسة الحالة",
@@ -198,11 +198,11 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       backToPortfolio: "معرض الأعمال",
     },
     hero: {
-      kicker: "منظومة تشغيل B2B للمطورين العقاريين واتحادات الشاغلين · جاهزة للنشر",
-      titleLine1: "حوّل كمبوندك إلى مجتمع ذكي متكامل.",
-      titleHighlight: "الأمان، والتشغيل، ورضا السكان في منصة واحدة.",
+      kicker: "منزل واحد · اشتراك واحد · عائلتك بالكامل مشمولة",
+      titleLine1: "منزل واحد. اشتراك واحد.",
+      titleHighlight: "عائلتك بالكامل مشمولة.",
       subtitle:
-        "استبدل فوضى مجموعات الواتساب، وأعطال البوابات الأمنية، وفقدان طلبات الصيانة بنظام تشغيل عقاري متكامل. مبني بأعلى معايير Flutter و Clean Architecture، مع تشغيل أوفلاين 100%، وإدارة صيانة خماسية الأدوار، ودليل سكني موثق بالوحدات — جاهز للتطبيق في كمبوندك خلال 48 ساعة.",
+        "يحوّل WhatsUnity كمبوندك السكني إلى مجتمع مترابط، آمن، ومُدار رقمياً بالكامل. استبدل فوضى مجموعات الواتساب، وأعطال البوابات الأمنية، وفقدان طلبات الصيانة بنظام تشغيل عقاري متكامل. مبني بأعلى معايير Flutter و Clean Architecture، مع تشغيل أوفلاين 100%، وإدارة صيانة خماسية الأدوار، ودليل سكني موثق بالوحدات — جاهز للتطبيق في كمبوندك خلال 48 ساعة.",
       ctaDemo: "احجز جلسة استعراض حي (Demo) ←",
       ctaCatalog: "تصفح كتالوج الشاشات (20+ شاشة)",
       ctaPresentation: "العرض التقديمي التفاعلي",
@@ -214,14 +214,14 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       ],
       commercialHighlights: [
         {
-          tag: "White-Label جاهز",
-          title: "إطلاق بهوية كمبوندك",
-          desc: "تخصيص الألوان، الشعار، واسم التطبيق على App Store و Google Play خلال 48 ساعة فقط.",
+          tag: "اشتراك عائلي شامل",
+          title: "منزل واحد.. اشتراك واحد",
+          desc: "ترخيص يغطي الوحدة السكنية كاملة بكافة أفرادها بدون أي رسوم إضافية على كل حساب.",
         },
         {
-          tag: "0$ تكاليف خوادم",
-          title: "محرك تيليجرام الاقتصادي",
-          desc: "تخلص تماماً من اشتراكات قواعد البيانات والمحادثات الشهرية بفضل ربط Telegram MTProto.",
+          tag: "مجتمع موثق وآمن",
+          title: "مجتمع مترابط بخصوصية تامة",
+          desc: "دليل سكني موثق بالوحدات يمنع فوضى الواتساب ويحمي خصوصية أرقام الهواتف بنسبة 100%.",
         },
         {
           tag: "100% أمان أوفلاين",
@@ -229,9 +229,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
           desc: "فحص تصاريح الزوار المشفرة محلياً على أجهزة الحراس دون أي تأثر بانقطاع الإنترنت.",
         },
         {
-          tag: "ملكية فكرية كاملة",
-          title: "شراء الكود أو ترخيص مرن",
-          desc: "متاح للاستحواذ الكامل على الكود المصدري أو الترخيص التشغيلي للمطورين العقاريين.",
+          tag: "إدارة رقمية متكاملة",
+          title: "حوكمة تشغيلية لـ 9 أدوار",
+          desc: "منظومة تربط السكان، وحراس البوابات، والدوريات، والفنيين، وكبار المهندسين في منصة واحدة.",
         },
       ],
       cinematic: {
@@ -242,11 +242,11 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
           {
             id: "offline-first",
             stageNumber: "01",
-            tag: "المعمارية والأداء الفائق · Offline-First Architecture",
-            title: "استجابة فورية 0ms بلا أي تأخير.",
-            titleHighlight: "بنية SQLite Local Master تعمل دائماً.",
+            tag: "مجتمع مترابط وتشغيل فوري · Connected & Instant OS",
+            title: "يحوّل كمبوندك إلى مجتمع مترابط رقمياً.",
+            titleHighlight: "استجابة فورية بلا أي تأخير.",
             subtitle:
-              "كل شاشة تتفاعل بلمح البصر دون انتظار استجابة السيرفر. تكتب جميع العمليات محلياً مع طوابير مزامنة ذكية وتوقيع رقمي موثوق، مما يضمن أداءً فائقاً وتجربة استخدام خالية من أي بطء حتى في الأماكن المنعزلة وأكشاك البوابات.",
+              "WhatsUnity يحوّل الكمبوند إلى بيئة رقمية متكاملة تربط السكان، والأمن، والصيانة في منظومة واحدة. بفضل بنية SQLite Local Master، تتفاعل كل شاشة بلمح البصر دون أي انتظار للسيرفر مع طوابير مزامنة ذكية وتجربة استخدام خالية من أي بطء.",
             iconName: "Smartphone",
             videoSrc: "/assets/whatsunity/phone.mp4",
             posterSrc: "/assets/whatsunity/poster-phone.webp",
@@ -258,20 +258,20 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
               { value: "Sub-50ms", label: "سرعة فض التعارضات", sub: "خوارزمية LWW الذكية" },
             ],
             bulletPoints: [
-              { title: "تفاعل لحظي دون شاشات تحميل", desc: "استجابة 0ms لكافة العمليات وحفظ فوري محلياً." },
-              { title: "مزامنة ذكية ثنائية الاتجاه", desc: "رفع التعديلات فور عودة الاتصال بمرونة تامة." },
+              { title: "مجتمع مترابط واستجابة لحظية", desc: "استجابة فائقة السرعة لكافة العمليات وحفظ فوري محلياً دون شاشات تحميل." },
+              { title: "مزامنة ذكية ثنائية الاتجاه", desc: "رفع التعديلات فور عودة الاتصال بمرونة وموثوقية تامة." },
             ],
-            dockLabel: "تشغيل أوفلاين فوري",
-            dockSub: "0ms Local Master",
+            dockLabel: "مجتمع مترابط وفوري",
+            dockSub: "Instant Local Master",
           },
           {
             id: "community-hub",
             stageNumber: "02",
-            tag: "مجتمع الجيران الموثق · Verified Resident Hub",
-            title: "مجتمع سكني راقٍ بخصوصية تامة.",
-            titleHighlight: "استبدل فوضى مجموعات الواتساب.",
+            tag: "منزل واحد · اشتراك واحد · عائلتك بالكامل مشمولة",
+            title: "منزل واحد. اشتراك واحد.",
+            titleHighlight: "كل أفراد أسرتك مشمولون.",
             subtitle:
-              "دليل سكني موثق بالوحدات والعمارات يمنع كشف أرقام هواتف الملاك. يتيح نشر الإعلانات الرسمية للكمبوند، واستطلاعات الرأي التفاعلية، والنقاشات المحكومة دون أي إزعاج أو تسويق عشوائي.",
+              "اشتراك واحد يغطي الوحدة السكنية بالكامل دون رسوم إضافية لكل حساب. دليل موثق بالوحدات والعمارات يحمي خصوصية أرقام هواتف الملاك ويستبدل فوضى مجموعات الواتساب بقنوات رسمية وتصويتات معتمدة.",
             iconName: "Users",
             videoSrc: "/assets/whatsunity/community.mp4",
             posterSrc: "/assets/whatsunity/poster-community.webp",
@@ -283,20 +283,20 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
               { value: "48 ساعة", label: "استيراد دليل الكمبوند", sub: "توليد الحسابات بالـ CSV" },
             ],
             bulletPoints: [
-              { title: "دليل موثق بالوحدات والعمارات", desc: "تواصل منظم بين الجيران دون كشف أرقام الهواتف." },
-              { title: "قنوات إعلانات وتصويتات رسمية", desc: "قرارات اتحاد الشاغلين وإشعارات الإدارة المعتمدة." },
+              { title: "ترخيص شامل لكافة أفراد الأسرة", desc: "اشتراك واحد للمنزل يتيح للجميع الاستخدام والتفاعل بحرية." },
+              { title: "دليل موثق وقنوات رسمية", desc: "تواصل منظم بين الجيران وتصويتات رسمية دون كشف أرقام الهواتف." },
             ],
-            dockLabel: "مجتمع الجيران الموثق",
-            dockSub: "Unit-Verified Hub",
+            dockLabel: "اشتراك المنزل والأسرة",
+            dockSub: "Whole Household",
           },
           {
             id: "qr-security",
             stageNumber: "03",
-            tag: "الأمان والبوابات الذكية · Gatekeeper QR",
-            title: "بوابات أمنية محصنة لا تتوقف.",
+            tag: "بوابات أمنية وإدارة رقمية محكمة · Secure & Managed",
+            title: "مجتمع آمن ومُدار رقمياً بالكامل.",
             titleHighlight: "فحص تصاريح QR مشفرة 100% دون إنترنت.",
             subtitle:
-              "تصاريح زوار رقمية مشفرة بطابع زمني ورقم الوحدة تُفحص محلياً على أجهزة الحراس في أقل من 0.05 ثانية. سجل زوار CRM لتسهيل دخول المترددين المنتظمين، وتنبيهات القائمة السوداء الفورية حتى أثناء انقطاع الإنترنت التام.",
+              "بوابات أمنية محصنة لا تتوقف حتى في الانقطاع التام لشبكة 4G. تصاريح زوار مشفرة بطابع زمني ورقم الوحدة تُفحص محلياً على أجهزة الحراس في أقل من 0.04 ثانية، مع سجل زوار CRM ودورة صيانة هندسية خماسية الأدوار.",
             iconName: "ShieldCheck",
             videoSrc: "/assets/whatsunity/qr-security.mp4",
             posterSrc: "/assets/whatsunity/poster-qr-security.webp",
@@ -309,9 +309,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             ],
             bulletPoints: [
               { title: "تصاريح مشفرة غير قابلة للتزوير", desc: "توقيع رقمي موثوق مع طابع زمني دقيق للزيارة." },
-              { title: "حماية متواصلة في النقاط العمياء", desc: "فحص فوري في أكشاك الحراسة وجراجات السرداب." },
+              { title: "إدارة رقمية متكاملة للعمليات", desc: "رقابة أمنية وحوكمة صيانة خماسية الأدوار بإشراف كبار المهندسين." },
             ],
-            dockLabel: "أمن البوابات المشفرة",
+            dockLabel: "أمان وإدارة رقمية",
             dockSub: "100% Offline QR Gate",
           },
         ],
@@ -321,7 +321,7 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       badge: "دراسة حالة تجارية وهندسية شاملة",
       title: "لماذا يختار المطورون العقاريون منظومة WhatsUnity؟",
       subtitle:
-        "تحليل استراتيجي لكيفية حماية أمان الكمبوند، ورفع قيمة العقار، وتخفيض تكاليف الصيانة بنسبة 78% مع التخلص التام من رسوم الخوادم الشهرية المرهقة.",
+        "تحليل استراتيجي لكيفية تحويل الكمبوند إلى مجتمع مترابط، آمن، ومُدار رقمياً: باشتراك واحد يغطي كافة أفراد الأسرة لكل وحدة، وبوابات أوفلاين 100%، وخفض تكاليف الصيانة بنسبة 78% مع التخلص التام من رسوم الخوادم الشهرية المرهقة.",
       sections: {
         problem: {
           tag: "المخاطر التشغيلية والمالية",
@@ -354,16 +354,16 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             whatsappPoints: [
               "أرقام هواتف السكان مكشوفة للجميع دون خصوصية أو تصنيف وحدات",
               "توقف حركة البوابات واحتجاز الضيوف عند بطء أو انقطاع الإنترنت",
+              "رسوم اشتراك مجحفة لكل حساب تزيد من الأعباء المالية",
               "طلبات الصيانة تضيع وسط مئات الرسائل العشوائية والجدل اليومي",
-              "غياب أي آلية لمساءلة الفنيين أو معرفة زمن الإصلاح الحقيقي",
               "انطباع سلبي للملاك والزوار يقلل من القيمة الاستثمارية للكمبوند",
             ],
-            whatsunityTitle: "الحل مع WhatsUnity: مجتمع راقٍ وقيمة عقارية مضاعفة",
+            whatsunityTitle: "الحل مع WhatsUnity: مجتمع مترابط، آمن، ومُدار رقمياً",
             whatsunityPoints: [
+              "منزل واحد. اشتراك واحد. كل أفراد الأسرة مشمولون دون أي تكلفة إضافية",
               "دليل سكني موثق بالوحدات والعمارات مع خصوصية مطلقة لأرقام الهواتف",
               "فحص وتوثيق تصاريح الزوار QR محلياً 100% في أقل من 0.05 ثانية",
               "دورة صيانة هندسية آلية من الإبلاغ حتى مراجعة واعتماد مهندس الموقع",
-              "مؤقت زمني دقيق لكل فني مع توثيق إلزامي لصور قبل وبعد الإصلاح",
               "تطبيق مخصص يحمل الهوية البصرية للكمبوند يرفع رضا السكان وقيمة العقار",
             ],
           },
@@ -628,6 +628,10 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       subtitle: "إجابات مفصلة حول سرعة النشر، والتخصيص، والتكلفة، وحماية أمن المجتمع السكني.",
       items: [
         {
+          q: "ماذا يعني «منزل واحد. اشتراك واحد. عائلتك بالكامل مشمولة»؟",
+          a: "يعتمد WhatsUnity نموذج تسعير عادلاً ومريحاً لكل وحدة سكنية (Per-Home) وليس لكل مستخدم (Per-User). يغطي الاشتراك الواحد الشقة أو الفيلا بالكامل، ويستطيع المالك دعوة جميع أفراد الأسرة مجاناً لاستخدام التطبيق، وإصدار تصاريح الزوار، والتواصل مع الجيران، وطلب خدمات الصيانة دون أي مصاريف إضافية.",
+        },
+        {
           q: "كم يستغرق نشر وتطبيق المنظومة في كمبوند جديد؟",
           a: "يمكن تهيئة المنظومة بالكامل وإطلاقها لكمبوند سكني متكامل في أقل من 48 ساعة. يتم استيراد بيانات الوحدات السكنية عبر ملفات Excel/CSV، وتخصيص أسماء البوابات، وتهيئة حسابات حراس الأمن والفنيين فوراً.",
         },
@@ -650,9 +654,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       ],
     },
     cta: {
-      title: "جاهز لنقل مجتمعك السكني إلى منظومة تشغيل حديثة؟",
+      title: "جاهز لتحويل كمبوندك إلى مجتمع مترابط، آمن، ومُدار رقمياً؟",
       subtitle:
-        "تخلص من صداع مجموعات الواتساب، وأوقف الاختراقات الأمنية عند البوابات، واضبط عمليات الصيانة بدقة هندسية متناهية. تواصل الآن لحجز جلسة استعراض حي وبحث متطلبات كمبوندك.",
+        "منزل واحد. اشتراك واحد. عائلتك بالكامل مشمولة. تخلص من صداع مجموعات الواتساب، وأوقف الاختراقات الأمنية عند البوابات، واضبط عمليات الصيانة بدقة هندسية متناهية. تواصل الآن لحجز جلسة استعراض حي وبحث متطلبات كمبوندك.",
       primaryBtn: "احجز جلسة استعراض حي (Schedule Live Demo)",
       secondaryBtn: "تصفح كتالوج الشاشات الكامل",
       portfolioBtn: "معرض أعمال المهندس نور العدوي",
@@ -660,13 +664,13 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
   },
   en: {
     meta: {
-      title: "WhatsUnity — Enterprise B2B Compound OS & Gated Community Platform",
+      title: "WhatsUnity — One Home. One Subscription. Your Entire Household Included | Compound OS",
       description:
-        "Production-ready residential operating system built with Flutter and Clean Architecture. Replace noisy WhatsApp groups with unit-verified directories, 100% offline gate security, and automated 9-role maintenance workflows. Ready to deploy in 48 hours.",
-      ogTitle: "WhatsUnity — Enterprise Compound OS & Gated Community Platform",
+        "WhatsUnity turns your compound into a connected, secure, digitally managed community. One home. One subscription. Your entire household included — with 100% offline QR gate security, unit-verified resident directories, and automated 9-role maintenance workflows.",
+      ogTitle: "WhatsUnity — One Home. One Subscription. Your Entire Household Included",
       ogDescription:
-        "Turnkey property management platform: 100% offline cryptographic QR gate passes, dual-engine messaging ($0 server fees), and end-to-end 9-role facility lifecycle.",
-      badge: "Turnkey Commercial Compound OS v2.4 · Flutter Clean Architecture",
+        "WhatsUnity turns your compound into a connected, secure, digitally managed community. Turnkey property OS: 100% offline QR gate passes, dual-engine messaging, and household-inclusive licensing.",
+      badge: "One Home · One Subscription · Whole Household Included · Compound OS v2.4",
     },
     nav: {
       caseStudy: "Case Study",
@@ -675,11 +679,11 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       backToPortfolio: "Portfolio",
     },
     hero: {
-      kicker: "ENTERPRISE B2B COMPOUND OPERATING SYSTEM · PRODUCTION READY",
-      titleLine1: "The Modern Operating System for Gated Communities.",
-      titleHighlight: "Built to Protect, Automate, and Scale.",
+      kicker: "ONE HOME · ONE SUBSCRIPTION · YOUR ENTIRE HOUSEHOLD INCLUDED",
+      titleLine1: "One home. One subscription.",
+      titleHighlight: "Your entire household included.",
       subtitle:
-        "WhatsUnity replaces noisy WhatsApp groups, vulnerable gate security, and chaotic paper logs with a turnkey residential OS. Built with Flutter Clean Architecture, it delivers 100% offline gatekeeping, automated 9-role facility maintenance, and bank-grade resident verification — ready to deploy to your community in 48 hours.",
+        "WhatsUnity turns your compound into a connected, secure, digitally managed community. Replace noisy WhatsApp groups, vulnerable gate security, and chaotic paper logs with an offline-first operating system engineered in Flutter Clean Architecture — ready to deploy to your community in 48 hours.",
       ctaDemo: "Schedule a Live 15-Min Demo →",
       ctaCatalog: "Explore 20+ Screen Production Catalog",
       ctaPresentation: "Interactive Pitch Deck",
@@ -691,14 +695,14 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       ],
       commercialHighlights: [
         {
-          tag: "Turnkey White-Label",
-          title: "Branded in 48 Hours",
-          desc: "Custom logos, theme colors, domain, and native iOS & Android App Store publishing.",
+          tag: "Household License",
+          title: "One Home, Whole Family",
+          desc: "One transparent subscription covers the entire home. Add all family members at zero extra cost.",
         },
         {
-          tag: "$0 Cloud Server Bills",
-          title: "Zero-Cost Chat Engine",
-          desc: "Exclusive Telegram MTProto integration eliminates recurring monthly cloud database & chat costs.",
+          tag: "Connected Community",
+          title: "Connected & Private Hub",
+          desc: "Unit-verified resident directory eliminates WhatsApp chaos while keeping phone numbers 100% private.",
         },
         {
           tag: "100% Offline Security",
@@ -706,9 +710,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
           desc: "Cryptographic QR pass verification runs locally in sub-50ms with zero dependence on cellular connectivity.",
         },
         {
-          tag: "Full IP Acquisition",
-          title: "Source Code or SaaS License",
-          desc: "Available for full intellectual property buyout or flexible enterprise licensing for property operators.",
+          tag: "Digitally Managed",
+          title: "9-Role Operational Governance",
+          desc: "Unifies residents, security guards, technicians, and chief engineers into one synchronized platform.",
         },
       ],
       cinematic: {
@@ -719,11 +723,11 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
           {
             id: "offline-first",
             stageNumber: "01",
-            tag: "Architecture & Performance · Offline-First Engine",
-            title: "0ms Instant Operations.",
-            titleHighlight: "SQLite Local Master Built to Never Lag.",
+            tag: "Connected & Instant OS · Offline-First Engine",
+            title: "Turns your compound into a connected community.",
+            titleHighlight: "Instant Zero-Delay Operations.",
             subtitle:
-              "Every screen mutation and action executes instantly without blocking for server round-trips. Features SQLite Local Master architecture with optimistic mutations, background sync queues, and local cryptographic verification.",
+              "WhatsUnity turns your compound into a connected, secure, digitally managed community. Every screen mutation executes instantaneously without blocking for server round-trips via SQLite Local Master architecture with optimistic sync queues.",
             iconName: "Smartphone",
             videoSrc: "/assets/whatsunity/phone.mp4",
             posterSrc: "/assets/whatsunity/poster-phone.webp",
@@ -735,20 +739,20 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
               { value: "Sub-50ms", label: "Conflict Resolution", sub: "Deterministic LWW Sync" },
             ],
             bulletPoints: [
-              { title: "Instant response with zero loading spinners", desc: "0ms mutations for all actions with immediate local state save." },
+              { title: "Instant response with zero loading spinners", desc: "Instant mutations for all actions with immediate local state save." },
               { title: "Resilient bi-directional sync engine", desc: "Queues and uploads changes automatically upon connection restore." },
             ],
-            dockLabel: "Offline-First Engine",
-            dockSub: "0ms Local Master",
+            dockLabel: "Connected & Instant OS",
+            dockSub: "Instant Local Master",
           },
           {
             id: "community-hub",
             stageNumber: "02",
-            tag: "Verified Resident Network · Community Hub",
-            title: "Unit-Verified Neighbor Privacy.",
-            titleHighlight: "Eliminate WhatsApp Group Chaos.",
+            tag: "One Home · One Subscription · Whole Household Included",
+            title: "One home. One subscription.",
+            titleHighlight: "Your entire household included.",
             subtitle:
-              "Unit-verified resident directory shields homeowner phone numbers against spam and legal liabilities. Enables official compound broadcasts, interactive HOA voting, and moderated discussions in a prestigious environment.",
+              "One transparent subscription covers your entire unit without per-person add-on fees. Unit-verified resident directories protect homeowner phone numbers and replace noisy WhatsApp groups with official broadcasts and HOA polls.",
             iconName: "Users",
             videoSrc: "/assets/whatsunity/community.mp4",
             posterSrc: "/assets/whatsunity/poster-community.webp",
@@ -760,20 +764,20 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
               { value: "48h", label: "Directory Provisioning", sub: "Batch CSV Onboarding" },
             ],
             bulletPoints: [
-              { title: "Unit-linked verified phonebook", desc: "Structured neighbor communication without exposing private phone numbers." },
+              { title: "Whole household included on one plan", desc: "One unit subscription covers all family members with verified individual logins." },
               { title: "Official announcements & HOA polls", desc: "Binding community voting and official management notifications." },
             ],
-            dockLabel: "Verified Community Hub",
-            dockSub: "Unit-Verified Network",
+            dockLabel: "Whole Household Hub",
+            dockSub: "Whole Household",
           },
           {
             id: "qr-security",
             stageNumber: "03",
-            tag: "Perimeter Defense & Gatekeeper QR",
-            title: "100% Offline Gate Security.",
-            titleHighlight: "Cryptographic Passes Validated in Sub-50ms.",
+            tag: "Perimeter Defense & Digitally Managed Ops",
+            title: "A secure, digitally managed community.",
+            titleHighlight: "100% Offline Cryptographic QR Gate.",
             subtitle:
-              "Cryptographically signed QR visitor passes containing unit IDs and expiration timestamps validate locally on guard tablets in sub-50ms. Frequent visitor CRM cuts courier gate times to 3 seconds, with instant blacklist alarms during total blackouts.",
+              "Fail-safe gate security operational even during complete network blackouts. Cryptographically signed QR visitor passes validate locally in sub-50ms with frequent visitor CRM and automated 5-step maintenance governance.",
             iconName: "ShieldCheck",
             videoSrc: "/assets/whatsunity/qr-security.mp4",
             posterSrc: "/assets/whatsunity/poster-qr-security.webp",
@@ -786,9 +790,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             ],
             bulletPoints: [
               { title: "Tamper-proof signed passes", desc: "Cryptographic resident signatures with strict time-bounded validity." },
-              { title: "Uninterrupted perimeter protection", desc: "Instant offline scanning at remote entrance booths and basement ramps." },
+              { title: "Digitally managed operations", desc: "5-role maintenance lifecycle with stopwatch timers and Chief Engineer sign-offs." },
             ],
-            dockLabel: "Cryptographic QR Security",
+            dockLabel: "Secure & Managed Ops",
             dockSub: "100% Offline Gatekeeper",
           },
         ],
@@ -798,7 +802,7 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       badge: "Commercial & Engineering Case Study",
       title: "Why Property Developers & HOAs Choose WhatsUnity",
       subtitle:
-        "A strategic teardown of how modern compounds eliminate WhatsApp group liability, fortify perimeter security, drop facility maintenance turnaround by 78%, and eliminate monthly cloud server bills.",
+        "A strategic teardown of how WhatsUnity turns residential compounds into connected, secure, digitally managed communities with a single subscription covering the entire household, 100% offline gatekeeping, and 78% faster maintenance.",
       sections: {
         problem: {
           tag: "Operational & Legal Liabilities",
@@ -831,16 +835,16 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             whatsappPoints: [
               "Resident phone numbers exposed to all members without verification",
               "Gate access paralyzed when booth 4G signal drops or Wi-Fi lags",
+              "Unfair per-account pricing ballooning recurring operational expenses",
               "Maintenance requests lost in hundreds of unmoderated group chats",
-              "Zero contractor stopwatch timers or photographic proof of repair",
               "Negative resident sentiment eroding compound prestige and rental values",
             ],
-            whatsunityTitle: "The WhatsUnity Advantage: Elevated Living & Financial Precision",
+            whatsunityTitle: "The WhatsUnity Advantage: Connected, Secure & Digitally Managed",
             whatsunityPoints: [
+              "One home, one subscription: your entire household included with zero per-user licensing fees",
               "Unit-verified resident directory with complete phone number privacy",
               "100% offline cryptographic QR visitor verification in under 0.05 seconds",
               "5-role automated maintenance workflow with photographic before/after audits",
-              "Active job timers and spare parts reconciliation signed off by Chief Engineers",
               "Premium white-label application boosting community value and resident loyalty",
             ],
           },
@@ -1105,6 +1109,10 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       subtitle: "Clear answers on turnaround times, white-labeling, hardware compatibility, and deployment pricing.",
       items: [
         {
+          q: "What does 'One home. One subscription. Your entire household included' mean?",
+          a: "WhatsUnity licenses per residential unit rather than charging individual per-user fees. A single subscription covers the entire household, allowing the homeowner to invite family members at zero extra cost — everyone gets their own verified access, QR guest passes, maintenance filing, and community features under one plan.",
+        },
+        {
           q: "How fast can WhatsUnity be deployed to our residential compound?",
           a: "A new compound can be fully provisioned, branded, and operational in under 48 hours. Resident unit directories can be batch-imported via CSV, gatekeeper devices provisioned with cryptographic keys, and maintenance staff onboarded instantly.",
         },
@@ -1127,9 +1135,9 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       ],
     },
     cta: {
-      title: "Ready to Upgrade Your Residential Compound with WhatsUnity?",
+      title: "Ready to Turn Your Compound into a Connected, Secure, Digitally Managed Community?",
       subtitle:
-        "Eliminate WhatsApp chaos, fortify your gate perimeter, and run facility maintenance with military precision. Contact Noureldin directly to schedule a personalized demonstration, discuss white-labeling, or request a commercial quote.",
+        "One home. One subscription. Your entire household included. Eliminate WhatsApp chaos, fortify your gate perimeter, and run facility maintenance with military precision. Contact Noureldin directly to schedule a live demonstration.",
       primaryBtn: "Schedule a Live Demo & Consultation",
       secondaryBtn: "Explore 20+ Screen Production Catalog",
       portfolioBtn: "Return to Noureldin's Portfolio",

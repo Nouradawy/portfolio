@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 import {
   Smartphone,
@@ -8,6 +9,12 @@ import {
   QrCode,
   CheckCircle2,
   Lock,
+  Clock,
+  MessageCircle,
+  Presentation,
+  Mail,
+  ArrowRight,
+  ArrowLeft,
 } from "lucide-react";
 import WordReveal from "@/features/whatsunity-presentation/src/deck/WordReveal";
 import type { Locale, WhatsunityContent } from "../data/whatsunityContent";
@@ -22,6 +29,8 @@ interface Props {
 export function WhatsunityCinematicHero({
   locale,
   content,
+  onOpenCatalog,
+  onOpenPresentation,
 }: Props) {
   const isRtl = locale === "ar";
   const cinematic = content.hero.cinematic;
@@ -254,14 +263,14 @@ export function WhatsunityCinematicHero({
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
-            2. HERO CONTENT CARD PINNED OVER LEFT (BIGGER FONTS & 70% HEIGHT)
+            2. HERO CONTENT CARD PINNED OVER LEFT
         ══════════════════════════════════════════════════════════════ */}
         <div className="relative z-20 w-full pl-4 sm:pl-8 lg:pl-10 xl:pl-12 pr-4 flex justify-start">
-          <div className="w-full max-w-lg lg:max-w-[42%] xl:max-w-[38%] flex flex-col items-start">
-            {/* Sleek Frosted Glass Story Card with 70% Viewport Height & Bigger Typography */}
+          <div className="w-full max-w-xl lg:max-w-[540px] xl:max-w-[580px] flex flex-col items-start">
+            {/* Sleek Frosted Glass Story Card with Generous Height for Crowded Text & Rich Content */}
             <div
               dir={isRtl ? "rtl" : "ltr"}
-              className={`w-full h-[72vh] min-h-[500px] max-h-[660px] rounded-3xl border border-white/15 bg-slate-950/80 p-6 sm:p-7 backdrop-blur-2xl shadow-2xl flex flex-col justify-between ${
+              className={`w-full h-auto min-h-[580px] lg:h-[78vh] lg:min-h-[640px] lg:max-h-[760px] rounded-3xl border border-white/15 bg-slate-950/80 p-6 sm:p-7 backdrop-blur-2xl shadow-2xl flex flex-col justify-between ${
                 isRtl ? "text-right" : "text-left"
               }`}
             >
@@ -325,25 +334,27 @@ export function WhatsunityCinematicHero({
                       runKey={currentScene.id}
                       delay={0.18}
                       stagger={0.035}
-                      className={`mt-4 text-sm sm:text-base lg:text-[17px] leading-relaxed text-slate-200 ${
+                      className={`mt-3 sm:mt-4 text-sm sm:text-base lg:text-[17px] leading-relaxed text-slate-200 ${
                         isRtl ? "wu-font-ar-body" : "wu-font-en-body"
                       }`}
                     />
                   </div>
 
-                  {/* First 2 Feature Cards Only - Proportionally Sized with Staggered Rise */}
-                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {/* ══════════════════════════════════════════════════════════════
+                      FEATURE BULLETS (MIDDLE SECTION)
+                  ══════════════════════════════════════════════════════════════ */}
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                     {currentScene.bulletPoints.slice(0, 2).map((bp, idx) => (
                       <motion.div
                         key={idx}
                         initial={{ opacity: 0, y: 14, filter: "blur(3px)" }}
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{
-                          delay: 0.3 + idx * 0.09,
+                          delay: 0.25 + idx * 0.08,
                           duration: 0.38,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3.5 sm:p-4 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.07]"
+                        className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-3 sm:p-3.5 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.07]"
                       >
                         <CheckCircle2
                           className="h-4 w-4 shrink-0 mt-0.5"
@@ -368,6 +379,82 @@ export function WhatsunityCinematicHero({
                       </motion.div>
                     ))}
                   </div>
+
+                  {/* ══════════════════════════════════════════════════════════════
+                      SCHEDULE A LIVE DEMO & TECHNICAL CONSULTATION BANNER
+                      (Placed at the end of the card)
+                  ══════════════════════════════════════════════════════════════ */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ delay: 0.34, duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                    className="mt-3.5 sm:mt-4 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-teal-950/30 p-3.5 sm:p-4 backdrop-blur-md shadow-[0_4px_24px_rgba(0,226,138,0.14)]"
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2">
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span
+                          className={`text-xs font-bold text-emerald-400 ${
+                            isRtl ? "wu-font-ar-display" : "wu-font-mono uppercase tracking-wider"
+                          }`}
+                        >
+                          {isRtl ? "استعراض حي واستشارة تقنية مجانية" : "Live Demo & Technical Consultation"}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1">
+                        <Clock className="h-3 w-3 text-emerald-400" />
+                        <span>15 Min</span>
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                      <a
+                        href="https://wa.me/nouradawy?text=Hello%20Noureldin,%20I'd%20like%20to%20schedule%20a%20live%20demo%20and%20consultation%20for%20WhatsUnity."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group wu-pressable flex-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 py-2.5 px-3.5 text-xs sm:text-sm font-black text-[#04140c] shadow-[0_2px_15px_rgba(0,226,138,0.35)] transition hover:brightness-110 ${
+                          isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                        }`}
+                      >
+                        <MessageCircle className="h-4 w-4 shrink-0" />
+                        <span>{isRtl ? "احجز موعد العرض عبر واتساب" : "Book Live Demo (WhatsApp)"}</span>
+                        {isRtl ? (
+                          <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+                        ) : (
+                          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                        )}
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={onOpenPresentation}
+                        className={`wu-pressable flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/[0.06] py-2.5 px-3 text-xs font-bold text-slate-200 transition hover:border-emerald-500/40 hover:bg-white/[0.1] hover:text-white ${
+                          isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                        }`}
+                      >
+                        <Presentation className="h-3.5 w-3.5 text-emerald-400" />
+                        <span>{isRtl ? "العرض التقديمي" : "Pitch Deck"}</span>
+                      </button>
+                    </div>
+
+                    <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-400 px-0.5">
+                      <span className="flex items-center gap-1.5">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                        <span>{isRtl ? "استعراض لـ 34+ شاشة وبوابات أوفلاين" : "34+ production screens & offline gates"}</span>
+                      </span>
+                      <Link
+                        to="/"
+                        hash="contact"
+                        className="hover:text-emerald-400 transition-colors flex items-center gap-1 font-medium"
+                      >
+                        <Mail className="h-3 w-3" />
+                        <span>{isRtl ? "نموذج المراسلة" : "Contact Form"}</span>
+                      </Link>
+                    </div>
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>

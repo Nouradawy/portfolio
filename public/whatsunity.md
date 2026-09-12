@@ -1,7 +1,10 @@
-# WhatsUnity: Offline-First Residential Operating System & Community Platform
+# WhatsUnity: One Home. One Subscription. Your Entire Household Included.
+
+> **Definition**: WhatsUnity turns your compound into a connected, secure, digitally managed community.
 
 WhatsUnity is a production-grade, multi-tenant residential operating system engineered in Flutter and Dart 3. It unifies gated community administration, dual-engine social communication (Appwrite Realtime & Telegram API), 100% offline gate access control, multi-tiered security patrol operations, and an end-to-end 5-role engineering maintenance lifecycle into a single high-performance cross-platform application.
 
+- **Value Proposition**: One home. One subscription. Your entire household included.
 - **Developer**: Noureldin Adawy (Nouradawy) — Full-Stack & Mobile Systems Engineer
 - **Official URL**: https://www.nouradawy.tech/whatsunity
 - **Source Architecture**: Flutter, Clean Architecture, Dart 3 (Sealed Classes, Zero Code-Gen), SQLite Local Master, Appwrite Cloud BaaS, Telegram MTProto API, Cloudflare R2 Edge Object Storage.
@@ -17,6 +20,7 @@ Modern gated compounds, residential towers, and HOAs suffer from severe operatio
 4. **Disconnected Operations**: Fragmented communication between residents, gate security, maintenance technicians, coordinators, and engineering chiefs.
 
 ### The WhatsUnity Solution
+- **One Home, One Subscription**: Covers the whole residential unit without per-person extra fees, enabling the whole household to be included.
 - **Zero-Connectivity Resilience**: An offline-first local SQLite master architecture that guarantees instant 0ms UI reactions and uninterrupted gate, patrol, and maintenance operations during complete network blackouts.
 - **Dual-Engine Cost Disruption**: Pluggable messaging architecture offering a zero-cost Telegram MTProto engine for free-tier communities and a low-latency Appwrite Realtime WebSocket engine for premium compounds.
 - **9-Role Cohesive Governance**: Unifies Residents, Gatekeepers, Patrol Guards, Head Security, Coordinators, Technicians, Supervisors, Chief Engineers, and Compound Managers in a unified real-time workflow.

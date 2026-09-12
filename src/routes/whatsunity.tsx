@@ -16,17 +16,17 @@ export const Route = createFileRoute("/whatsunity")({
     meta: [
       {
         title:
-          "WhatsUnity — Residential Compound OS & Verified Neighbor Platform | Flutter & Clean Architecture",
+          "WhatsUnity — One Home. One Subscription. Your Entire Household Included | Compound OS",
       },
       {
         name: "description",
         content:
-          "WhatsUnity is a real-time residential compound management and verified neighbor communication platform. Built with Flutter and Clean Architecture, it replaces unorganized messaging groups with unit-verified resident directories, automated facility requests, and gated-community announcements.",
+          "WhatsUnity turns your compound into a connected, secure, digitally managed community. One home. One subscription. Your entire household included — with 100% offline QR gate security, unit-verified resident directories, and automated 9-role maintenance workflows.",
       },
       {
         name: "keywords",
         content:
-          "WhatsUnity, Flutter compound management, residential operating system, gated community app, verified resident directory, offline gate pass QR, Clean Architecture Flutter, SQLite local master, Appwrite realtime, Telegram integration, Cloudflare R2, Nouradawy",
+          "WhatsUnity, one home one subscription, connected secure digitally managed community, gated community operating system, verified resident directory, offline gate pass QR, Clean Architecture Flutter, SQLite local master, Appwrite realtime, Telegram integration, Cloudflare R2, Nouradawy",
       },
       { name: "robots", content: "index,follow,max-image-preview:large" },
       { name: "theme-color", content: "#05070a" },
@@ -35,12 +35,12 @@ export const Route = createFileRoute("/whatsunity")({
       { property: "og:site_name", content: "WhatsUnity Compound OS" },
       {
         property: "og:title",
-        content: "WhatsUnity — Residential Compound OS & Verified Neighbor Platform",
+        content: "WhatsUnity — One Home. One Subscription. Your Entire Household Included",
       },
       {
         property: "og:description",
         content:
-          "Real-time, offline-first residential operating system: unit-verified resident directory, 100% offline QR gate passes, dual-engine messaging, and a 9-role maintenance lifecycle.",
+          "WhatsUnity turns your compound into a connected, secure, digitally managed community. 100% offline QR gate passes, dual-engine messaging, and household-inclusive licensing.",
       },
       { property: "og:url", content: "https://www.nouradawy.tech/whatsunity" },
       {
@@ -51,12 +51,12 @@ export const Route = createFileRoute("/whatsunity")({
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "WhatsUnity — Residential Compound OS & Verified Neighbor Platform",
+        content: "WhatsUnity — One Home. One Subscription. Your Entire Household Included",
       },
       {
         name: "twitter:description",
         content:
-          "Built with Flutter and Clean Architecture: offline-first SQLite master, 100% offline gatekeeping, and automated engineering lifecycle.",
+          "WhatsUnity turns your compound into a connected, secure, digitally managed community. Built with Flutter Clean Architecture.",
       },
       {
         name: "twitter:image",
@@ -79,7 +79,7 @@ export const Route = createFileRoute("/whatsunity")({
           applicationCategory: "BusinessApplication",
           operatingSystem: "iOS, Android, Web, Windows",
           description:
-            "WhatsUnity is a real-time residential compound management and verified neighbor communication platform. Built with Flutter and Clean Architecture, it replaces unorganized messaging groups with unit-verified resident directories, automated facility requests, and gated-community announcements.",
+            "WhatsUnity turns your compound into a connected, secure, digitally managed community. One home. One subscription. Your entire household included — with 100% offline QR gate security, unit-verified resident directories, and automated 9-role maintenance workflows.",
           softwareRequirements:
             "Flutter, Dart 3, SQLite Local Master, Appwrite Cloud, Telegram MTProto API, Cloudflare R2",
           author: {
@@ -107,7 +107,15 @@ export const Route = createFileRoute("/whatsunity")({
               name: "What is WhatsUnity?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "WhatsUnity is a real-time residential compound management and verified neighbor communication platform. Built with Flutter and Clean Architecture, it replaces unorganized messaging groups with unit-verified resident directories, automated facility requests, and gated-community announcements.",
+                text: "WhatsUnity turns your compound into a connected, secure, digitally managed community. One home. One subscription. Your entire household included — with 100% offline QR gate security, unit-verified resident directories, and automated 9-role maintenance workflows.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What does 'One home. One subscription. Your entire household included' mean?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "WhatsUnity licenses per residential unit rather than charging individual per-user fees. A single subscription covers the entire household, allowing the homeowner to invite family members at zero extra cost under one plan.",
               },
             },
             {
