@@ -47,7 +47,7 @@ export interface WhatsunityContent {
         subtitle: string;
         mobileTitle?: string;
         mobileSubtitle?: string;
-        iconName: "Smartphone" | "Users" | "ShieldCheck" | "Zap" | "QrCode";
+        iconName: "Smartphone" | "Users" | "ShieldCheck" | "Zap" | "QrCode" | "Wrench";
         videoSrc: string;
         videoMobileSrc: string;
         posterSrc: string;
@@ -333,6 +333,35 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             ],
             dockLabel: "أمان وإدارة رقمية",
             dockSub: "100% Offline QR Gate",
+          },
+          {
+            id: "maintenance-ops",
+            stageNumber: "04",
+            tag: "الهندسة والصيانة والتشغيل · Facility & Maintenance Engineering",
+            title: "حوكمة هندسية شاملة لمرافق الكمبوند.",
+            titleHighlight: "تذكرة بضغطة وصول فورية لفني WU TECH المعتمد.",
+            mobileTitle: "حوكمة الصيانة وبلاغات المرافق",
+            mobileSubtitle: "دورة صيانة آلية تخفض زمن الإصلاح وتغلق باب الهدر",
+            subtitle:
+              "منظومة تشغيل وإصلاح المرافق عبر 3 مستويات: منسق الصيانة، الفني الميداني (WU TECH)، وكبير المهندسين. إرسال بلاغات مصورة بضغطة واحدة، وتوجيه آلي للأوامر الهندسية، مع متابعة لحظية تخفض زمن إنجاز الأعطال بنسبة 78% وتمنع الهدر المالي.",
+            iconName: "Wrench",
+            videoSrc: "/assets/whatsunity/maintenance.mp4",
+            videoMobileSrc: "/assets/whatsunity/maintenance-mobile.mp4",
+            posterSrc: "/assets/whatsunity/poster-maintenance.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-maintenance-mobile.webp",
+            accentColor: "#f59e0b",
+            glowColor: "rgba(245, 158, 11, 0.35)",
+            keyStats: [
+              { value: "-78%", label: "انخفاض زمن الإصلاح", sub: "من 72 إلى أقل من 6 ساعات" },
+              { value: "0", label: "فقدان لبلاغات الصيانة", sub: "أوامر عمل مرقمة وموثقة" },
+              { value: "5 أدوار", label: "حوكمة الدورة الهندسية", sub: "من البلاغ حتى اعتماد الاستشاري" },
+            ],
+            bulletPoints: [
+              { title: "بلاغات مصورة وتدخل فوري", desc: "إرسال صورة العطل أو المقطع بضغطة زر وتعيين الفني الأقرب تلقائياً." },
+              { title: "اعتماد كبير المهندسين وخزينة الميزانية", desc: "إغلاق التذكرة بتوقيع رقمي ومطابقة ميزانية الوديعة مع تقارير الجودة." },
+            ],
+            dockLabel: "حوكمة وهندسة الصيانة",
+            dockSub: "WU TECH Dispatch",
           },
         ],
       },
@@ -828,6 +857,35 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             ],
             dockLabel: "Secure & Managed Ops",
             dockSub: "100% Offline Gatekeeper",
+          },
+          {
+            id: "maintenance-ops",
+            stageNumber: "04",
+            tag: "Facility & Maintenance Engineering · WU TECH",
+            title: "Comprehensive engineering governance for compound facilities.",
+            titleHighlight: "One-tap tickets & instant certified WU TECH dispatch.",
+            mobileTitle: "Automated Facility Maintenance",
+            mobileSubtitle: "Automated workflows cutting repair times by 78%",
+            subtitle:
+              "A 3-tier facility operation and repair ecosystem: Maintenance Coordinator, Field Technician (WU TECH), and Chief Engineer. Report issues with media in one tap, dispatch automated work orders, and track repairs in real-time, cutting turnaround time by 78% while eliminating budget leakage.",
+            iconName: "Wrench",
+            videoSrc: "/assets/whatsunity/maintenance.mp4",
+            videoMobileSrc: "/assets/whatsunity/maintenance-mobile.mp4",
+            posterSrc: "/assets/whatsunity/poster-maintenance.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-maintenance-mobile.webp",
+            accentColor: "#f59e0b",
+            glowColor: "rgba(245, 158, 11, 0.35)",
+            keyStats: [
+              { value: "-78%", label: "Turnaround Time Drop", sub: "From 72h to <6h average" },
+              { value: "0", label: "Lost Maintenance Requests", sub: "Numbered audited work orders" },
+              { value: "5 Roles", label: "Engineering Governance", sub: "Issue to consultant sign-off" },
+            ],
+            bulletPoints: [
+              { title: "One-Tap Media Tickets", desc: "Instant photo/video fault reporting with automated technician assignment." },
+              { title: "Chief Engineer Sign-off & Reserve Fund", desc: "Digital sign-off with audit-ready expense logging against reserve funds." },
+            ],
+            dockLabel: "Facility Maintenance",
+            dockSub: "WU TECH Dispatch",
           },
         ],
       },

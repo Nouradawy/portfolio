@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Zap,
   QrCode,
+  Wrench,
   CheckCircle2,
   Lock,
   Clock,
@@ -57,16 +58,18 @@ export function WhatsunityCinematicHero({
 
   const runwayRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const targetTimeRef = useRef<number[]>([0, 0, 0]);
+  const targetTimeRef = useRef<number[]>([0, 0, 0, 0]);
 
   const currentScene = scenes[activeSceneIndex];
 
-  // Scroll distribution:
-  // Slide 1 spans 0.00 -> 0.55 (spans entire Video 1 playback)
-  // Slide 2 spans 0.55 -> 0.80 (looping video 2)
-  // Slide 3 spans 0.80 -> 1.00 (looping video 3)
-  const SLIDE_1_END = 0.55;
-  const SLIDE_2_END = 0.80;
+  // Scroll distribution across 4 acts:
+  // Slide 1 spans 0.00 -> 0.40 (spans entire Video 1 playback)
+  // Slide 2 spans 0.40 -> 0.60 (looping video 2 - Community)
+  // Slide 3 spans 0.60 -> 0.80 (looping video 3 - QR Security)
+  // Slide 4 spans 0.80 -> 1.00 (looping video 4 - Maintenance)
+  const SLIDE_1_END = 0.40;
+  const SLIDE_2_END = 0.60;
+  const SLIDE_3_END = 0.80;
 
   // Track scroll progress through the pinned runway (responsive height)
   const { scrollYProgress } = useScroll({
@@ -101,13 +104,15 @@ export function WhatsunityCinematicHero({
       nextIdx = 0;
     } else if (latest < SLIDE_2_END) {
       nextIdx = 1;
-    } else {
+    } else if (latest < SLIDE_3_END) {
       nextIdx = 2;
+    } else {
+      nextIdx = 3;
     }
     setActiveSceneIndex(nextIdx);
     setMaxUnlockedIndex((prev) => Math.max(prev, nextIdx));
 
-    // Slide 1 video: progress tracks 0.0 -> 1.0 across the entire 0.00 -> 0.55 range
+    // Slide 1 video: progress tracks 0.0 -> 1.0 across the entire 0.00 -> 0.40 range
     const video0 = videoRefs.current[0];
     if (video0 && video0.duration && !isNaN(video0.duration)) {
       const progress0 = Math.min(Math.max(latest / SLIDE_1_END, 0), 1);
@@ -142,8 +147,8 @@ export function WhatsunityCinematicHero({
         }
       }
 
-      // 2. Control Slide 2 & Slide 3 (Seamless looping videos)
-      [1, 2].forEach((idx) => {
+      // 2. Control Slide 2, Slide 3 & Slide 4 (Seamless looping videos)
+      [1, 2, 3].forEach((idx) => {
         const video = videoRefs.current[idx];
         if (!video) return;
         if (idx === activeSceneIndex) {
@@ -172,6 +177,8 @@ export function WhatsunityCinematicHero({
         return <Smartphone className={className} />;
       case "Users":
         return <Users className={className} />;
+      case "Wrench":
+        return <Wrench className={className} />;
       case "ShieldCheck":
       case "QrCode":
       default:
@@ -190,7 +197,8 @@ export function WhatsunityCinematicHero({
     let targetProgress = 0;
     if (index === 0) targetProgress = 0;
     else if (index === 1) targetProgress = SLIDE_1_END + 0.01;
-    else targetProgress = SLIDE_2_END + 0.01;
+    else if (index === 2) targetProgress = SLIDE_2_END + 0.01;
+    else targetProgress = SLIDE_3_END + 0.01;
 
     const targetY = runwayTop + targetProgress * runwayHeight;
     window.scrollTo({ top: targetY, behavior: "smooth" });
@@ -209,7 +217,7 @@ export function WhatsunityCinematicHero({
     <div
       id="overview"
       ref={runwayRef}
-      className="relative w-full h-[340vh] bg-[#03060a]"
+      className="relative w-full h-[440vh] bg-[#03060a]"
     >
       {/* ══════════════════════════════════════════════════════════════
           PINNED CINEMATIC STAGE (STICKY VIEWPORT)
@@ -434,7 +442,7 @@ export function WhatsunityCinematicHero({
                     />
                   ))}
                   <span className="text-[10px] text-slate-400 font-mono ms-1">
-                    0{activeSceneIndex + 1}/03
+                    0{activeSceneIndex + 1}/04
                   </span>
                 </div>
 
@@ -665,8 +673,8 @@ export function WhatsunityCinematicHero({
                 </span>
               </div>
 
-              {/* 3-Column Slot Row */}
-              <div className="grid grid-cols-3 gap-2.5">
+              {/* 4-Column Slot Row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {scenes.map((sc, idx) => {
                   const isUnlocked = idx <= activeSceneIndex;
                   const isActive = idx === activeSceneIndex;
