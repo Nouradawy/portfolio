@@ -41,14 +41,6 @@ export function WhatsunityCinematicHero({
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
   const [maxUnlockedIndex, setMaxUnlockedIndex] = useState(0);
 
-  // Responsive device & accessibility detection
-  const [isMobile, setIsMobile] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 1024;
-    }
-    return false;
-  });
-
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -57,7 +49,8 @@ export function WhatsunityCinematicHero({
   });
 
   const runwayRef = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const desktopVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const mobileVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const targetTimeRef = useRef<number[]>([0, 0, 0, 0]);
 
   const currentScene = scenes[activeSceneIndex];
@@ -80,20 +73,13 @@ export function WhatsunityCinematicHero({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const mql = window.matchMedia("(max-width: 1023px)");
     const motionMql = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const updateMobile = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     const updateMotion = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
 
-    setIsMobile(mql.matches);
     setPrefersReducedMotion(motionMql.matches);
-
-    mql.addEventListener("change", updateMobile);
     motionMql.addEventListener("change", updateMotion);
 
     return () => {
-      mql.removeEventListener("change", updateMobile);
       motionMql.removeEventListener("change", updateMotion);
     };
   }, []);
@@ -113,10 +99,18 @@ export function WhatsunityCinematicHero({
     setMaxUnlockedIndex((prev) => Math.max(prev, nextIdx));
 
     // Slide 1 video: progress tracks 0.0 -> 1.0 across the entire 0.00 -> 0.40 range
-    const video0 = videoRefs.current[0];
-    if (video0 && video0.duration && !isNaN(video0.duration)) {
-      const progress0 = Math.min(Math.max(latest / SLIDE_1_END, 0), 1);
-      targetTimeRef.current[0] = progress0 * (video0.duration - 0.05);
+    const progress0 = Math.min(Math.max(latest / SLIDE_1_END, 0), 1);
+    const v0Mob = mobileVideoRefs.current[0];
+    const v0Desk = desktopVideoRefs.current[0];
+    const dur =
+      v0Mob && !isNaN(v0Mob.duration) && v0Mob.duration > 0
+        ? v0Mob.duration
+        : v0Desk && !isNaN(v0Desk.duration) && v0Desk.duration > 0
+          ? v0Desk.duration
+          : 0;
+
+    if (dur > 0) {
+      targetTimeRef.current[0] = progress0 * (dur - 0.05);
     }
   });
 
@@ -127,37 +121,52 @@ export function WhatsunityCinematicHero({
     let rafId: number;
 
     const tick = () => {
+      const isMobileViewport = typeof window !== "undefined" && window.innerWidth < 1024;
+
       // 1. Control Slide 1 (Instant 0ms seek all-intra scroll-driven video)
-      const video0 = videoRefs.current[0];
-      if (video0 && video0.duration && !isNaN(video0.duration)) {
-        if (!video0.paused) {
-          video0.pause();
+      const activeVideo0 = isMobileViewport ? mobileVideoRefs.current[0] : desktopVideoRefs.current[0];
+      const inactiveVideo0 = isMobileViewport ? desktopVideoRefs.current[0] : mobileVideoRefs.current[0];
+
+      if (inactiveVideo0 && !inactiveVideo0.paused) {
+        inactiveVideo0.pause();
+      }
+
+      if (activeVideo0 && activeVideo0.duration && !isNaN(activeVideo0.duration)) {
+        if (!activeVideo0.paused) {
+          activeVideo0.pause();
         }
 
         const target = targetTimeRef.current[0] ?? 0;
-        const current = video0.currentTime;
+        const current = activeVideo0.currentTime;
         const diff = target - current;
 
         // Prevent decoder buffer lockup: only issue a new seek if not currently seeking
-        if (!video0.seeking && Math.abs(diff) > 0.008) {
+        if (!activeVideo0.seeking && Math.abs(diff) > 0.008) {
           const step = diff * 0.65;
           const nextTime = Math.abs(diff) < 0.025 ? target : current + step;
-          const clamped = Math.max(0, Math.min(video0.duration - 0.01, nextTime));
-          video0.currentTime = clamped;
+          const clamped = Math.max(0, Math.min(activeVideo0.duration - 0.01, nextTime));
+          activeVideo0.currentTime = clamped;
         }
       }
 
       // 2. Control Slide 2, Slide 3 & Slide 4 (Seamless looping videos)
       [1, 2, 3].forEach((idx) => {
-        const video = videoRefs.current[idx];
-        if (!video) return;
-        if (idx === activeSceneIndex) {
-          if (video.paused) {
-            video.play().catch(() => {});
-          }
-        } else {
-          if (!video.paused) {
-            video.pause();
+        const activeVideo = isMobileViewport ? mobileVideoRefs.current[idx] : desktopVideoRefs.current[idx];
+        const inactiveVideo = isMobileViewport ? desktopVideoRefs.current[idx] : mobileVideoRefs.current[idx];
+
+        if (inactiveVideo && !inactiveVideo.paused) {
+          inactiveVideo.pause();
+        }
+
+        if (activeVideo) {
+          if (idx === activeSceneIndex) {
+            if (activeVideo.paused) {
+              activeVideo.play().catch(() => {});
+            }
+          } else {
+            if (!activeVideo.paused) {
+              activeVideo.pause();
+            }
           }
         }
       });
@@ -204,15 +213,6 @@ export function WhatsunityCinematicHero({
     window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
-  // Get active video / poster source responsively (only fetch intended format)
-  const getVideoSrc = (sc: (typeof scenes)[0]) => {
-    return isMobile ? sc.videoMobileSrc : sc.videoSrc;
-  };
-
-  const getPosterSrc = (sc: (typeof scenes)[0]) => {
-    return isMobile ? sc.posterMobileSrc : sc.posterSrc;
-  };
-
   return (
     <div
       id="overview"
@@ -230,8 +230,6 @@ export function WhatsunityCinematicHero({
           {scenes.map((sc, idx) => {
             const isActive = idx === activeSceneIndex;
             const isScrollDriven = idx === 0;
-            const vSrc = getVideoSrc(sc);
-            const pSrc = getPosterSrc(sc);
 
             if (prefersReducedMotion) {
               // Reduced motion: render composed still poster
@@ -243,9 +241,14 @@ export function WhatsunityCinematicHero({
                   }`}
                 >
                   <img
-                    src={pSrc}
+                    src={sc.posterMobileSrc}
                     alt={sc.title}
-                    className="h-full w-full object-cover object-center"
+                    className="h-full w-full object-cover object-center lg:hidden"
+                  />
+                  <img
+                    src={sc.posterSrc}
+                    alt={sc.title}
+                    className="h-full w-full object-cover object-center hidden lg:block"
                   />
                 </div>
               );
@@ -259,47 +262,91 @@ export function WhatsunityCinematicHero({
                 }`}
               >
                 {isScrollDriven ? (
-                  <video
-                    ref={(el) => {
-                      videoRefs.current[0] = el;
-                    }}
-                    key={`scroll-${vSrc}`}
-                    src={vSrc}
-                    poster={pSrc}
-                    muted
-                    playsInline
-                    preload="auto"
-                    onLoadedMetadata={(e) => {
-                      const video = e.currentTarget;
-                      video.pause();
-                      const currentProgress = scrollYProgress.get();
-                      const p = Math.min(Math.max(currentProgress / SLIDE_1_END, 0), 1);
-                      if (video.duration && !isNaN(video.duration)) {
-                        targetTimeRef.current[0] = p * (video.duration - 0.05);
-                        try {
-                          video.currentTime = targetTimeRef.current[0];
-                        } catch {
-                          // Ignore initial seek
+                  <>
+                    {/* Mobile Portrait Video (9:16) */}
+                    <video
+                      ref={(el) => {
+                        mobileVideoRefs.current[0] = el;
+                      }}
+                      src={sc.videoMobileSrc}
+                      poster={sc.posterMobileSrc}
+                      muted
+                      playsInline
+                      preload="auto"
+                      onLoadedMetadata={(e) => {
+                        const video = e.currentTarget;
+                        video.pause();
+                        const currentProgress = scrollYProgress.get();
+                        const p = Math.min(Math.max(currentProgress / SLIDE_1_END, 0), 1);
+                        if (video.duration && !isNaN(video.duration)) {
+                          targetTimeRef.current[0] = p * (video.duration - 0.05);
+                          try {
+                            video.currentTime = targetTimeRef.current[0];
+                          } catch {
+                            // Ignore initial seek
+                          }
                         }
-                      }
-                    }}
-                    className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100"
-                  />
+                      }}
+                      className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100 lg:hidden"
+                    />
+                    {/* Desktop Landscape Video (16:9) */}
+                    <video
+                      ref={(el) => {
+                        desktopVideoRefs.current[0] = el;
+                      }}
+                      src={sc.videoSrc}
+                      poster={sc.posterSrc}
+                      muted
+                      playsInline
+                      preload="auto"
+                      onLoadedMetadata={(e) => {
+                        const video = e.currentTarget;
+                        video.pause();
+                        const currentProgress = scrollYProgress.get();
+                        const p = Math.min(Math.max(currentProgress / SLIDE_1_END, 0), 1);
+                        if (video.duration && !isNaN(video.duration)) {
+                          targetTimeRef.current[0] = p * (video.duration - 0.05);
+                          try {
+                            video.currentTime = targetTimeRef.current[0];
+                          } catch {
+                            // Ignore initial seek
+                          }
+                        }
+                      }}
+                      className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100 hidden lg:block"
+                    />
+                  </>
                 ) : (
-                  <video
-                    ref={(el) => {
-                      videoRefs.current[idx] = el;
-                    }}
-                    key={`loop-${vSrc}`}
-                    src={vSrc}
-                    poster={pSrc}
-                    muted
-                    playsInline
-                    loop
-                    autoPlay
-                    preload="auto"
-                    className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100"
-                  />
+                  <>
+                    {/* Mobile Portrait Video (9:16) */}
+                    <video
+                      ref={(el) => {
+                        mobileVideoRefs.current[idx] = el;
+                      }}
+                      src={sc.videoMobileSrc}
+                      poster={sc.posterMobileSrc}
+                      muted
+                      playsInline
+                      loop
+                      autoPlay
+                      preload="auto"
+                      className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100 lg:hidden"
+                    />
+                    {/* Desktop Landscape Video (16:9) */}
+                    <video
+                      ref={(el) => {
+                        desktopVideoRefs.current[idx] = el;
+                      }}
+                      src={sc.videoSrc}
+                      poster={sc.posterSrc}
+                      muted
+                      playsInline
+                      loop
+                      autoPlay
+                      preload="auto"
+                      className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100 hidden lg:block"
+                    />
+                  </>
                 )}
               </div>
             );
