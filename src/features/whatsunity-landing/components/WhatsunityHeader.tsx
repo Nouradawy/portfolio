@@ -27,9 +27,9 @@ export function WhatsunityHeader({ locale, onToggleLocale, content }: Props) {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/85 backdrop-blur-xl transition-colors duration-200 dark:border-white/10 dark:bg-[#05070a]/90">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
-        {/* Brand: Pure Typographic Logo without icons */}
+        {/* Brand: Pure Typographic Logo (compact on mobile only, 30px on desktop) */}
         <a href="#overview" className="group flex items-center wu-pressable">
-          <WhatsUnityLogoText fontSize={30} />
+          <WhatsUnityLogoText className="text-[20px] sm:text-[24px] md:text-[30px]" />
         </a>
 
         {/* Streamlined Desktop Navigation */}

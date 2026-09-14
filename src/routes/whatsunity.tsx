@@ -176,9 +176,12 @@ function WhatsunityLandingPage() {
     setLocale((prev) => (prev === "ar" ? "en" : "ar"));
   };
 
-  // Sync document direction and lang, and suppress visible scrollbars
+  // Sync document lang and suppress visible scrollbars
+  // Note: Keep documentElement.dir as "ltr" so mobile Blink / Android Chrome does NOT push
+  // the viewport's native scrollbar / gutter to the left edge of the screen.
+  // Page RTL layout is handled cleanly by the root inner container with dir={isRtl ? "rtl" : "ltr"}.
   useEffect(() => {
-    document.documentElement.dir = isRtl ? "rtl" : "ltr";
+    document.documentElement.dir = "ltr";
     document.documentElement.lang = locale;
     document.documentElement.classList.add("wu-no-scrollbar");
     document.body.classList.add("wu-no-scrollbar");

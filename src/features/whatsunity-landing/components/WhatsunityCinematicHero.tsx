@@ -133,17 +133,12 @@ export function WhatsunityCinematicHero({
         const current = video0.currentTime;
         const diff = target - current;
 
-        if (Math.abs(diff) > 0.005) {
-          // Responsive LERP step for instant, butter-smooth scrubbing in both directions
-          const step = diff * 0.45;
-          const nextTime = Math.abs(diff) < 0.02 ? target : current + step;
+        // Prevent decoder buffer lockup: only issue a new seek if not currently seeking
+        if (!video0.seeking && Math.abs(diff) > 0.008) {
+          const step = diff * 0.65;
+          const nextTime = Math.abs(diff) < 0.025 ? target : current + step;
           const clamped = Math.max(0, Math.min(video0.duration - 0.01, nextTime));
-
-          if ("fastSeek" in video0 && typeof (video0 as HTMLVideoElement & { fastSeek?: (t: number) => void }).fastSeek === "function") {
-            (video0 as HTMLVideoElement & { fastSeek: (t: number) => void }).fastSeek(clamped);
-          } else {
-            video0.currentTime = clamped;
-          }
+          video0.currentTime = clamped;
         }
       }
 
@@ -280,9 +275,7 @@ export function WhatsunityCinematicHero({
                         }
                       }
                     }}
-                    className={`h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ${
-                      isRtl && idx !== 0 && !isMobile ? "-scale-x-100" : "scale-x-100"
-                    }`}
+                    className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100"
                   />
                 ) : (
                   <video
@@ -297,9 +290,7 @@ export function WhatsunityCinematicHero({
                     loop
                     autoPlay
                     preload="auto"
-                    className={`h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ${
-                      isRtl && idx !== 0 && !isMobile ? "-scale-x-100" : "scale-x-100"
-                    }`}
+                    className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 scale-x-100"
                   />
                 )}
               </div>

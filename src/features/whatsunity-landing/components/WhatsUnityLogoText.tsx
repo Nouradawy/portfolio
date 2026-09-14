@@ -15,7 +15,7 @@ interface WhatsUnityLogoTextProps {
  * and dynamic light/dark mode colors with -0.5px letter-spacing. No icons.
  */
 export function WhatsUnityLogoText({
-  fontSize = 16,
+  fontSize,
   color,
   whatsColor,
   unityColor,
@@ -29,7 +29,12 @@ export function WhatsUnityLogoText({
   const effectiveUnityColor =
     color ?? unityColor ?? (isDark ? "#2DD4BF" : "#0F172A");
 
-  const sizeStyle = typeof fontSize === "number" ? `${fontSize}px` : fontSize;
+  const sizeStyle =
+    fontSize !== undefined
+      ? typeof fontSize === "number"
+        ? `${fontSize}px`
+        : fontSize
+      : undefined;
 
   return (
     <span
@@ -37,7 +42,7 @@ export function WhatsUnityLogoText({
       className={`inline-flex items-baseline select-none transition-colors duration-200 ${className}`}
       style={{
         fontFamily: '"Montserrat", sans-serif',
-        fontSize: sizeStyle,
+        ...(sizeStyle ? { fontSize: sizeStyle } : {}),
         letterSpacing: "-0.8px",
         lineHeight: 1,
       }}
