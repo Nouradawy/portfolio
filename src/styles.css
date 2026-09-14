@@ -380,3 +380,22 @@
   }
 }
 
+/* Scrollbar suppression for clean cinematic & mobile RTL experience */
+.wu-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.wu-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html.wu-no-scrollbar,
+body.wu-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html.wu-no-scrollbar::-webkit-scrollbar,
+body.wu-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+

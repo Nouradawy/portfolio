@@ -53,7 +53,7 @@ export function WhatsunityCaseStudy({ locale, content }: Props) {
   };
 
   return (
-    <section id="case-study" className="relative py-20 sm:py-32 border-t border-slate-200 dark:border-white/10 transition-colors duration-200 bg-white dark:bg-[#05070a]">
+    <section id="case-study" className="relative scroll-mt-20 sm:scroll-mt-24 py-20 sm:py-32 border-t border-slate-200 dark:border-white/10 transition-colors duration-200 bg-white dark:bg-[#05070a]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Case Study Header Banner */}
         <motion.div
@@ -253,7 +253,7 @@ export function WhatsunityCaseStudy({ locale, content }: Props) {
         {/* ══════════════════════════════════════════════════════════════
             PART 2: THE 9-ROLE PERSONA MATRIX & INTERACTIVE TOUR
         ══════════════════════════════════════════════════════════════ */}
-        <div id="roles" className="mt-28 sm:mt-36 pt-8">
+        <div id="roles" className="scroll-mt-20 sm:scroll-mt-24 mt-28 sm:mt-36 pt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -414,7 +414,7 @@ export function WhatsunityCaseStudy({ locale, content }: Props) {
         {/* ══════════════════════════════════════════════════════════════
             PART 3: DEEP TECHNICAL ARCHITECTURE & CLEAN ARCHITECTURE
         ══════════════════════════════════════════════════════════════ */}
-        <div id="architecture" className="mt-28 sm:mt-36 pt-8">
+        <div id="architecture" className="scroll-mt-20 sm:scroll-mt-24 mt-28 sm:mt-36 pt-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

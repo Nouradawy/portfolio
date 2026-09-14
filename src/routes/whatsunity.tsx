@@ -176,21 +176,25 @@ function WhatsunityLandingPage() {
     setLocale((prev) => (prev === "ar" ? "en" : "ar"));
   };
 
-  // Sync document direction and lang, and restore on unmount
+  // Sync document direction and lang, and suppress visible scrollbars
   useEffect(() => {
     document.documentElement.dir = isRtl ? "rtl" : "ltr";
     document.documentElement.lang = locale;
+    document.documentElement.classList.add("wu-no-scrollbar");
+    document.body.classList.add("wu-no-scrollbar");
 
     return () => {
       document.documentElement.dir = "ltr";
       document.documentElement.lang = "en";
+      document.documentElement.classList.remove("wu-no-scrollbar");
+      document.body.classList.remove("wu-no-scrollbar");
     };
   }, [isRtl, locale]);
 
   return (
     <div
       dir={isRtl ? "rtl" : "ltr"}
-      className={`min-h-screen bg-slate-50 text-slate-900 transition-colors duration-200 dark:bg-[#05070a] dark:text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-950 dark:selection:text-white ${
+      className={`min-h-screen wu-no-scrollbar bg-slate-50 text-slate-900 transition-colors duration-200 dark:bg-[#05070a] dark:text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-950 dark:selection:text-white ${
         isRtl ? "wu-font-ar-body" : "wu-font-en-body"
       }`}
     >

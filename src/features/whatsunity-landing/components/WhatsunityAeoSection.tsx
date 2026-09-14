@@ -39,7 +39,7 @@ WhatsUnity is an enterprise-grade, offline-first residential operating system en
   };
 
   return (
-    <section id="aeo" className="relative py-16 sm:py-24 border-t border-slate-200 dark:border-white/10 transition-colors duration-200 bg-white dark:bg-[#05070a]">
+    <section id="aeo" className="relative scroll-mt-20 sm:scroll-mt-24 py-16 sm:py-24 border-t border-slate-200 dark:border-white/10 transition-colors duration-200 bg-white dark:bg-[#05070a]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">

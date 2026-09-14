@@ -35,6 +35,8 @@ export interface WhatsunityContent {
     cinematic: {
       eyebrow: string;
       scrollHint: string;
+      skipStory: string;
+      mobileScrollCue: string;
       dockTitle: string;
       scenes: {
         id: string;
@@ -43,9 +45,13 @@ export interface WhatsunityContent {
         title: string;
         titleHighlight: string;
         subtitle: string;
+        mobileTitle?: string;
+        mobileSubtitle?: string;
         iconName: "Smartphone" | "Users" | "ShieldCheck" | "Zap" | "QrCode";
         videoSrc: string;
+        videoMobileSrc: string;
         posterSrc: string;
+        posterMobileSrc: string;
         accentColor: string;
         glowColor: string;
         keyStats: { value: string; label: string; sub: string }[];
@@ -237,6 +243,8 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       cinematic: {
         eyebrow: "استعراض سينمائي تفاعلي لجوهر المنظومة",
         scrollHint: "مرر للأسفل لاستكشاف رحلة المنظومة",
+        skipStory: "تخطي إلى تفاصيل المنظومة",
+        mobileScrollCue: "مرر للاستكشاف",
         dockTitle: "الركائز التشغيلية والتقنية",
         scenes: [
           {
@@ -245,11 +253,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "مجتمع مترابط وتشغيل فوري · Connected & Instant OS",
             title: "يحوّل كمبوندك إلى مجتمع مترابط رقمياً.",
             titleHighlight: "استجابة فورية بلا أي تأخير.",
+            mobileTitle: "مجتمع مترابط رقمياً",
+            mobileSubtitle: "بنية SQLite محلية فائقة الاستجابة تعمل بلا انقطاع",
             subtitle:
               "WhatsUnity يحوّل الكمبوند إلى بيئة رقمية متكاملة تربط السكان، والأمن، والصيانة في منظومة واحدة. بفضل بنية SQLite Local Master، تتفاعل كل شاشة بلمح البصر دون أي انتظار للسيرفر مع طوابير مزامنة ذكية وتجربة استخدام خالية من أي بطء.",
             iconName: "Smartphone",
             videoSrc: "/assets/whatsunity/phone.mp4",
+            videoMobileSrc: "/assets/whatsunity/phone-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-phone.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-phone-mobile.webp",
             accentColor: "#00e28a",
             glowColor: "rgba(0, 226, 138, 0.35)",
             keyStats: [
@@ -270,11 +282,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "منزل واحد · اشتراك واحد · عائلتك بالكامل مشمولة",
             title: "منزل واحد. اشتراك واحد.",
             titleHighlight: "كل أفراد أسرتك مشمولون.",
+            mobileTitle: "منزل واحد. اشتراك واحد.",
+            mobileSubtitle: "عائلتك بالكامل مشمولة دون رسوم إضافية لكل حساب",
             subtitle:
               "اشتراك واحد يغطي الوحدة السكنية بالكامل دون رسوم إضافية لكل حساب. دليل موثق بالوحدات والعمارات يحمي خصوصية أرقام هواتف الملاك ويستبدل فوضى مجموعات الواتساب بقنوات رسمية وتصويتات معتمدة.",
             iconName: "Users",
             videoSrc: "/assets/whatsunity/community.mp4",
+            videoMobileSrc: "/assets/whatsunity/community-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-community.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-community-mobile.webp",
             accentColor: "#3b82f6",
             glowColor: "rgba(59, 130, 246, 0.35)",
             keyStats: [
@@ -295,11 +311,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "بوابات أمنية وإدارة رقمية محكمة · Secure & Managed",
             title: "مجتمع آمن ومُدار رقمياً بالكامل.",
             titleHighlight: "فحص تصاريح QR مشفرة 100% دون إنترنت.",
+            mobileTitle: "أمان وبوابات أوفلاين 100%",
+            mobileSubtitle: "فحص تصاريح QR مشفرة في 0.04 ثانية دون الحاجة لشبكة",
             subtitle:
               "بوابات أمنية محصنة لا تتوقف حتى في الانقطاع التام لشبكة 4G. تصاريح زوار مشفرة بطابع زمني ورقم الوحدة تُفحص محلياً على أجهزة الحراس في أقل من 0.04 ثانية، مع سجل زوار CRM ودورة صيانة هندسية خماسية الأدوار.",
             iconName: "ShieldCheck",
             videoSrc: "/assets/whatsunity/qr-security.mp4",
+            videoMobileSrc: "/assets/whatsunity/qr-security-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-qr-security.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-qr-security-mobile.webp",
             accentColor: "#10b981",
             glowColor: "rgba(16, 185, 129, 0.35)",
             keyStats: [
@@ -718,6 +738,8 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
       cinematic: {
         eyebrow: "Immersive Cinematic Showcase",
         scrollHint: "Scroll down to navigate the platform story",
+        skipStory: "Skip to Case Study",
+        mobileScrollCue: "Scroll to explore",
         dockTitle: "Core Architectural Pillars",
         scenes: [
           {
@@ -726,11 +748,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "Connected & Instant OS · Offline-First Engine",
             title: "Turns your compound into a connected community.",
             titleHighlight: "Instant Zero-Delay Operations.",
+            mobileTitle: "Connected & Instant OS",
+            mobileSubtitle: "Zero-latency local SQLite master with optimistic sync",
             subtitle:
               "WhatsUnity turns your compound into a connected, secure, digitally managed community. Every screen mutation executes instantaneously without blocking for server round-trips via SQLite Local Master architecture with optimistic sync queues.",
             iconName: "Smartphone",
             videoSrc: "/assets/whatsunity/phone.mp4",
+            videoMobileSrc: "/assets/whatsunity/phone-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-phone.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-phone-mobile.webp",
             accentColor: "#00e28a",
             glowColor: "rgba(0, 226, 138, 0.35)",
             keyStats: [
@@ -751,11 +777,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "One Home · One Subscription · Whole Household Included",
             title: "One home. One subscription.",
             titleHighlight: "Your entire household included.",
+            mobileTitle: "One Home. One Subscription.",
+            mobileSubtitle: "Your entire household included on one plan",
             subtitle:
               "One transparent subscription covers your entire unit without per-person add-on fees. Unit-verified resident directories protect homeowner phone numbers and replace noisy WhatsApp groups with official broadcasts and HOA polls.",
             iconName: "Users",
             videoSrc: "/assets/whatsunity/community.mp4",
+            videoMobileSrc: "/assets/whatsunity/community-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-community.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-community-mobile.webp",
             accentColor: "#3b82f6",
             glowColor: "rgba(59, 130, 246, 0.35)",
             keyStats: [
@@ -776,11 +806,15 @@ export const whatsunityContent: Record<Locale, WhatsunityContent> = {
             tag: "Perimeter Defense & Digitally Managed Ops",
             title: "A secure, digitally managed community.",
             titleHighlight: "100% Offline Cryptographic QR Gate.",
+            mobileTitle: "100% Offline Gate Security",
+            mobileSubtitle: "Signed QR visitor passes verified locally in sub-50ms",
             subtitle:
               "Fail-safe gate security operational even during complete network blackouts. Cryptographically signed QR visitor passes validate locally in sub-50ms with frequent visitor CRM and automated 5-step maintenance governance.",
             iconName: "ShieldCheck",
             videoSrc: "/assets/whatsunity/qr-security.mp4",
+            videoMobileSrc: "/assets/whatsunity/qr-security-mobile.mp4",
             posterSrc: "/assets/whatsunity/poster-qr-security.webp",
+            posterMobileSrc: "/assets/whatsunity/poster-qr-security-mobile.webp",
             accentColor: "#10b981",
             glowColor: "rgba(16, 185, 129, 0.35)",
             keyStats: [

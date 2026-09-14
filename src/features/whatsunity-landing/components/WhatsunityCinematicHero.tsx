@@ -15,6 +15,7 @@ import {
   Mail,
   ArrowRight,
   ArrowLeft,
+  ChevronDown,
 } from "lucide-react";
 import WordReveal from "@/features/whatsunity-presentation/src/deck/WordReveal";
 import type { Locale, WhatsunityContent } from "../data/whatsunityContent";
@@ -39,6 +40,21 @@ export function WhatsunityCinematicHero({
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
   const [maxUnlockedIndex, setMaxUnlockedIndex] = useState(0);
 
+  // Responsive device & accessibility detection
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 1024;
+    }
+    return false;
+  });
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
+
   const runwayRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const targetTimeRef = useRef<number[]>([0, 0, 0]);
@@ -52,11 +68,32 @@ export function WhatsunityCinematicHero({
   const SLIDE_1_END = 0.55;
   const SLIDE_2_END = 0.80;
 
-  // Track scroll progress through the pinned runway (340vh)
+  // Track scroll progress through the pinned runway (responsive height)
   const { scrollYProgress } = useScroll({
     target: runwayRef,
     offset: ["start start", "end end"],
   });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mql = window.matchMedia("(max-width: 1023px)");
+    const motionMql = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updateMobile = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    const updateMotion = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+
+    setIsMobile(mql.matches);
+    setPrefersReducedMotion(motionMql.matches);
+
+    mql.addEventListener("change", updateMobile);
+    motionMql.addEventListener("change", updateMotion);
+
+    return () => {
+      mql.removeEventListener("change", updateMobile);
+      motionMql.removeEventListener("change", updateMotion);
+    };
+  }, []);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     let nextIdx = 0;
@@ -80,6 +117,8 @@ export function WhatsunityCinematicHero({
 
   // Silky smooth 60fps video playback & synchronization loop
   useEffect(() => {
+    if (prefersReducedMotion) return;
+
     let rafId: number;
 
     const tick = () => {
@@ -128,7 +167,7 @@ export function WhatsunityCinematicHero({
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [activeSceneIndex]);
+  }, [activeSceneIndex, prefersReducedMotion]);
 
   // Map icon names to Lucide icons
   const getSceneIcon = (iconName: string, className = "h-5 w-5") => {
@@ -162,6 +201,15 @@ export function WhatsunityCinematicHero({
     window.scrollTo({ top: targetY, behavior: "smooth" });
   };
 
+  // Get active video / poster source responsively (only fetch intended format)
+  const getVideoSrc = (sc: (typeof scenes)[0]) => {
+    return isMobile ? sc.videoMobileSrc : sc.videoSrc;
+  };
+
+  const getPosterSrc = (sc: (typeof scenes)[0]) => {
+    return isMobile ? sc.posterMobileSrc : sc.posterSrc;
+  };
+
   return (
     <div
       id="overview"
@@ -173,12 +221,32 @@ export function WhatsunityCinematicHero({
       ══════════════════════════════════════════════════════════════ */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
         {/* ══════════════════════════════════════════════════════════════
-            1. PURE BACKGROUND VIDEOS WITH SQUARES GRID OVERLAY
+            1. PURE BACKGROUND VIDEOS (PORTRAIT ON MOBILE, LANDSCAPE ON DESKTOP)
         ══════════════════════════════════════════════════════════════ */}
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           {scenes.map((sc, idx) => {
             const isActive = idx === activeSceneIndex;
             const isScrollDriven = idx === 0;
+            const vSrc = getVideoSrc(sc);
+            const pSrc = getPosterSrc(sc);
+
+            if (prefersReducedMotion) {
+              // Reduced motion: render composed still poster
+              return (
+                <div
+                  key={sc.id}
+                  className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${
+                    isActive ? "opacity-100 z-0" : "opacity-0 -z-10 pointer-events-none"
+                  }`}
+                >
+                  <img
+                    src={pSrc}
+                    alt={sc.title}
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+              );
+            }
 
             return (
               <div
@@ -192,8 +260,9 @@ export function WhatsunityCinematicHero({
                     ref={(el) => {
                       videoRefs.current[0] = el;
                     }}
-                    src={sc.videoSrc}
-                    poster={sc.posterSrc}
+                    key={`scroll-${vSrc}`}
+                    src={vSrc}
+                    poster={pSrc}
                     muted
                     playsInline
                     preload="auto"
@@ -212,7 +281,7 @@ export function WhatsunityCinematicHero({
                       }
                     }}
                     className={`h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ${
-                      isRtl && idx !== 0 ? "-scale-x-100" : "scale-x-100"
+                      isRtl && idx !== 0 && !isMobile ? "-scale-x-100" : "scale-x-100"
                     }`}
                   />
                 ) : (
@@ -220,15 +289,16 @@ export function WhatsunityCinematicHero({
                     ref={(el) => {
                       videoRefs.current[idx] = el;
                     }}
-                    src={sc.videoSrc}
-                    poster={sc.posterSrc}
+                    key={`loop-${vSrc}`}
+                    src={vSrc}
+                    poster={pSrc}
                     muted
                     playsInline
                     loop
                     autoPlay
                     preload="auto"
                     className={`h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ${
-                      isRtl && idx !== 0 ? "-scale-x-100" : "scale-x-100"
+                      isRtl && idx !== 0 && !isMobile ? "-scale-x-100" : "scale-x-100"
                     }`}
                   />
                 )}
@@ -238,17 +308,17 @@ export function WhatsunityCinematicHero({
 
           {/* Dynamic Ambient Glow Mesh */}
           <div
-            aria-hidden
+            aria-hidden="true"
             className="pointer-events-none absolute -top-32 left-1/4 -translate-x-1/2 h-[650px] w-[950px] rounded-full blur-[160px] transition-all duration-1000 opacity-25 z-10"
             style={{
               background: `radial-gradient(circle, ${currentScene.accentColor} 0%, transparent 70%)`,
             }}
           />
 
-          {/* Blueprint Squares Grid over the whole video */}
+          {/* Blueprint Squares Grid over the video */}
           <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 z-10 opacity-[0.05]"
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-10 opacity-[0.04]"
             style={{
               backgroundImage:
                 "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
@@ -256,18 +326,148 @@ export function WhatsunityCinematicHero({
             }}
           />
 
-          {/* Minimal soft blend only behind the far left edge for seamless text legibility */}
+          {/* Desktop Left Blend (Hidden on mobile so phone/video is 100% visible) */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-[45%] z-10 bg-gradient-to-r from-[#03060a]/90 via-[#03060a]/50 to-transparent"
+            className="pointer-events-none absolute inset-y-0 left-0 w-full lg:w-[45%] z-10 bg-gradient-to-r from-[#03060a]/90 via-[#03060a]/50 to-transparent hidden lg:block"
           />
         </div>
 
         {/* ══════════════════════════════════════════════════════════════
-            2. HERO CONTENT CARD PINNED OVER LEFT
+            2. MOBILE HERO COMPOSITION: INTENTIONALLY CRAFTED FOR PHONES
+            - Video occupies the upper 65% unhindered in negative space.
+            - Smaller text, 1 headline, 1 primary action over bottom vignette.
+            - Subtle scroll cue and skip-to-content action.
         ══════════════════════════════════════════════════════════════ */}
-        <div className="relative z-20 w-full pl-4 sm:pl-8 lg:pl-10 xl:pl-12 pr-4 flex justify-start">
+        <div
+          dir={isRtl ? "rtl" : "ltr"}
+          className="lg:hidden absolute inset-x-0 bottom-0 z-20 w-full pt-14 pb-5 px-4 bg-gradient-to-t from-[#03060a]/98 via-[#03060a]/85 to-transparent flex flex-col justify-end pointer-events-auto"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`mobile-${currentScene.id}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full flex flex-col"
+            >
+              {/* Feature Header Badge with Icon */}
+              <div className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold text-emerald-400 backdrop-blur-md self-start">
+                <span
+                  className="flex h-4 w-4 items-center justify-center rounded-md"
+                  style={{
+                    backgroundColor: `${currentScene.accentColor}30`,
+                    color: currentScene.accentColor,
+                  }}
+                >
+                  {getSceneIcon(currentScene.iconName, "h-3 w-3")}
+                </span>
+                <span className={isRtl ? "wu-font-ar-display" : "wu-font-en-display"}>
+                  {currentScene.dockLabel}
+                </span>
+              </div>
+
+              {/* Scaled-down, impactful mobile headline */}
+              <h1
+                className={`mt-2 text-xl sm:text-2xl font-black tracking-tight text-white leading-tight ${
+                  isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                }`}
+              >
+                {currentScene.mobileTitle || currentScene.title}{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: `linear-gradient(115deg, ${currentScene.accentColor}, #ffffff)`,
+                  }}
+                >
+                  {currentScene.titleHighlight}
+                </span>
+              </h1>
+
+              {/* Short, crisp subtitle */}
+              <p
+                className={`mt-1 text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2 ${
+                  isRtl ? "wu-font-ar-body" : "wu-font-en-body"
+                }`}
+              >
+                {currentScene.mobileSubtitle || currentScene.subtitle}
+              </p>
+
+              {/* Primary Action Button (at least 44px touch target) */}
+              <div className="mt-3 flex items-center gap-2">
+                <a
+                  href="https://wa.me/nouradawy?text=Hello%20Noureldin,%20I'd%20like%20to%20schedule%20a%20live%20demo%20and%20consultation%20for%20WhatsUnity."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group min-h-[44px] flex-1 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-teal-400 px-4 py-2.5 text-xs sm:text-sm font-black text-[#04140c] shadow-[0_2px_15px_rgba(0,226,138,0.35)] wu-pressable ${
+                    isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                  }`}
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0" />
+                  <span>{isRtl ? "احجز موعد العرض عبر واتساب" : "Book Live Demo"}</span>
+                  {isRtl ? (
+                    <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" />
+                  ) : (
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  )}
+                </a>
+
+                <button
+                  type="button"
+                  onClick={onOpenPresentation}
+                  className={`min-h-[44px] flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-3.5 text-xs font-bold text-slate-200 wu-pressable hover:border-emerald-500/40 hover:text-white ${
+                    isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                  }`}
+                  aria-label="Open presentation deck"
+                >
+                  <Presentation className="h-4 w-4 text-emerald-400" />
+                  <span>{isRtl ? "العرض" : "Deck"}</span>
+                </button>
+              </div>
+
+              {/* Subtle Scroll Cue + Skip to Case Study Link */}
+              <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/10 text-[11px] text-slate-400">
+                {/* 3 Interactive Stage Dots */}
+                <div className="flex items-center gap-1.5">
+                  {scenes.map((sc, idx) => (
+                    <button
+                      key={sc.id}
+                      type="button"
+                      onClick={() => scrollToScene(idx)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        idx === activeSceneIndex
+                          ? "w-6 bg-emerald-400"
+                          : "w-2 bg-white/30"
+                      }`}
+                      aria-label={`Jump to stage 0${idx + 1}`}
+                    />
+                  ))}
+                  <span className="text-[10px] text-slate-400 font-mono ms-1">
+                    0{activeSceneIndex + 1}/03
+                  </span>
+                </div>
+
+                {/* Visible Skip Story Cue */}
+                <a
+                  href="#case-study"
+                  className={`flex items-center gap-1 text-slate-300 hover:text-emerald-400 transition-colors py-1 px-1 font-medium ${
+                    isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                  }`}
+                >
+                  <span>{cinematic.skipStory || (isRtl ? "تخطي إلى الدراسة" : "Skip to Case Study")}</span>
+                  <ChevronDown className="h-3.5 w-3.5 animate-bounce" />
+                </a>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* ══════════════════════════════════════════════════════════════
+            3. DESKTOP HERO CONTENT CARD PINNED OVER LEFT (DESKTOP ONLY)
+        ══════════════════════════════════════════════════════════════ */}
+        <div className="relative z-20 w-full pl-4 sm:pl-8 lg:pl-10 xl:pl-12 pr-4 hidden lg:flex justify-start">
           <div className="w-full max-w-xl lg:max-w-[540px] xl:max-w-[580px] flex flex-col items-start">
-            {/* Sleek Frosted Glass Story Card with Generous Height for Crowded Text & Rich Content */}
+            {/* Sleek Frosted Glass Story Card for Desktop */}
             <div
               dir={isRtl ? "rtl" : "ltr"}
               className={`w-full h-auto min-h-[580px] lg:h-[78vh] lg:min-h-[640px] lg:max-h-[760px] rounded-3xl border border-white/15 bg-slate-950/80 p-6 sm:p-7 backdrop-blur-2xl shadow-2xl flex flex-col justify-between ${
@@ -328,7 +528,7 @@ export function WhatsunityCinematicHero({
                       </span>
                     </motion.h1>
 
-                    {/* Description - Animated with WordReveal like presentation deck */}
+                    {/* Description - Animated with WordReveal */}
                     <WordReveal
                       text={currentScene.subtitle}
                       runKey={currentScene.id}
@@ -340,9 +540,7 @@ export function WhatsunityCinematicHero({
                     />
                   </div>
 
-                  {/* ══════════════════════════════════════════════════════════════
-                      FEATURE BULLETS (MIDDLE SECTION)
-                  ══════════════════════════════════════════════════════════════ */}
+                  {/* Feature Bullets (Desktop Only) */}
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                     {currentScene.bulletPoints.slice(0, 2).map((bp, idx) => (
                       <motion.div
@@ -380,10 +578,7 @@ export function WhatsunityCinematicHero({
                     ))}
                   </div>
 
-                  {/* ══════════════════════════════════════════════════════════════
-                      SCHEDULE A LIVE DEMO & TECHNICAL CONSULTATION BANNER
-                      (Placed at the end of the card)
-                  ══════════════════════════════════════════════════════════════ */}
+                  {/* Consultation Banner (Desktop) */}
                   <motion.div
                     initial={{ opacity: 0, y: 10, filter: "blur(3px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -460,8 +655,7 @@ export function WhatsunityCinematicHero({
             </div>
 
             {/* ══════════════════════════════════════════════════════════════
-                3. CORE ARCHITECTURAL PILLARS (ANIMATED DROP-IN TO SLOTS)
-                Starts empty, drops down one by one as user scrolls through scenes
+                3. CORE ARCHITECTURAL PILLARS (DESKTOP ANIMATED DROP DOCK)
             ══════════════════════════════════════════════════════════════ */}
             <div
               dir={isRtl ? "rtl" : "ltr"}
@@ -487,7 +681,6 @@ export function WhatsunityCinematicHero({
                   const isActive = idx === activeSceneIndex;
 
                   if (!isUnlocked) {
-                    // Empty ghost drop-target slot before stage is reached
                     return (
                       <div
                         key={`empty-${sc.id}`}
@@ -506,7 +699,6 @@ export function WhatsunityCinematicHero({
                     );
                   }
 
-                  // Unlocked Stage: Drops down from top with spring animation into slot
                   return (
                     <motion.button
                       key={`active-${sc.id}`}
@@ -526,7 +718,6 @@ export function WhatsunityCinematicHero({
                           : "border-white/15 bg-slate-950/75 hover:border-white/30 hover:bg-slate-950/90"
                       }`}
                     >
-                      {/* Top Row: Icon + Stage Indicator */}
                       <div className="flex items-center justify-between w-full">
                         <div
                           className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg border transition-transform duration-300 group-hover:scale-105"
@@ -554,7 +745,6 @@ export function WhatsunityCinematicHero({
                         </span>
                       </div>
 
-                      {/* Title & Subtitle */}
                       <div className="mt-1">
                         <div
                           className={`text-[11px] sm:text-xs font-bold truncate transition-colors ${
@@ -565,7 +755,6 @@ export function WhatsunityCinematicHero({
                         </div>
                       </div>
 
-                      {/* Active Progress Bar */}
                       <div className="mt-1.5 h-0.5 w-full rounded-full bg-white/10 overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-300 ease-out"

@@ -38,8 +38,9 @@ export function WhatsunityHeader({ locale, onToggleLocale, content }: Props) {
             <a
               key={link.href}
               href={link.href}
-              className={`rounded-full px-4 py-1.5 transition-colors text-slate-700 hover:text-emerald-600 hover:bg-emerald-500/10 dark:text-slate-300 dark:hover:text-emerald-400 dark:hover:bg-emerald-500/15 wu-pressable ${isRtl ? "wu-font-ar-display" : "wu-font-en-display"
-                }`}
+              className={`rounded-full px-4 py-1.5 transition-colors text-slate-700 hover:text-emerald-600 hover:bg-emerald-500/10 dark:text-slate-300 dark:hover:text-emerald-400 dark:hover:bg-emerald-500/15 wu-pressable ${
+                isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+              }`}
             >
               {link.label}
             </a>
@@ -79,8 +80,9 @@ export function WhatsunityHeader({ locale, onToggleLocale, content }: Props) {
           {/* Back to Portfolio Link */}
           <Link
             to="/"
-            className={`hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-emerald-600/20 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-700 wu-pressable hover:bg-emerald-500/20 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300 ${isRtl ? "wu-font-ar-display" : "wu-font-en-display"
-              }`}
+            className={`hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-emerald-600/20 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-bold text-emerald-700 wu-pressable hover:bg-emerald-500/20 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300 ${
+              isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+            }`}
           >
             {isRtl ? <ArrowRight className="h-3.5 w-3.5" /> : <ArrowLeft className="h-3.5 w-3.5" />}
             <span>{content.nav.backToPortfolio}</span>
@@ -114,8 +116,9 @@ export function WhatsunityHeader({ locale, onToggleLocale, content }: Props) {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-emerald-500/10 hover:text-emerald-600 dark:text-slate-300 dark:hover:bg-emerald-500/15 dark:hover:text-emerald-400 ${isRtl ? "wu-font-ar-display" : "wu-font-en-display"
-                    }`}
+                  className={`rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-emerald-500/10 hover:text-emerald-600 dark:text-slate-300 dark:hover:bg-emerald-500/15 dark:hover:text-emerald-400 ${
+                    isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                  }`}
                 >
                   {link.label}
                 </a>
@@ -123,8 +126,10 @@ export function WhatsunityHeader({ locale, onToggleLocale, content }: Props) {
               <div className="mt-2 border-t border-slate-200 dark:border-white/10 pt-3">
                 <Link
                   to="/"
-                  className={`inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 ${isRtl ? "wu-font-ar-display" : "wu-font-en-display"
-                    }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 ${
+                    isRtl ? "wu-font-ar-display" : "wu-font-en-display"
+                  }`}
                 >
                   {isRtl ? <ArrowRight className="h-3.5 w-3.5" /> : <ArrowLeft className="h-3.5 w-3.5" />}
                   <span>{content.nav.backToPortfolio}</span>
