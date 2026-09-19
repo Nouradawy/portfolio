@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import logoImg from "../assets/logo.png";
+const logoImg = "/assets/projects/Whatsunity/logo.png";
 import {
   TitleScreen,
   PainScreen,
@@ -64,7 +64,7 @@ export const slides: Slide[] = [
     screen: <TitleScreen />,
     glow: G,
     align: "left",
-    phoneWidth: 380,
+    phoneWidth: 310,
   },
   {
     id: "coldopen",
@@ -84,7 +84,7 @@ export const slides: Slide[] = [
     screen: <BoringOpsScreen />,
     glow: "#5a6472",
     align: "right",
-    phoneWidth: 320,
+    phoneWidth: 290,
   },
   {
     id: "turn",
@@ -105,7 +105,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.home} alt="الصفحة الرئيسية والمجتمع" />,
     glow: G,
     align: "left",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "whatsapp",
@@ -177,7 +177,7 @@ export const slides: Slide[] = [
     glow: G,
     align: "left",
     variant: "split",
-    phoneWidth: 388,
+    phoneWidth: 250,
   },
   {
     id: "votes",
@@ -198,7 +198,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.votting} alt="التصويت المجتمعي" />,
     glow: G,
     align: "right",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "services",
@@ -219,7 +219,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.newReport} alt="إنشاء بلاغ جديد" />,
     glow: G,
     align: "left",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "concerns",
@@ -301,7 +301,7 @@ export const slides: Slide[] = [
     glow: G,
     align: "left",
     variant: "split",
-    phoneWidth: 388,
+    phoneWidth: 250,
   },
   {
     id: "gate",
@@ -322,7 +322,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.qr} alt="التحقق من تصريح QR" />,
     glow: G,
     align: "right",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "overstay",
@@ -343,7 +343,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.overstayed} alt="رصد الزوار المتجاوزين للمدة" />,
     glow: "#ff4d5e",
     align: "left",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "patrol",
@@ -364,7 +364,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.patrolHub} alt="مركز عمليات الدورية ونقاط التفتيش" />,
     glow: G,
     align: "right",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "shifts",
@@ -385,7 +385,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.shiftRoster} alt="جدول الورديات المباشر" />,
     glow: G,
     align: "left",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "engineering",
@@ -406,7 +406,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.chiefTeams} alt="طاقة الفريق الهندسي وحمولة العمل" />,
     glow: G,
     align: "right",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "governance",
@@ -427,7 +427,7 @@ export const slides: Slide[] = [
     screen: <AppShot src={SHOTS.supervisorHome} alt="بوابة مدير المجمّع" />,
     glow: G,
     align: "left",
-    phoneWidth: 440,
+    phoneWidth: 310,
   },
   {
     id: "architecture",
@@ -527,36 +527,36 @@ export const slides: Slide[] = [
         <span style={{ color: "#8b7cff" }}>في كل مشروع.</span>
       </>
     ),
-    lead: "والأجمل للمطوّر العقاري: تطبيق بعلامته بالكامل — هوية مُدن، ومتجر تطبيقات مُدن — منشور عبر جميع مجتمعاته ومُدار من منصّة واحدة، على Google Play وتطبيق الويب، وقريبًا iOS.",
+    lead: "والأجمل للمطوّر العقاري: تطبيق بعلامته التجارية الكاملة منشور عبر كافة مجتمعاته ومُدار من منصّة مركزية موحدة، على App Store و Google Play وتطبيق الويب المتكامل PWA.",
     points: [
-      { label: "علامة مخصّصة", value: "لكل مطوّر" },
-      { label: "إطلاق على المتاجر", value: "Google Play · PWA" },
-      { label: "الإعداد لمرة واحدة", value: "150,000 ج.م" },
+      { label: "علامة مخصّصة", value: "هوية كاملة للمطوّر" },
+      { label: "إطلاق المتاجر", value: "iOS · Android · Web" },
+      { label: "إدارة موحّدة", value: "منصة تحكم للمشاريع" },
     ],
     screen: <ScalingScreen />,
     glow: "#8b7cff",
     align: "right",
-    phoneWidth: 400,
+    phoneWidth: 310,
   },
   {
     id: "finance",
-    kicker: "جنّة 2 · خطة الإطلاق والأرقام",
+    kicker: "نموذج التشغيل والاستثمار",
     title: (
       <>
-        جاهز للإطلاق.
+        مرونة كاملة.
         <br />
         <span style={{ color: G }}>وبلا مخاطرة.</span>
       </>
     ),
-    lead: "وأخيرًا، أرقام جنّة 2: باقتنا القياسية 500 ج.م للوحدة سنويًا، ولجنّة 2 خصم حصري 30% — 350 ج.م فقط للوحدة، مع شهرين مجانًا. على 2,664 وحدة (111 عمارة × 24)، ينزل العقد السنوي من 1,332,000 إلى 932,400 ج.م — وتجربة كاملة 14 يومًا قبل أي التزام.",
+    lead: "نموذج اشتراك سنوي شفاف للوحدة السكنية، يغطي كافة أفراد الأسرة دون أي رسوم إضافية لكل مستخدم. نمنح كل مجمّع سكني تجربة تشغيلية متكاملة لمدة 14 يومًا مجانًا تشمل البوابات، والدوريات، وتطبيق السكان، قبل أي التزام مالي.",
     points: [
-      { label: "سعر الوحدة", value: "350 ج.م / سنة · -30%" },
-      { label: "العقد السنوي", value: "932,400 ج.م" },
-      { label: "التجربة", value: "14 يومًا · مجانًا" },
+      { label: "اشتراك الوحدة", value: "شامل كافة أفراد الأسرة" },
+      { label: "فترة تجريبية", value: "14 يومًا تشغيل حي" },
+      { label: "حوكمة وضمان", value: "دعم وتحديثات مستمرة" },
     ],
     screen: <FinanceScreen />,
     glow: G,
     align: "left",
-    phoneWidth: 400,
+    phoneWidth: 310,
   },
 ];

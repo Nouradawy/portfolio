@@ -43,7 +43,7 @@ export function WhatsunityPresentationModal({ open, onClose }: Props) {
 
       {/* Presentation Root Content */}
       <div className="relative flex-1 h-full w-full overflow-auto">
-        <PresentationApp initialView="deck" />
+        <PresentationApp />
       </div>
     </div>
   );

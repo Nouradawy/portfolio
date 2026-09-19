@@ -1,5 +1,4 @@
-import React from "react";
-import logoImg from "../assets/logo.png";
+const logoImg = "/assets/projects/Whatsunity/logo.png";
 
 interface BrandLogoProps {
   size?: number;

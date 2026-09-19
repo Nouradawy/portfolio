@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
-import logoImg from "../assets/logo.png";
+
+const logoImg = "/assets/projects/Whatsunity/logo.png";
 
 const G = "#00e28a";
 const CY = "#38bdf8";

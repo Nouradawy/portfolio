@@ -255,7 +255,7 @@ function WhatsunityLandingPage() {
         onClose={() => setCatalogOpen(false)}
       />
 
-      {/* Global Presentation Deck & Financial Proposal Modal */}
+      {/* Global Presentation Deck Modal */}
       <WhatsunityPresentationModal
         open={presentationOpen}
         onClose={() => setPresentationOpen(false)}

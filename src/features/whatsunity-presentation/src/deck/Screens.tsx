@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
-import logoImg from "../assets/logo.png";
 
+const logoImg = "/assets/projects/Whatsunity/logo.png";
 const G = "#00e28a";
 
 /* ---- Real WhatsUnity app screenshots (reference catalog) ---- */
-const BASE = "https://www.nouradawy.tech/assets/projects/Whatsunity/catalog/";
+const BASE = "/assets/projects/Whatsunity/catalog/";
 export const SHOTS = {
   home: BASE + "Home_screen_community.png",
   chatting: BASE + "chatting.png",
@@ -188,104 +188,103 @@ export function ScalingScreen() {
 }
 
 /* Launch plan & pricing */
+/* Launch plan & pricing */
 export function FinanceScreen() {
   return (
     <div className="flex h-full w-full flex-col bg-[#05070a]" dir="rtl">
       <StatusBar />
-      <div className="flex flex-1 flex-col justify-center gap-2.5 px-4">
-        {/* Per-unit plans */}
-        <div className="grid grid-cols-2 gap-2">
-          {/* Standard */}
+      <div className="flex flex-1 flex-col justify-center gap-2.5 px-3 py-2">
+        {/* Tier Cards */}
+        <div className="space-y-2">
+          {/* Community Standard */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="rounded-xl border p-3"
-            style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.03)" }}
+            transition={{ delay: 0.25 }}
+            className="rounded-xl border p-2.5"
+            style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}
           >
-            <span className="text-[9px] font-semibold tracking-wider text-white/50">الباقة القياسية</span>
-            <p className="mt-1.5 text-lg font-bold text-white/85" style={{ fontFamily: "var(--font-display)" }}>
-              500
-              <span className="mr-1 text-[8px] font-medium text-white/45">ج.م / وحدة · سنة</span>
-            </p>
-            <p dir="ltr" className="text-right text-[8px] text-white/40" style={{ fontFamily: "var(--font-mono)" }}>
-              49.99 EGP / mo
-            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-white/90" style={{ fontFamily: "var(--font-display)" }}>
+                باقة الكمبوند المتكاملة
+              </span>
+              <span className="rounded-full bg-white/10 px-2 py-0.5 text-[8px] font-mono text-white/70">
+                Community
+              </span>
+            </div>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-base font-extrabold text-emerald-400" style={{ fontFamily: "var(--font-display)" }}>
+                اشتراك سنوي شامل
+              </span>
+              <span className="text-[8px] text-white/50">/ للوحدة السكنية</span>
+            </div>
+            <ul className="mt-1.5 space-y-1 text-[8px] text-white/60">
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>عائلتك بالكامل مشمولة دون رسوم إضافية</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>بوابات QR أوفلاين 100% وأجهزة الحراس</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>حوكمة الصيانة وإدارة الأدوار التشغيلية التسعة</span>
+              </li>
+            </ul>
           </motion.div>
-          {/* Jannah 2 special */}
+
+          {/* Enterprise White-Label */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="relative rounded-xl border p-3"
-            style={{ borderColor: `${G}66`, background: `${G}12` }}
+            className="relative rounded-xl border p-2.5"
+            style={{ borderColor: `${G}66`, background: `${G}0f` }}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-semibold tracking-wider" style={{ color: G }}>جنّة 2</span>
-              <span className="rounded-full px-1.5 py-[1px] text-[7px] font-bold" style={{ background: G, color: "#04140c" }}>-30%</span>
+              <span className="text-[10px] font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
+                باقة المطور والعلامة البيضاء
+              </span>
+              <span className="rounded-full px-2 py-0.5 text-[8px] font-bold" style={{ background: G, color: "#04140c" }}>
+                Enterprise
+              </span>
             </div>
-            <p className="mt-1.5 text-lg font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
-              350
-              <span className="mr-1 text-[8px] font-medium text-white/50">ج.م / وحدة · سنة</span>
-            </p>
-            <p dir="ltr" className="text-right text-[8px]" style={{ color: `${G}cc`, fontFamily: "var(--font-mono)" }}>
-              35 EGP / mo
-            </p>
+            <div className="mt-1 flex items-baseline gap-1">
+              <span className="text-base font-extrabold text-white" style={{ fontFamily: "var(--font-display)" }}>
+                Custom Brand & Scale
+              </span>
+            </div>
+            <ul className="mt-1.5 space-y-1 text-[8px] text-white/70">
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>تطبيق مخصص بالكامل باسم وهوية المطور</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>نشر رسمي على متاجر App Store و Google Play</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>لوحة تحكم مركزية لإدارة مجمعات متعددة</span>
+              </li>
+            </ul>
           </motion.div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="text-center text-[8px] text-white/40"
-        >
-          شهران مجانًا مع الاشتراك السنوي
-        </motion.p>
-
-        {/* Scale */}
+        {/* 14-day Pilot Guarantee */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75 }}
-          className="flex items-center justify-center gap-2 rounded-xl bg-white/[0.04] px-3 py-2 text-[9px] text-white/70"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.65 }}
+          className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-2 text-center"
         >
-          <span dir="ltr" style={{ fontFamily: "var(--font-mono)" }}>111 × 24</span>
-          <span className="text-white/35">=</span>
-          <span className="font-bold text-white">2,664 وحدة</span>
-        </motion.div>
-
-        {/* Contract value */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="rounded-2xl border p-3 text-center"
-          style={{ borderColor: `${G}55`, background: `${G}0d` }}
-        >
-          <span className="text-[8px] font-semibold tracking-wider text-white/55">قيمة العقد السنوي</span>
-          <p dir="ltr" className="text-[9px] text-white/40 line-through" style={{ fontFamily: "var(--font-mono)" }}>
-            1,332,000 EGP
-          </p>
-          <p className="text-xl font-bold text-white" style={{ fontFamily: "var(--font-display)" }}>
-            932,400
-            <span className="mr-1 text-[9px] font-medium text-white/50">ج.م / سنة</span>
-          </p>
-        </motion.div>
-
-        {/* White-label + trial */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05 }}
-          className="flex items-center justify-between gap-2 text-[8px]"
-        >
-          <span className="flex-1 rounded-lg bg-white/[0.04] px-2 py-1.5 text-center text-white/55">
-            علامة بيضاء · <span className="font-bold text-white/80">150,000</span> إعداد لمرة واحدة
+          <span className="text-[9px] font-bold text-emerald-300 block" style={{ fontFamily: "var(--font-display)" }}>
+            ⚡ 14 يومًا تجربة تشغيلية حية مجانًا
           </span>
-          <span className="rounded-lg px-2 py-1.5 text-center font-semibold" style={{ background: `${G}18`, color: G }}>
-            14 يومًا تجربة
-          </span>
+          <p className="mt-0.5 text-[7.5px] text-white/50">
+            اختبار ميداني كامل للبوابات وتطبيق السكان قبل أي التزام مالي
+          </p>
         </motion.div>
       </div>
     </div>
