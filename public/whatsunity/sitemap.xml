@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- WhatsUnity Compound OS (Main Canonical Hub) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.nouradawy.tech/whatsunity" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.nouradawy.tech/assets/whatsunity-catalog/Home_screen_community.png</image:loc>
+      <image:title>WhatsUnity Compound OS - Community Hub &amp; Directory</image:title>
+      <image:caption>WhatsUnity Residential Operating System - Community Feed and Verified Resident Directory</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.nouradawy.tech/assets/whatsunity-catalog/gatekeeper_pass_verification_qr.png</image:loc>
+      <image:title>WhatsUnity Offline QR Gate Pass Security</image:title>
+      <image:caption>100% Offline Cryptographic Gatekeeper Scanner for Compound Security</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.nouradawy.tech/assets/whatsunity-catalog/technician_portal_assigned_orders.png</image:loc>
+      <image:title>WhatsUnity 5-Role Maintenance Governance Lifecycle</image:title>
+      <image:caption>Automated maintenance dispatching and tracking with timer logs and photo evidence</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.nouradawy.tech/assets/whatsunity-catalog/supervisor_incident_control_room.png</image:loc>
+      <image:title>WhatsUnity Security Control Room &amp; Incident Dispatch</image:title>
+      <image:caption>Realtime incident tracking and supervisor dispatch control room</image:caption>
+    </image:image>
+  </url>
+
+  <!-- WhatsUnity Arabic Landing Page -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity?lang=ar</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.nouradawy.tech/whatsunity" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- WhatsUnity English Landing Page -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.nouradawy.tech/whatsunity" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- WhatsUnity Deep Technical Architecture Specification (English Markdown) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity.md</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- WhatsUnity Deep Technical Architecture Specification (Arabic Markdown) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity-ar.md</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+</urlset>

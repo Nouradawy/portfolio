@@ -43,6 +43,7 @@ Allow: /
 
 # Sitemaps and LLM Knowledge Files
 Sitemap: https://www.nouradawy.tech/sitemap.xml
+Sitemap: https://www.nouradawy.tech/whatsunity/sitemap.xml
 # LLMs.txt & Full Technical Specification
 # https://llmstxt.org/
 # https://www.nouradawy.tech/llms.txt

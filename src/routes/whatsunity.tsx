@@ -67,6 +67,7 @@ export const Route = createFileRoute("/whatsunity")({
         { rel: "alternate", type: "text/markdown", href: "https://www.nouradawy.tech/whatsunity-ar.md", hreflang: "ar" },
         { rel: "alternate", href: "https://www.nouradawy.tech/llms.txt" },
         { rel: "alternate", href: "https://www.nouradawy.tech/llms-full.txt" },
+        { rel: "sitemap", type: "application/xml", href: "https://www.nouradawy.tech/whatsunity/sitemap.xml" },
       ],
       scripts: [
         // SoftwareApplication Schema (AEO & Knowledge Graph)

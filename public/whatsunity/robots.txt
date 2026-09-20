@@ -1,0 +1,54 @@
+# Robots.txt for WhatsUnity Compound Operating System
+# https://www.nouradawy.tech/whatsunity
+
+User-agent: *
+Allow: /whatsunity
+Allow: /whatsunity/*
+Allow: /whatsunity.md
+Allow: /whatsunity-ar.md
+Allow: /assets/whatsunity/
+Allow: /assets/whatsunity-catalog/
+Allow: /assets/projects/Whatsunity/
+
+# Explicit AI Agent & Generative Search Engine Directives (GEO / AEO)
+User-agent: Googlebot
+Allow: /whatsunity
+
+User-agent: Google-Extended
+Allow: /whatsunity
+
+User-agent: GPTBot
+Allow: /whatsunity
+
+User-agent: ChatGPT-User
+Allow: /whatsunity
+
+User-agent: OAI-SearchBot
+Allow: /whatsunity
+
+User-agent: PerplexityBot
+Allow: /whatsunity
+
+User-agent: ClaudeBot
+Allow: /whatsunity
+
+User-agent: anthropic-ai
+Allow: /whatsunity
+
+User-agent: Applebot-Extended
+Allow: /whatsunity
+
+User-agent: cohere-ai
+Allow: /whatsunity
+
+User-agent: CCBot
+Allow: /whatsunity
+
+User-agent: Bytespider
+Allow: /whatsunity
+
+User-agent: FacebookBot
+Allow: /whatsunity
+
+# WhatsUnity Dedicated XML Sitemap
+Sitemap: https://www.nouradawy.tech/whatsunity/sitemap.xml
