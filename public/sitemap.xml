@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Portfolio Root -->
+  <url>
+    <loc>https://www.nouradawy.tech/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.nouradawy.tech/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- WhatsUnity Compound OS (Bilingual) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.nouradawy.tech/whatsunity" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- WhatsUnity Deep Technical Architecture (English Markdown) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity.md</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- WhatsUnity Deep Technical Architecture (Arabic Markdown) -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity-ar.md</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- LLM Agent Discovery Index -->
+  <url>
+    <loc>https://www.nouradawy.tech/llms.txt</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- LLM Agent Deep Knowledge Index -->
+  <url>
+    <loc>https://www.nouradawy.tech/llms-full.txt</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Interactive Web Resume -->
+  <url>
+    <loc>https://www.nouradawy.tech/resume.html</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

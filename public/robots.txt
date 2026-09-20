@@ -1,0 +1,49 @@
+# Robots.txt for Nouradawy Portfolio & WhatsUnity
+# https://www.nouradawy.tech/
+
+User-agent: *
+Allow: /
+
+# Explicit AI Agent & Generative Search Engine Directives (GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Sitemaps and LLM Knowledge Files
+Sitemap: https://www.nouradawy.tech/sitemap.xml
+# LLMs.txt & Full Technical Specification
+# https://llmstxt.org/
+# https://www.nouradawy.tech/llms.txt
+# https://www.nouradawy.tech/llms-full.txt

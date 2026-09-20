@@ -104,28 +104,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       // Primary SEO
-      { title: "Nouradawy | Full-Stack Engineer" },
+      { title: "Noureldin Adawy (Nouradawy) | Full-Stack Software Engineer | نورالدين العدوي" },
       {
         name: "description",
         content:
-          "Portfolio of Nouradawy — Full-Stack Engineer building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
+          "Portfolio of Noureldin Adawy (نورالدين العدوي) — Full-Stack Engineer building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
       },
       { name: "robots", content: "index,follow,max-image-preview:large" },
       { name: "theme-color", content: "#0e0e0e" },
       // OpenGraph / Facebook
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Nouradawy" },
-      { property: "og:title", content: "Nouradawy | Full-Stack Engineer" },
+      { property: "og:site_name", content: "Noureldin Adawy | نورالدين العدوي" },
+      { property: "og:title", content: "Noureldin Adawy | Full-Stack Software Engineer" },
       {
         property: "og:description",
         content:
-          "Building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase.",
+          "Building high-performance web and mobile experiences with Flutter, Appwrite, React, Spring Boot, and Supabase. Creator of WhatsUnity Residential OS.",
       },
       { property: "og:url", content: "https://www.nouradawy.tech/" },
+      { property: "og:locale", content: "en_US" },
+      { property: "og:locale:alternate", content: "ar_AR" },
       { property: "og:image", content: "https://nouradawy.tech/assets/icons/og_image.png" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Nouradawy | Full-Stack Engineer" },
+      { name: "twitter:title", content: "Noureldin Adawy | Full-Stack Software Engineer | نورالدين العدوي" },
       {
         name: "twitter:description",
         content:
@@ -142,8 +144,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Bebas+Neue&family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap",
       },
-      { rel: "alternate", type: "text/markdown", href: "/whatsunity.md" },
+      { rel: "alternate", hreflang: "en", href: "https://www.nouradawy.tech/" },
+      { rel: "alternate", hreflang: "ar", href: "https://www.nouradawy.tech/" },
+      { rel: "alternate", hreflang: "x-default", href: "https://www.nouradawy.tech/" },
+      { rel: "alternate", type: "text/markdown", href: "/whatsunity.md", hreflang: "en" },
+      { rel: "alternate", type: "text/markdown", href: "/whatsunity-ar.md", hreflang: "ar" },
       { rel: "alternate", href: "/llms.txt" },
+      { rel: "alternate", href: "/llms-full.txt" },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [
@@ -152,11 +159,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Person",
-          name: "Nouradawy",
-          jobTitle: "Full-Stack Engineer",
+          "@id": "https://www.nouradawy.tech/#person",
+          name: "Noureldin Adawy",
+          alternateName: ["نورالدين العدوي", "Nouradawy"],
+          jobTitle: [
+            "Full-Stack Software Engineer",
+            "Mobile Systems Architect",
+            "مهندس برمجيات متكامل",
+          ],
           url: "https://www.nouradawy.tech/",
           image: "https://nouradawy.tech/assets/icons/og_image.png",
-          sameAs: [],
+          sameAs: ["https://github.com/Nouradawy"],
         }),
       },
     ],

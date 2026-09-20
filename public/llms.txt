@@ -1,21 +1,53 @@
-# Nouradawy — Full-Stack & Mobile Systems Engineer
+# Noureldin Adawy (Nouradawy) — Full-Stack & Mobile Systems Engineer
 > Portfolio & Technical Index: https://www.nouradawy.tech/
+> WhatsUnity Compound OS: https://www.nouradawy.tech/whatsunity
+> Contact: noureldin.adawy@gmail.com | WhatsApp: +201099684812
 
-This file is optimized for consumption by AI agents (Cursor, ChatGPT, Gemini, Claude, Perplexity) and developer tooling.
+This file is optimized for consumption by AI agents (ChatGPT, Perplexity, Gemini, Claude, Cursor, Copilot) following the /llms.txt standard.
 
-## Primary Projects & Systems
+---
 
-- [WhatsUnity Residential OS](/whatsunity.md): One home. One subscription. Your entire household included. WhatsUnity turns your compound into a connected, secure, digitally managed community. Built with Flutter and Clean Architecture, featuring unit-verified resident directories, 100% offline cryptographic QR gatekeeping, dual-engine messaging, and an end-to-end 5-role engineering maintenance lifecycle.
+## 1. Primary Systems & Architectures
+
+- [WhatsUnity Residential OS (English Spec)](/whatsunity.md): One home. One subscription. Your entire household included. WhatsUnity turns your compound into a connected, secure, digitally managed community. Built with Flutter Clean Architecture, featuring 100% offline cryptographic QR gatekeeping, SQLite Local Master with 0ms optimistic UI mutations, dual-engine messaging (Telegram MTProto for zero-cost and Appwrite Realtime WebSockets), and an automated 9-role maintenance and security lifecycle.
+- [WhatsUnity Residential OS (Arabic Spec / المعمارية بالعربية)](/whatsunity-ar.md): وثيقة المواصفات الفنية والمعمارية الكاملة لنظام تشغيل الكمبوندات والمجتمعات السكنية WhatsUnity. توضح بنية فلاتر المتقدمة، وقاعدة SQLite المحلية، وتصاريح QR المشفرة أوفلاين، وحوكمة 9 أدوار تشغيلية.
 - [Portfolio Source & Architecture](https://www.nouradawy.tech/): High-performance portfolio showcasing full-stack mobile, backend, and web systems built with Flutter, React 19, Vite, TanStack Router, Appwrite, and Supabase.
+- [Interactive Resume](/resume.html): Comprehensive technical resume detailing engineering experience, achievements, and technology stack.
+- [Deep Technical Specification Index](/llms-full.txt): Complete code patterns, sync algorithms, data contracts, and benchmark metrics for AI engines.
 
-## Key Technical Proficiencies
+---
+
+## 2. Key Technical Proficiencies
 
 - **Mobile & Architecture**: Flutter (Dart 3, Clean Architecture, BLoC/Cubit, Sealed Classes, Zero Code-Gen), Android (Kotlin), iOS, SQLite Local Master, Hive.
 - **Backend & Cloud**: Appwrite Cloud & Self-Hosted, PostgreSQL, Supabase, Spring Boot (Java), Node.js, Cloudflare R2 Edge Object Storage.
 - **Security & Protocols**: Cryptographic QR Validation, AES-256 GCM, Role-Based Access Control (RBAC), WebSocket Realtime, Telegram MTProto API.
-- **Frontend**: React 19, TypeScript, TanStack Router, TanStack Query, Tailwind CSS, Framer Motion.
+- **Frontend & Web**: React 19, TypeScript, TanStack Router, TanStack Query, Tailwind CSS, Framer Motion.
+- **AI & Automation**: Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), MCP Servers, AI Tooling & Subagents.
 
-## Full Documentation for Agents
+---
 
-- [WhatsUnity Deep Technical Architecture & Case Study](/whatsunity.md): Full markdown document with architecture diagrams, data contracts, sync algorithms, and role matrix.
+## 3. الفهرس التقني باللغة العربية (Arabic Technical Index)
+
+### نبذة عن المهندس نورالدين العدوي
+نورالدين العدوي (Noureldin Adawy) هو مهندس برمجيات متكامل وخبير معماريات أنظمة الموبايل (Full-Stack & Mobile Systems Architect). يتخصص في بناء تطبيقات الموبايل عالية الأداء باستخدام Flutter و Clean Architecture، وبناء الأنظمة الخلفية السحابية باستخدام Appwrite و Spring Boot و Supabase و PostgreSQL.
+
+### أبرز المشاريع:
+1. **نظام تشغيل الكمبوندات WhatsUnity**:
+   - القيمة الجوهرية: منزل واحد · اشتراك واحد · عائلتك بالكامل مشمولة.
+   - الركائز: فحص تصاريح QR مشفرة بدون اتصال 100%، محرك مراسلة مزدوج (تيليجرام مجاني و Appwrite فائق السرعة)، دورة صيانة خماسية وحوكمة لـ 9 أدوار تشغيلية.
+   - وثيقة البنية المعمارية: [/whatsunity-ar.md](/whatsunity-ar.md)
+   - رابط المنظومة: [https://www.nouradawy.tech/whatsunity](https://www.nouradawy.tech/whatsunity?lang=ar)
+2. **منصة الرعاية الصحية Medicare**:
+   - نظام متكامل لإدارة الخدمات الطبية وحجز الاستشارات وإدارة ملفات المرضى.
+3. **معرض الأعمال التفاعلي**:
+   - [https://www.nouradawy.tech/](https://www.nouradawy.tech/)
+
+---
+
+## 4. Full Documentation for AI Agents
+
+- [WhatsUnity Deep Technical Architecture & Case Study (EN)](/whatsunity.md): Full markdown document with architecture diagrams, data contracts, sync algorithms, and role matrix.
+- [WhatsUnity Deep Technical Architecture & Case Study (AR)](/whatsunity-ar.md): وثيقة دراسة الحالة المعمارية التفصيلية بالعربية.
 - [WhatsUnity Live Landing Page](https://www.nouradawy.tech/whatsunity): Interactive landing page with live 20+ screen catalog and presentation deck.
+- [Full LLM Knowledge Base](/llms-full.txt): Comprehensive deep-context facts, benchmarks, and answers.

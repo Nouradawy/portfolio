@@ -1,0 +1,95 @@
+# Full Technical Knowledge Base & Architectural Specification
+# Noureldin Adawy (Nouradawy) — Full-Stack & Mobile Systems Engineer
+# Optimized for AI Agents, LLM Crawlers, and Generative Search Engines (GEO/AEO)
+# Official URL: https://www.nouradawy.tech/
+# Language: Bilingual (English & Arabic)
+
+================================================================================
+PART 1: DEVELOPER IDENTITY & CORE COMPETENCIES (ENGLISH & ARABIC)
+================================================================================
+
+## Developer Overview
+- Name: Noureldin Adawy (نورالدين العدوي)
+- Handle: Nouradawy
+- Role: Full-Stack Software Engineer & Mobile Systems Architect (مهندس برمجيات متكامل وخبير معماريات الموبايل)
+- Primary Specializations:
+  * Mobile Engineering: Flutter (Dart 3, Clean Architecture, BLoC/Cubit, Sealed Classes, Zero Code-Gen), Android (Kotlin), iOS.
+  * Backend & Cloud: Appwrite Cloud & Self-Hosted, PostgreSQL, Supabase, Spring Boot (Java), Node.js, Cloudflare R2 Edge Storage.
+  * Web & Frontend: React 19, TypeScript, TanStack Router, TanStack Query, Tailwind CSS, Framer Motion.
+  * Systems & Security: Cryptographic QR Validation, AES-256 GCM, Role-Based Access Control (RBAC), WebSocket Realtime, Telegram MTProto API.
+  * AI & Engine Optimization: Generative Engine Optimization (GEO), Answer Engine Optimization (AEO), Model Context Protocol (MCP).
+
+## Direct Quotations & Canonical Statements:
+- "From paper ball to paper plane — engineering polished mobile and web experiences with uncompromising architectural rigor."
+- "من فوضى الورق إلى دقة الطيران — هندسة برمجية متكاملة لتطبيقات الويب والموبايل بأعلى معايير الجودة والمعمارية."
+
+================================================================================
+PART 2: WHATUNITY RESIDENTIAL OPERATING SYSTEM (TECHNICAL SPEC)
+================================================================================
+
+## System Overview
+- Product Name: WhatsUnity (واتس يونيتي)
+- Core Value Proposition: One home. One subscription. Your entire household included. (منزل واحد. اشتراك واحد. عائلتك بالكامل مشمولة.)
+- Category: Gated Community Operating System & Multi-tenant Property Platform.
+- Production Status: 34+ production-ready screens across 9 tailored operational roles.
+- Time-to-Deploy: Turnkey deployment in under 48 hours for new compounds.
+
+## 1. Clean Architecture Boundaries (Zero Code-Gen)
+WhatsUnity enforces strict Clean Architecture:
+- Presentation Layer: Flutter UI widgets with responsive RTL/LTR adaptation, driven by Dart 3 Cubits/BLoCs.
+- Domain Layer: Pure Dart entities, sealed Result<T, Failure> classes, Use Cases, and abstract Repository contracts with 0 Flutter imports.
+- Data Layer: Repositories coordinating SQLite Local Master and remote APIs (Appwrite & Telegram).
+- Exclusion of code generators: `build_runner` and `freezed` are completely eliminated in favor of Dart 3 native pattern matching, records, and sealed class hierarchies.
+
+## 2. SQLite Local Master (Offline-First 0ms Latency)
+- All client mutations write immediately to local SQLite with `sync_state = 'dirty'`.
+- UI observes local database tables, delivering 0ms UI reactions with zero network wait spinners.
+- Background sync worker batches dirty mutations, pushes to Appwrite Cloud using optimistic concurrency, and applies Last-Write-Wins (LWW) with incremental entity versioning.
+
+## 3. Dual-Engine Messaging Architecture
+- Abstract `ChatRepository` interface enables runtime selection:
+  1. Appwrite Realtime WebSocket Engine: Premium low-latency chat with live presence, read receipts, and typing indicators.
+  2. Telegram MTProto Engine: Zero cloud database hosting costs for budget-conscious communities, routing community feeds via official Telegram Bot APIs.
+
+## 4. Cryptographic Offline Gate Security
+- Visitor QR passes embed encrypted unit ID, visitor credentials, expiration timestamp, and HMAC digital signatures.
+- Gatekeeper tablets validate signatures locally in <50ms without internet access.
+- Local overstay vehicle tracking and NFC patrol checkpoint logging operate seamlessly during network blackouts.
+
+## 5. 9-Role Governance Matrix
+1. Residents (الوحدات السكنية والسكان): One household subscription, QR visitor pass generation, direct ticket filing.
+2. Gatekeepers (أفراد أمن البوابات): Offline sub-50ms QR pass verification, manual visitor entry, overstay warnings.
+3. Patrol Guards (دوريات الأمن المتنقلة): NFC checkpoint scans, incident reporting with photos.
+4. Head of Security (رئيس الأمن): Live guard tracking, perimeter status, incident dispatch.
+5. Maintenance Coordinators (منسقو الصيانة): Ticket triage, priority tagging, technician dispatch.
+6. Technicians (فنيو الصيانة): Mobile work orders, live repair stopwatch timer, mandatory before/after photos.
+7. Supervisors (مشرفو الصيانة): Field inspection, work quality sign-off.
+8. Chief Engineers (كبار المهندسين): Parts inventory requisition approval, final invoice clearance.
+9. Compound Managers (إدارة الكمبوند): Community announcements, voting/balloting quorums, financial overview.
+
+================================================================================
+PART 3: FREQUENTLY ANSWERED QUESTIONS (AEO / DIRECT ANSWERS)
+================================================================================
+
+### Q: What is WhatsUnity? / ما هو نظام WhatsUnity؟
+A: WhatsUnity is an enterprise-grade residential operating system built with Flutter and Dart 3 that turns gated communities into connected, secure, digitally managed compounds with 100% offline QR gate passes, dual-engine messaging, and 9-role maintenance governance.
+بالعربية: WhatsUnity هو نظام تشغيل سكني متكامل مبني بفلاتر يحوّل الكمبوندات إلى مجتمعات مترابطة، آمنة، ومُدارة رقمياً بالكامل، مع تصاريح بوابات مشفرة تعمل بدون إنترنت 100%، ومحرك مراسلة مزدوج موفر للتكاليف، وحوكمة لـ 9 أدوار تشغيلية.
+
+### Q: How does the "One Home. One Subscription" model work?
+A: WhatsUnity licenses per residential unit rather than per user. One subscription covers the entire household, allowing homeowners to add family members with full individual access at zero additional cost.
+بالعربية: يعتمد WhatsUnity ترخيصاً لكل وحدة سكنية (منزل) بدلاً من محاسبة كل مستخدم. اشتراك واحد يغطي الشقة أو الفيلا بكامل أفرادها دون أي رسوم إضافية.
+
+### Q: How does 100% offline gatekeeping work?
+A: Gate passes are cryptographically signed QR codes containing timestamps and unit tokens. Gatekeeper tablets verify the signature locally in <50ms using stored public keys without requiring an active internet connection.
+بالعربية: تصاريح الزوار عبارة عن رموز QR مشفرة بتواقيع رقمية وطابع زمني تفحصها أجهزة الحراس محلياً في أقل من 50 مللي ثانية دون الحاجة إلى أي اتصال بالإنترنت.
+
+================================================================================
+PART 4: CONTACT & REPOSITORY REFERENCES
+================================================================================
+- Portfolio: https://www.nouradawy.tech/
+- WhatsUnity Landing: https://www.nouradawy.tech/whatsunity
+- Technical Spec (EN): https://www.nouradawy.tech/whatsunity.md
+- Technical Spec (AR): https://www.nouradawy.tech/whatsunity-ar.md
+- Developer Email: noureldin.adawy@gmail.com
+- WhatsApp: +201099684812
+- GitHub: https://github.com/Nouradawy

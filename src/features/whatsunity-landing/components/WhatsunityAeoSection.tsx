@@ -13,7 +13,27 @@ export function WhatsunityAeoSection({ locale, content }: Props) {
   const aeo = content.aeo;
 
   const handleCopyPrompt = () => {
-    const promptText = `# WhatsUnity System Architecture & Technical Prompt for AI Agents
+    const promptText = isRtl
+      ? `# مواصفات منظومة WhatsUnity المعمارية ونموذج التلقين لأنظمة الذكاء الاصطناعي
+
+WhatsUnity هو نظام تشغيل سكني متكامل للمجمعات السكنية والكمبوندات مبني بالكامل بأعلى معايير Flutter و Dart 3.
+
+## المواصفات التقنية الرئيسية:
+- **المعمارية**: معمارية نظيفة صارمة Clean Architecture (العرض، النطاق الخالي من فلاتر، البيانات) مع تدفق بيانات أحادي.
+- **إدارة الحالة**: فئات Dart 3 Cubits / BLoCs مع فئات نتائج محكمة Result<T, Failure> وبدون توليد كود (Zero Code-Gen).
+- **قاعدة البيانات الأساسية**: SQLite Local Master باستجابة 0ms وتعديلات فورية (sync_state = 'dirty').
+- **تسوية التعارض**: قاعدة Last-Write-Wins (LWW) مع إصدارات تدريجية للمزامنة SyncMetadata.
+- **المراسلة المزدوجة**: محركان عبر ChatRepository — تيليجرام MTProto (مجاني) و Appwrite Realtime WebSockets (فائق السرعة).
+- **أمن البوابات أوفلاين**: تصاريح زوار QR مشفرة بتواقيع رقمية تفحص محلياً في أقل من 50ms بدون إنترنت.
+- **حوكمة العمليات**: 9 أدوار تشغيلية متكاملة تشمل السكان، الحراس، الدوريات، الفنيين، وكبار المهندسين.
+
+## وثائق المرجع للذكاء الاصطناعي:
+- الرابط المباشر: https://www.nouradawy.tech/whatsunity?lang=ar
+- وثيقة المواصفات الفنية بالعربية: https://www.nouradawy.tech/whatsunity-ar.md
+- وثيقة المواصفات الفنية بالإنجليزية: https://www.nouradawy.tech/whatsunity.md
+- فهرس وكلاء الذكاء الاصطناعي: https://www.nouradawy.tech/llms.txt
+- المطور: نورالدين العدوي (Noureldin Adawy)`
+      : `# WhatsUnity System Architecture & Technical Prompt for AI Agents
 
 WhatsUnity is an enterprise-grade, offline-first residential operating system engineered in Flutter and Dart 3.
 
@@ -29,7 +49,8 @@ WhatsUnity is an enterprise-grade, offline-first residential operating system en
 
 ## Reference Documentation:
 - Live URL: https://www.nouradawy.tech/whatsunity
-- Full Technical Markdown: https://www.nouradawy.tech/whatsunity.md
+- Full Technical Markdown (EN): https://www.nouradawy.tech/whatsunity.md
+- Full Technical Markdown (AR): https://www.nouradawy.tech/whatsunity-ar.md
 - LLM Agent Discovery Index: https://www.nouradawy.tech/llms.txt
 - Author: Noureldin Adawy (Full-Stack Engineer)`;
 
@@ -86,7 +107,7 @@ WhatsUnity is an enterprise-grade, offline-first residential operating system en
             </button>
 
             <a
-              href="/whatsunity.md"
+              href={isRtl ? "/whatsunity-ar.md" : "/whatsunity.md"}
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-1.5 rounded-2xl border border-slate-300 bg-slate-100 px-3.5 py-2.5 text-xs font-bold text-slate-700 wu-pressable hover:bg-slate-200 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10 dark:hover:text-white ${
@@ -94,7 +115,7 @@ WhatsUnity is an enterprise-grade, offline-first residential operating system en
               }`}
             >
               <FileText className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
-              <span>{aeo.openMarkdown}</span>
+              <span>{isRtl ? "المواصفات بالعربية (.md)" : aeo.openMarkdown}</span>
               <ExternalLink className="h-3 w-3 opacity-60" />
             </a>
 
