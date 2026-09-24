@@ -10,11 +10,24 @@ import { WhatsunityFaqSection } from "@/features/whatsunity-landing/components/W
 import { WhatsunityCtaFooter } from "@/features/whatsunity-landing/components/WhatsunityCtaFooter";
 import { WhatsunityCatalogModal } from "@/features/whatsunity-catalog/components/WhatsunityCatalogModal";
 import { WhatsunityPresentationModal } from "@/features/whatsunity-landing/components/WhatsunityPresentationModal";
+import { WhatsunityLegalModal } from "@/features/whatsunity-landing/components/WhatsunityLegalModal";
+import type { LegalDocType } from "@/features/whatsunity-landing/data/whatsunityLegal";
 
 export const Route = createFileRoute("/whatsunity")({
-  validateSearch: (search: Record<string, unknown>): { lang?: "ar" | "en" } => {
+  validateSearch: (
+    search: Record<string, unknown>
+  ): {
+    lang?: "ar" | "en";
+    policy?: "privacy" | "terms";
+  } => {
     return {
       lang: search.lang === "en" ? "en" : search.lang === "ar" ? "ar" : undefined,
+      policy:
+        search.policy === "terms"
+          ? "terms"
+          : search.policy === "privacy"
+          ? "privacy"
+          : undefined,
     };
   },
   head: ({ search }) => {
@@ -37,7 +50,7 @@ export const Route = createFileRoute("/whatsunity")({
         },
         { name: "robots", content: "index,follow,max-image-preview:large" },
         { name: "theme-color", content: "#05070a" },
-        // OpenGraph / Social
+        // OpenGraph / Social (Facebook, WhatsApp, LinkedIn, Telegram)
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "WhatsUnity Compound OS | واتس يونيتي" },
         { property: "og:title", content: title },
@@ -47,19 +60,55 @@ export const Route = createFileRoute("/whatsunity")({
         { property: "og:locale:alternate", content: isAr ? "en_US" : "ar_AR" },
         {
           property: "og:image",
-          content: "https://www.nouradawy.tech/assets/projects/Whatsunity/catalog/Home_screen_community.png",
+          content: "https://www.nouradawy.tech/assets/whatsunity/whatsunity-og.png",
         },
+        {
+          property: "og:image:secure_url",
+          content: "https://www.nouradawy.tech/assets/whatsunity/whatsunity-og.png",
+        },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        {
+          property: "og:image:alt",
+          content: isAr
+            ? "شعار وهوية منظومة WhatsUnity لتشغيل وإدارة الكمبوندات السكنية"
+            : "WhatsUnity Residential Compound OS Official Logo & Platform Showcase",
+        },
+        // Secondary Square Image for WhatsApp Chat Previews & Mobile Link Bubbles
+        {
+          property: "og:image",
+          content: "https://www.nouradawy.tech/assets/whatsunity/whatsunity-og-square.png",
+        },
+        {
+          property: "og:image:secure_url",
+          content: "https://www.nouradawy.tech/assets/whatsunity/whatsunity-og-square.png",
+        },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "800" },
+        { property: "og:image:height", content: "800" },
         // Twitter Card
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
         {
           name: "twitter:image",
-          content: "https://www.nouradawy.tech/assets/projects/Whatsunity/catalog/Home_screen_community.png",
+          content: "https://www.nouradawy.tech/assets/whatsunity/whatsunity-og.png",
+        },
+        {
+          name: "twitter:image:alt",
+          content: "WhatsUnity Compound OS Logo",
         },
       ],
       links: [
         { rel: "canonical", href: "https://www.nouradawy.tech/whatsunity" },
+        // WhatsUnity Custom Favicons
+        { rel: "icon", type: "image/png", sizes: "64x64", href: "/whatsunity/favicon.png" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/whatsunity/favicon-32x32.png" },
+        { rel: "icon", type: "image/png", sizes: "16x16", href: "/whatsunity/favicon-16x16.png" },
+        { rel: "icon", type: "image/x-icon", href: "/whatsunity/favicon.ico" },
+        { rel: "shortcut icon", href: "/whatsunity/favicon.ico" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/whatsunity/apple-touch-icon.png" },
         { rel: "alternate", hreflang: "ar", href: "https://www.nouradawy.tech/whatsunity?lang=ar" },
         { rel: "alternate", hreflang: "en", href: "https://www.nouradawy.tech/whatsunity?lang=en" },
         { rel: "alternate", hreflang: "x-default", href: "https://www.nouradawy.tech/whatsunity" },
@@ -274,6 +323,8 @@ function WhatsunityLandingPage() {
   const [locale, setLocale] = useState<Locale>(search.lang ?? "ar");
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [presentationOpen, setPresentationOpen] = useState(false);
+  const [legalModalOpen, setLegalModalOpen] = useState(Boolean(search.policy));
+  const [legalActiveTab, setLegalActiveTab] = useState<LegalDocType>(search.policy ?? "privacy");
 
   // Sync if URL search parameter changes
   useEffect(() => {
@@ -282,6 +333,14 @@ function WhatsunityLandingPage() {
     }
   }, [search.lang, locale]);
 
+  // Sync legal policy search parameter
+  useEffect(() => {
+    if (search.policy) {
+      setLegalActiveTab(search.policy);
+      setLegalModalOpen(true);
+    }
+  }, [search.policy]);
+
   const content = whatsunityContent[locale];
   const isRtl = locale === "ar";
 
@@ -289,7 +348,7 @@ function WhatsunityLandingPage() {
     const nextLocale = locale === "ar" ? "en" : "ar";
     setLocale(nextLocale);
     navigate({
-      search: { lang: nextLocale },
+      search: (prev) => ({ ...prev, lang: nextLocale }),
       replace: true,
     });
   };
@@ -307,11 +366,28 @@ function WhatsunityLandingPage() {
     // Dynamically update document title on language switch
     document.title = content.meta.title;
 
+    // Dynamically switch browser favicon to WhatsUnity emblem
+    const existingIcons = Array.from(
+      document.querySelectorAll<HTMLLinkElement>("link[rel*='icon']")
+    );
+    const previousIcons = existingIcons.map((el) => ({
+      el,
+      href: el.getAttribute("href") ?? "",
+    }));
+
+    existingIcons.forEach((el) => {
+      el.href = "/whatsunity/favicon.png";
+    });
+
     return () => {
       document.documentElement.dir = "ltr";
       document.documentElement.lang = "en";
       document.documentElement.classList.remove("wu-no-scrollbar");
       document.body.classList.remove("wu-no-scrollbar");
+      // Restore previous portfolio favicon
+      previousIcons.forEach(({ el, href }) => {
+        if (href) el.href = href;
+      });
     };
   }, [isRtl, locale, content.meta.title]);
 
@@ -363,11 +439,15 @@ function WhatsunityLandingPage() {
         />
       </main>
 
-      {/* Footer & Closing CTA */}
+      {/* Footer & Closing CTA with Legal Policy Integration */}
       <WhatsunityCtaFooter
         locale={locale}
         content={content}
         onOpenCatalog={() => setCatalogOpen(true)}
+        onOpenPolicy={(tab) => {
+          setLegalActiveTab(tab);
+          setLegalModalOpen(true);
+        }}
       />
 
       {/* Global Catalog Modal */}
@@ -380,6 +460,14 @@ function WhatsunityLandingPage() {
       <WhatsunityPresentationModal
         open={presentationOpen}
         onClose={() => setPresentationOpen(false)}
+      />
+
+      {/* Global Legal Documents Modal (Privacy Policy & Terms) */}
+      <WhatsunityLegalModal
+        open={legalModalOpen}
+        initialTab={legalActiveTab}
+        initialLocale={locale}
+        onClose={() => setLegalModalOpen(false)}
       />
     </div>
   );

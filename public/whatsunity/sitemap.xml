@@ -13,6 +13,11 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
+      <image:loc>https://www.nouradawy.tech/assets/whatsunity/whatsunity-og.png</image:loc>
+      <image:title>WhatsUnity Compound OS Official Brand &amp; Platform Logo</image:title>
+      <image:caption>WhatsUnity Residential Operating System - Official Brand Logo and Social Media Showcase</image:caption>
+    </image:image>
+    <image:image>
       <image:loc>https://www.nouradawy.tech/assets/whatsunity-catalog/Home_screen_community.png</image:loc>
       <image:title>WhatsUnity Compound OS - Community Hub &amp; Directory</image:title>
       <image:caption>WhatsUnity Residential Operating System - Community Feed and Verified Resident Directory</image:caption>
@@ -72,4 +77,25 @@
     <priority>0.85</priority>
   </url>
 
+  <!-- WhatsUnity Privacy Policy -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity/privacy-policy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?policy=privacy&amp;lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?policy=privacy&amp;lang=en" />
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- WhatsUnity Terms and Conditions -->
+  <url>
+    <loc>https://www.nouradawy.tech/whatsunity/terms-conditions.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.nouradawy.tech/whatsunity?policy=terms&amp;lang=ar" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.nouradawy.tech/whatsunity?policy=terms&amp;lang=en" />
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
 </urlset>
+
