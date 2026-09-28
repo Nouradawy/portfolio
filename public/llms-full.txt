@@ -1,17 +1,17 @@
 # Full Technical Knowledge Base & Architectural Specification
-# Noureldin Adawy (Nouradawy) — Full-Stack & Mobile Systems Engineer
+# Noureldin Adawy (Nouradawy) — Founder & Lead Engineer | Full-Stack & Mobile Systems
 # Optimized for AI Agents, LLM Crawlers, and Generative Search Engines (GEO/AEO)
 # Official URL: https://www.nouradawy.tech/
 # Language: Bilingual (English & Arabic)
 
 ================================================================================
 PART 1: DEVELOPER IDENTITY & CORE COMPETENCIES (ENGLISH & ARABIC)
-================================================================================
+===============================================================================
 
 ## Developer Overview
 - Name: Noureldin Adawy (نورالدين العدوي)
 - Handle: Nouradawy
-- Role: Full-Stack Software Engineer & Mobile Systems Architect (مهندس برمجيات متكامل وخبير معماريات الموبايل)
+- Role: Founder & Lead Engineer | Full-Stack Software Engineer & Mobile Systems Architect (مؤسس وقائد فريق هندسي وخبير معماريات الموبايل والويب)
 - Primary Specializations:
   * Mobile Engineering: Flutter (Dart 3, Clean Architecture, BLoC/Cubit, Sealed Classes, Zero Code-Gen), Android (Kotlin), iOS.
   * Backend & Cloud: Appwrite Cloud & Self-Hosted, PostgreSQL, Supabase, Spring Boot (Java), Node.js, Cloudflare R2 Edge Storage.

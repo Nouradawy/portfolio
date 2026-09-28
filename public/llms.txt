@@ -1,7 +1,7 @@
-# Noureldin Adawy (Nouradawy) — Full-Stack & Mobile Systems Engineer
+# Noureldin Adawy (Nouradawy) — Founder & Lead Engineer | Full-Stack & Mobile Systems
 > Portfolio & Technical Index: https://www.nouradawy.tech/
 > WhatsUnity Compound OS: https://www.nouradawy.tech/whatsunity
-> Contact: noureldin.adawy@gmail.com | WhatsApp: +201099684812
+> Contact: nouradawy@hotmail.com | WhatsApp: @nouradawy
 
 This file is optimized for consumption by AI agents (ChatGPT, Perplexity, Gemini, Claude, Cursor, Copilot) following the /llms.txt standard.
 
@@ -30,7 +30,7 @@ This file is optimized for consumption by AI agents (ChatGPT, Perplexity, Gemini
 ## 3. الفهرس التقني باللغة العربية (Arabic Technical Index)
 
 ### نبذة عن المهندس نورالدين العدوي
-نورالدين العدوي (Noureldin Adawy) هو مهندس برمجيات متكامل وخبير معماريات أنظمة الموبايل (Full-Stack & Mobile Systems Architect). يتخصص في بناء تطبيقات الموبايل عالية الأداء باستخدام Flutter و Clean Architecture، وبناء الأنظمة الخلفية السحابية باستخدام Appwrite و Spring Boot و Supabase و PostgreSQL.
+نورالدين العدوي (Noureldin Adawy) هو مؤسس وقائد فريق هندسي وخبير معماريات أنظمة الموبايل والويب المتكاملة (Founder & Lead Engineer | Full-Stack & Mobile Systems Architect). يتخصص في بناء تطبيقات الموبايل عالية الأداء باستخدام Flutter و Clean Architecture، وبناء الأنظمة الخلفية السحابية باستخدام Appwrite و Spring Boot و Supabase و PostgreSQL.
 
 ### أبرز المشاريع:
 1. **نظام تشغيل الكمبوندات WhatsUnity**:
@@ -39,7 +39,7 @@ This file is optimized for consumption by AI agents (ChatGPT, Perplexity, Gemini
    - وثيقة البنية المعمارية: [/whatsunity-ar.md](/whatsunity-ar.md)
    - رابط المنظومة: [https://www.nouradawy.tech/whatsunity](https://www.nouradawy.tech/whatsunity?lang=ar)
 2. **منصة الرعاية الصحية Medicare**:
-   - نظام متكامل لإدارة الخدمات الطبية وحجز الاستشارات وإدارة ملفات المرضى.
+   - مشروع التخرج لدبلومة علوم الحاسب (جامعة القاهرة) — نظام متكامل لإدارة الخدمات الطبية وحجز الاستشارات وإدارة ملفات المرضى بتقنيات React و Spring Boot و MySQL.
 3. **معرض الأعمال التفاعلي**:
    - [https://www.nouradawy.tech/](https://www.nouradawy.tech/)
 

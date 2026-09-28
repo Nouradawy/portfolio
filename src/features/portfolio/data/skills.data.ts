@@ -9,7 +9,7 @@ export const skills: Skill[] = [
       "My primary mobile framework. I ship single-codebase apps for iOS and Android with native-feeling motion, gestures, and 60fps lists — no compromises on UX.",
     highlights: [
       "Custom design systems & theming",
-      "Platform channels for native APIs",
+      "Offline-first SQLite Master & Shorebird OTA",
       "Adaptive layouts for phone & tablet",
     ],
   },
@@ -22,7 +22,7 @@ export const skills: Skill[] = [
     highlights: [
       "Null-safe domain modeling",
       "Streams, Futures & isolates",
-      "Codegen with freezed / json_serializable",
+      "Zero-codegen: Dart 3 sealed classes & pattern matching",
     ],
   },
   {
@@ -78,9 +78,9 @@ export const skills: Skill[] = [
     category: "AI & Agents",
     blurb: "Cursor, Antigravity & Claude LLMs.",
     detail:
-      "Engineering autonomous software development workflows with Cursor, Antigravity, and state-of-the-art Claude 3.7 / 3.5 Sonnet LLMs. Driving rapid full-stack scaffolding, automated test generation, and pair-programming with deep contextual awareness and rigorous verification.",
+      "Engineering autonomous software development workflows with Cursor, Antigravity, and Claude models (Opus 4.8 / 5 / 5.5 & Sonnet). Driving rapid full-stack scaffolding, automated test generation, and pair-programming with deep contextual awareness and rigorous verification.",
     highlights: [
-      "Claude 3.7 / 3.5 Sonnet & hybrid thinking models",
+      "Claude models (Opus 4.8, 5, 5.5 & Sonnet)",
       "Cursor & Antigravity IDE agent orchestration",
       "Autonomous plan-execute-verify task loops",
     ],
