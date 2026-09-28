@@ -280,7 +280,7 @@ export function TimelineItem({ project }: Props) {
                   className="inline-flex items-center gap-1.5 rounded-full border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 px-2.5 py-1 text-[11px] uppercase tracking-wider text-foreground transition-colors hover:border-magenta hover:text-magenta"
                 >
                   <ExternalLink className="h-3 w-3" />
-                  Live Demo
+                  {project.linkLabel || (project.link.includes("chromewebstore.google.com") ? "Chrome Web Store" : "Live Demo")}
                 </a>
               ) : null}
 

@@ -33,7 +33,7 @@ Founder & Lead Engineer with 5+ years building production-grade systems from fir
 - **Build Velocity & OTA**: Eliminated `build_runner` dependencies by leveraging native Dart 3 sealed classes and pattern matching, cutting build times while maintaining strict type safety; integrated Shorebird for instant over-the-air code pushes and distributed multi-platform releases on Android and PWA Web.
 
 ### **Founder & Sole Engineer** · FlashApply
-*06/2026 – 07/2026* | TypeScript, React, Chrome Extension (MV3), Chrome DevTools Protocol (CDP), Gemini Flash, Groq, Firestore, Firebase Auth, New Relic
+*06/2026 – 07/2026* | [Chrome Web Store](https://chromewebstore.google.com/detail/lkoigfacoahhmehfnhndplhopcgmllpg?utm_source=item-share-cb) | TypeScript, React, Chrome Extension (MV3), Chrome DevTools Protocol (CDP), Gemini Flash, Groq, Firestore, Firebase Auth, New Relic
 - **Multi-Provider AI Orchestration**: Engineered a 6-provider AI orchestration layer with automatic waterfall failover across Groq (Llama 3.3 70B), Google Gemini 2.0 Flash, OpenRouter, Local Ollama, and on-device Gemini Nano as a zero-failure fallback.
 - **CDP Browser Automation**: Architected an intelligent browser automation extension utilizing CDP (Chrome DevTools Protocol) with organic event dispatching, contextual form filling, and resilient multi-step DOM workflows.
 - **Dual-Storage & Web Store Releases**: Architected a dual-storage split (flat Firestore schema with 1:1 SQL mapping + `chrome.storage.local` for credentials) and shipped 7 versioned Chrome Web Store releases with PII-scrubbed New Relic telemetry.

@@ -22,6 +22,7 @@ export interface Project {
   stack: string[];
   github?: string;
   link?: string;
+  linkLabel?: string;
   landingPageUrl?: string;
   hasCatalog?: boolean;
   catalogLabel?: string;

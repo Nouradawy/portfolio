@@ -63,6 +63,8 @@ export const projects: Project[] = [
     endDate: "Jul 2026",
     year: "2026",
     github: "https://github.com/Nouradawy/FlashApply---Job-Auto-Apply-and-AI-Autofill.git",
+    link: "https://chromewebstore.google.com/detail/lkoigfacoahhmehfnhndplhopcgmllpg?utm_source=item-share-cb",
+    linkLabel: "Chrome Web Store",
     descriptionPoints: [
       "Engineered a 6-provider AI orchestration layer with automatic waterfall failover across Groq (Llama 3.3 70B), Google Gemini 2.0 Flash, OpenRouter, Custom OAI, Local Ollama, and on-device Gemini Nano as a zero-failure fallback.",
       "Architected an intelligent browser automation extension utilizing CDP (Chrome DevTools Protocol) with organic event dispatching, contextual form filling, and resilient multi-step DOM workflows.",
