@@ -641,6 +641,10 @@
               <li>Architected an enterprise <strong>offline-first SQLite Master</strong> engine with zero-latency
                 optimistic UI synchronization, background LWW sync, 48h DLQ TTL, 2-min offline guards, deterministic
                 pre-sync role reconciliation, and automated purges across 24+ tables upon role demotion.</li>
+              <li>Reduced backend database reads by <strong>~88%</strong> via offline-first caching and cursor-based
+                <strong>delta sync</strong> (server-side <code>$updatedAt</code> high-water marks, soft-delete
+                tombstones).
+              </li>
               <li>Decoupled community messaging into a <strong>polymorphic dual engine</strong>: Appwrite Realtime
                 WebSockets for premium estates and Telegram MTProto (TDLib) with bounded 80-message memory windowing and
                 scroll offset anchoring.</li>

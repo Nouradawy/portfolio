@@ -21,6 +21,7 @@ export const projects: Project[] = [
     landingPageUrl: "/whatsunity",
     descriptionPoints: [
       "Architected an enterprise offline-first mobile operating system in Flutter and Dart 3 using a local SQLite Master model for zero-latency optimistic UI synchronization and background worker sync with Last-Write-Wins (LWW) conflict resolution.",
+      "Reduced backend database reads ~88% through multi-tiered offline caching and delta sync with monotonic cursors derived strictly from server $updatedAt, guarding against clock drift, future-skew, and truncation hazards.",
       "Engineered a scalable Appwrite Cloud backend partitioned into 6 dedicated databases (Auth, Social, Admin, Maintenance, Security, Services) with granular RBAC enforced via native Appwrite Teams.",
       "Built a polymorphic Dual Messaging Engine decoupling chat transport into Appwrite Realtime (WebSockets) for premium tiered complexes and Telegram MTProto for zero-database-cost community communication.",
       "Developed a 4-tier physical security suite (Gatekeeper, Mobile Patrol, Security Supervisor, Head of Security) with sub-4-second offline QR pass verification, live overstay vehicle tracking, guard attendance geofencing, and emergency incident dispatch.",
