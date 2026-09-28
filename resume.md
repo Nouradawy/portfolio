@@ -6,7 +6,7 @@
 ---
 
 ## PROFESSIONAL SUMMARY
-Founder & Lead Engineer with 3+ years building production-grade systems from first principles. Specialized in offline-first mobile applications (Flutter/Dart 3 with SQLite Master, 0ms optimistic UI mutations, and Clean Architecture), distributed cloud backends (Appwrite 6-database architecture, Spring Boot, Supabase, Cloudflare R2 direct-to-edge storage), and autonomous AI agent workflows (Google Antigravity 2.0, Claude models: Opus 4.8 / 5 / 5.5 & Sonnet, Model Context Protocol MCP servers, and ARTEMIS testing). Passionate about high-fidelity UX, rock-solid security protocols, and owning the complete product lifecycle from architecture to production release.
+Founder & Lead Engineer with 5+ years building production-grade systems from first principles. Specialized in offline-first mobile applications (Flutter/Dart 3 with SQLite Master, zero-latency optimistic UI synchronization, and Clean Architecture), distributed cloud backends (Appwrite 6-database architecture, Spring Boot, Supabase, Cloudflare R2 direct-to-edge storage), and autonomous AI agent workflows (Google Antigravity 2.0, Claude models: Opus 4.8 / 5 / 5.5 & Sonnet, Model Context Protocol MCP servers, and ARTEMIS testing). Passionate about high-fidelity UX, rock-solid security protocols, and owning the complete product lifecycle from architecture to production release.
 
 ---
 
@@ -24,7 +24,7 @@ Founder & Lead Engineer with 3+ years building production-grade systems from fir
 
 ### **Founder & Lead Engineer** · WhatsUnity
 *09/2024 – Present* | Flutter, Dart 3, Appwrite Cloud & Self-Hosted, SQLite Master, Telegram MTProto (TDLib), Cloudflare R2, Shorebird OTA, Docker, Clean Architecture, BLoC
-- **Offline-First SQLite Master Architecture**: Architected an enterprise offline-first mobile operating system where all client mutations commit immediately to local SQLite (`sync_state = 'dirty'`) delivering 0ms optimistic UI updates, backed by background sync workers with Last-Write-Wins (LWW) conflict resolution and Dead Letter Queue (DLQ) resurrection with 48h TTL pruning.
+- **Offline-First SQLite Master Architecture**: Architected an enterprise offline-first mobile operating system where all client mutations commit immediately to local SQLite (`sync_state = 'dirty'`) delivering zero-latency optimistic UI synchronization, backed by background sync workers with Last-Write-Wins (LWW) conflict resolution and Dead Letter Queue (DLQ) resurrection with 48h TTL pruning.
 - **Role Reconciliation & Offline Security**: Implemented deterministic pre-sync role reconciliation handshakes on reconnect, dynamic 2-minute offline guards, automated SQLite table purges on role demotion across 24+ security and maintenance tables, and outbound queue pruning to prevent 401/403 retry loops.
 - **Polymorphic Dual Messaging Engine**: Decoupled community chat transport into Appwrite Realtime (WebSockets) for premium tiered estates and Telegram MTProto (TDLib) with bounded in-memory pagination (80-message windowing), scroll offset anchoring, and cinematic 2FA authentication, slashing cloud database costs to $0 for budget communities.
 - **Cryptographic Offline Perimeter Security**: Engineered a 4-tier security suite (Gatekeeper, Mobile Patrol, Security Supervisor, Head of Security) with sub-50ms offline HMAC-signed QR visitor pass verification, automated vehicle overstay alerts, NFC patrol checkpoint logging, and unified incident dispatch.
@@ -32,11 +32,17 @@ Founder & Lead Engineer with 3+ years building production-grade systems from fir
 - **Dockerized Testing Sandboxes**: Orchestrated Docker container environments to host local Appwrite & Supabase testing sandboxes, validate database schema migrations, and execute automated regression test suites.
 - **Build Velocity & OTA**: Eliminated `build_runner` dependencies by leveraging native Dart 3 sealed classes and pattern matching, cutting build times while maintaining strict type safety; integrated Shorebird for instant over-the-air code pushes and distributed multi-platform releases on Android and PWA Web.
 
+### **Founder & Sole Engineer** · FlashApply
+*06/2026 – 07/2026* | TypeScript, React, Chrome Extension (MV3), Chrome DevTools Protocol (CDP), Gemini Flash, Groq, Firestore, Firebase Auth, New Relic
+- **Multi-Provider AI Orchestration**: Engineered a 6-provider AI orchestration layer with automatic waterfall failover across Groq (Llama 3.3 70B), Google Gemini 2.0 Flash, OpenRouter, Local Ollama, and on-device Gemini Nano as a zero-failure fallback.
+- **CDP Browser Automation**: Architected an intelligent browser automation extension utilizing CDP (Chrome DevTools Protocol) with organic event dispatching, contextual form filling, and resilient multi-step DOM workflows.
+- **Dual-Storage & Web Store Releases**: Architected a dual-storage split (flat Firestore schema with 1:1 SQL mapping + `chrome.storage.local` for credentials) and shipped 7 versioned Chrome Web Store releases with PII-scrubbed New Relic telemetry.
+
 ---
 
-## KEY PROJECTS & ACADEMIC ENGINEERING
+## ACADEMIC CAPSTONE PROJECT
 
-### **Full-Stack Software Engineer (Graduation Project)** · Medicare
+### **Medicare** — Full-Stack Healthcare Platform
 *Computer Science Diploma Graduation Project · Cairo University*  
 *08/2024 – 01/2026* | React, Spring Boot, Java, MySQL, Spring Security, JWT, Clean Architecture, REST APIs
 - Designed and engineered a full-stack medical services and clinic management platform as the capstone graduation project for the Computer Science Diploma at Cairo University.

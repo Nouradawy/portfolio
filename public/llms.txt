@@ -38,9 +38,12 @@ This file is optimized for consumption by AI agents (ChatGPT, Perplexity, Gemini
    - الركائز: فحص تصاريح QR مشفرة بدون اتصال 100%، محرك مراسلة مزدوج (تيليجرام مجاني و Appwrite فائق السرعة)، دورة صيانة خماسية وحوكمة لـ 9 أدوار تشغيلية.
    - وثيقة البنية المعمارية: [/whatsunity-ar.md](/whatsunity-ar.md)
    - رابط المنظومة: [https://www.nouradawy.tech/whatsunity](https://www.nouradawy.tech/whatsunity?lang=ar)
-2. **منصة الرعاية الصحية Medicare**:
+2. **محرك التقديم الذكي FlashApply (Chrome Extension)**:
+   - أداة متصفح ذكية (Manifest V3) مؤتمتة لإنجاز طلبات التوظيف مدعومة بطبقة أوركسترا لـ 6 مزودي ذكاء اصطناعي (Groq, Gemini Flash, OpenRouter, Ollama, on-device Gemini Nano).
+   - محاكاة دقيقة للسلوك البشري لتخطي كواشف البوتات في LinkedIn Easy Apply، ودعم 5 منصات ATS خارجية مع تخزين هجين (Firestore + chrome.storage.local).
+3. **منصة الرعاية الصحية Medicare**:
    - مشروع التخرج لدبلومة علوم الحاسب (جامعة القاهرة) — نظام متكامل لإدارة الخدمات الطبية وحجز الاستشارات وإدارة ملفات المرضى بتقنيات React و Spring Boot و MySQL.
-3. **معرض الأعمال التفاعلي**:
+4. **معرض الأعمال التفاعلي**:
    - [https://www.nouradawy.tech/](https://www.nouradawy.tech/)
 
 ---

@@ -62,7 +62,15 @@ export function TimelineItem({ project }: Props) {
               <m.div
                 key="gallery"
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: isMobile ? 380 : 200, opacity: 1 }}
+                animate={{
+                  height:
+                    typeof project.images[imgIndex] !== "string"
+                      ? 380
+                      : isMobile
+                        ? 380
+                        : 200,
+                  opacity: 1,
+                }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                 className="relative overflow-hidden"
@@ -247,7 +255,9 @@ export function TimelineItem({ project }: Props) {
               {hasImages && !showGallery ? (
                 <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
                   <ImageIcon className="h-3 w-3" />
-                  {project.images.length} screens
+                  {project.images.length === 1 && typeof project.images[0] !== "string"
+                    ? "Video Demo"
+                    : `${project.images.length} screens`}
                 </span>
               ) : null}
             </div>

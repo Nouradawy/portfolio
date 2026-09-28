@@ -142,7 +142,7 @@
     }
 
     .resume-name {
-      font-size: 29px;
+      font-size: 24px;
       font-weight: 900;
       letter-spacing: -0.02em;
       color: var(--text-main);
@@ -453,7 +453,7 @@
       }
 
       .resume-name {
-        font-size: 26px !important;
+        font-size: 22px !important;
       }
 
       .resume-title {
@@ -581,7 +581,7 @@
         <section class="section">
           <h2 class="section-title">Professional Summary</h2>
           <p class="summary-text">
-            Founder & Lead Engineer with 3+ years building production-grade systems from first principles. Specialized in offline-first mobile applications (Flutter/Dart 3 with SQLite Master, 0ms optimistic UI mutations, and Clean Architecture), distributed cloud backends (Appwrite 6-database architecture, Spring Boot, Supabase, Cloudflare R2 direct-to-edge storage), and autonomous AI agent workflows (Google Antigravity 2.0, Claude models: Opus 4.8 / 5 / 5.5 & Sonnet, Model Context Protocol MCP servers, and ARTEMIS testing). Passionate about high-fidelity UX, rock-solid security protocols, and owning the complete product lifecycle from architecture to production release.
+            Founder & Lead Engineer with 5+ years building production-grade systems from first principles. Specialized in offline-first mobile applications (Flutter/Dart 3 with SQLite Master, zero-latency optimistic UI synchronization, and Clean Architecture), distributed cloud backends (Appwrite 6-database architecture, Spring Boot, Supabase, Cloudflare R2 direct-to-edge storage), and autonomous AI agent workflows (Google Antigravity 2.0, Claude models: Opus 4.8 / 5 / 5.5 & Sonnet, Model Context Protocol MCP servers, and ARTEMIS testing). Passionate about high-fidelity UX, rock-solid security protocols, and owning the complete product lifecycle from architecture to production release.
           </p>
         </section>
 
@@ -599,37 +599,47 @@
             </div>
             <div class="exp-sub">Offline-first multi-tenant residential operating system & governance engine</div>
             <ul class="bullet-list">
-              <li>Architected an enterprise <strong>offline-first SQLite Master</strong> mobile system delivering 0ms optimistic UI updates with background LWW sync and Dead Letter Queue (DLQ) resurrection with 48h TTL management.</li>
-              <li>Engineered deterministic <strong>pre-sync role reconciliation handshakes</strong> on reconnect, 2-min offline guards, and automated SQLite purges across 24+ security and maintenance tables upon role demotion.</li>
+              <li>Architected an enterprise <strong>offline-first SQLite Master</strong> engine with zero-latency optimistic UI synchronization, background LWW sync, 48h DLQ TTL, 2-min offline guards, deterministic pre-sync role reconciliation, and automated purges across 24+ tables upon role demotion.</li>
               <li>Decoupled community messaging into a <strong>polymorphic dual engine</strong>: Appwrite Realtime WebSockets for premium estates and Telegram MTProto (TDLib) with bounded 80-message memory windowing and scroll offset anchoring.</li>
-              <li>Built a 4-tier perimeter security suite with <strong>sub-50ms offline HMAC-signed QR pass validation</strong>, automated overstay alerts, NFC patrol checkpoint logging, and unified incident dispatch.</li>
-              <li>Designed a direct-to-edge media storage pipeline with <strong>Cloudflare R2</strong> and Appwrite Edge Function pre-signed URLs, complete with progressive decoding and RAM lifecycle eviction.</li>
-              <li>Orchestrated <strong>Docker</strong> container environments to host local Appwrite & Supabase testing sandboxes, validate database schema migrations, and execute automated regression test suites.</li>
-              <li>Eliminated <code>build_runner</code> dependencies by leveraging native <strong>Dart 3 sealed classes & pattern matching</strong>, cutting build times while maintaining strict type safety; integrated <strong>Shorebird OTA</strong> for instantaneous code pushes across Android and Web.</li>
+              <li>Built a 4-tier perimeter security suite with <strong>sub-50ms offline HMAC-signed QR pass validation</strong>, NFC patrol checkpoint logging, automated overstay alerts, and unified incident dispatch.</li>
+              <li>Engineered direct-to-edge media storage via <strong>Cloudflare R2</strong> with progressive RAM eviction; eliminated <code>build_runner</code> via native <strong>Dart 3 sealed classes</strong>; integrated <strong>Shorebird OTA</strong> for instantaneous code pushes.</li>
+            </ul>
+          </article>
+          <!-- FlashApply -->
+          <article class="experience-item">
+            <div class="exp-header">
+              <div class="exp-role-company">
+                Founder &amp; Sole Engineer · <span class="exp-company">FlashApply</span>
+              </div>
+              <div class="exp-dates">06/2026 – 07/2026</div>
+            </div>
+            <div class="exp-sub">AI-powered Chrome Extension · Autonomous browser workflow engine (Chrome Web Store · MV3)</div>
+            <ul class="bullet-list">
+              <li>Engineered a <strong>6-provider AI orchestration layer</strong> with automatic waterfall failover across Groq (Llama 3.3 70B), Google Gemini 2.0 Flash, OpenRouter, Local Ollama, and on-device Gemini Nano as a zero-failure fallback.</li>
+              <li>Architected an intelligent browser automation extension utilizing <strong>CDP (Chrome DevTools Protocol)</strong> with organic event dispatching, contextual form filling, and resilient multi-step DOM workflows.</li>
+              <li>Architected a <strong>dual-storage split</strong> (flat Firestore schema with 1:1 SQL mapping + <code>chrome.storage.local</code> for credentials) and shipped <strong>7 Chrome Web Store releases</strong> with PII-scrubbed New Relic telemetry.</li>
             </ul>
           </article>
         </section>
 
-        <!-- Key Projects & Academic Engineering -->
+        <!-- Academic Capstone Project -->
         <section class="section">
-          <h2 class="section-title">Key Projects & Academic Engineering</h2>
+          <h2 class="section-title">Academic Capstone Project</h2>
 
           <!-- Medicare -->
           <article class="experience-item">
             <div class="exp-header">
               <div class="exp-role-company">
-                Full-Stack Software Engineer · <span class="exp-company">Medicare</span>
+                <span class="exp-company">Medicare</span> — Full-Stack Healthcare Platform
               </div>
               <div class="exp-dates">08/2024 – 01/2026</div>
             </div>
             <div class="exp-sub">Computer Science Diploma Graduation Project (Cairo University) · Full-stack clinic platform</div>
             <ul class="bullet-list">
-              <li>Designed and developed a full-stack medical services platform as the capstone graduation project for the Computer Science Diploma at <strong>Cairo University</strong>, achieving top honors.</li>
-              <li>Architected high-throughput RESTful backend APIs with <strong>Spring Boot</strong>, strictly decoupling domain entities and business rules via Clean Architecture boundaries.</li>
-              <li>Implemented <strong>Spring Security & JWT</strong> with role-based access control (Doctor, Patient, Clinic Administrator), stateless session management, and secure password hashing.</li>
-              <li>Designed relational <strong>MySQL schemas with optimized B-tree indexing</strong> to manage high-concurrency appointment scheduling, patient queues, and electronic health records.</li>
-              <li>Engineered an intuitive, responsive web client using <strong>React</strong> with modular state management, real-time appointment status workflows, and interactive doctor filtering.</li>
-              <li>Authored comprehensive unit and integration test suites, ensuring high uptime, modular maintainability, and clean domain isolation.</li>
+              <li>Built a full-stack medical services platform as the <strong>Computer Science Diploma graduation project</strong> at Cairo University — RESTful Spring Boot backend with strict Clean Architecture domain boundaries.</li>
+              <li>Implemented <strong>Spring Security & JWT</strong> with 3-role RBAC (Doctor, Patient, Clinic Admin), stateless session management, and secure password hashing.</li>
+              <li>Designed relational <strong>MySQL schemas with B-tree indexing</strong> for high-concurrency appointment scheduling, patient queues, and electronic health records.</li>
+              <li>Engineered a responsive <strong>React</strong> web client with real-time appointment status workflows and interactive doctor filtering.</li>
             </ul>
           </article>
         </section>
